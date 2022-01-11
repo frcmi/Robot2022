@@ -13,6 +13,7 @@ import edu.wpi.cscore.CvSource;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.TimedRobot;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -45,7 +46,7 @@ public class Robot extends TimedRobot {
         outputStream.putFrame(output);
       }
     }).start();
-  }
+  
   }
 
   /** This function is run once each time the robot enters autonomous mode. */
