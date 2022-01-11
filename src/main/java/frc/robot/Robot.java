@@ -30,10 +30,12 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     new Thread(() -> {
-      UsbCamera camera = CameraServer.startAutomaticCapture();
-      camera.setResolution(640, 480);
+      UsbCamera usbCamera = new UsbCamera("USB Camera 0", 0);
+      CameraServer.startAutomaticCapture();
+      usbCamera.setResolution(640, 480);
 
       CvSink cvSink = CameraServer.getVideo();
+      cvSink.setSource(usbCamera);
       CvSource outputStream = CameraServer.putVideo("DriverCam", 640, 480);
 
       Mat source = new Mat();
