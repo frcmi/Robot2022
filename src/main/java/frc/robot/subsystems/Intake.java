@@ -18,8 +18,18 @@ public class Intake extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
   }
-
-  public void setPower() {
-    IntakeMotor.set(1.0);
+  int power = 1;
+  int currentpower = 0;
+  //toggles intake power on and off
+  public void toggle() {
+    if(currentpower!=power) {
+      currentpower = power;
+    }
+    else {
+      currentpower = 0;
+    }
+  }
+  public void setPower(int power) {
+    this.power = power;
   }
 }
