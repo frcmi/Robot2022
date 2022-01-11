@@ -29,13 +29,12 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+    //I think it's just gonna give an error unless we select a camera from SmartDashboard
     new Thread(() -> {
-      UsbCamera usbCamera = new UsbCamera("USB Camera 0", 0);
-      CameraServer.startAutomaticCapture();
-      usbCamera.setResolution(640, 480);
+      UsbCamera camera = CameraServer.startAutomaticCapture();
+      camera.setResolution(640, 480);
 
       CvSink cvSink = CameraServer.getVideo();
-      cvSink.setSource(usbCamera);
       CvSource outputStream = CameraServer.putVideo("DriverCam", 640, 480);
 
       Mat source = new Mat();
@@ -48,7 +47,6 @@ public class Robot extends TimedRobot {
         outputStream.putFrame(output);
       }
     }).start();
-  
   }
 
   /** This function is run once each time the robot enters autonomous mode. */
