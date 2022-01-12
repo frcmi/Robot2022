@@ -12,7 +12,6 @@ import edu.wpi.cscore.CvSink;
 import edu.wpi.cscore.CvSource;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
-import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.TimedRobot;
 
 import frc.robot.RobotContainer;
@@ -24,7 +23,7 @@ import frc.robot.RobotContainer;
  * directory.
  */
 public class Robot extends TimedRobot {
-  RobotContainer container = new RobotContainer();
+  public static RobotContainer container = new RobotContainer();
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.

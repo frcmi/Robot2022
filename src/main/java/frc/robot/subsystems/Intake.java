@@ -7,11 +7,14 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.PWMTalonFX;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 
 public class Intake extends SubsystemBase {
   /** Creates a new Shooter. */
-  private PWMTalonFX IntakeMotorTalon = new PWMTalonFX(4);
-  public SpeedController IntakeMotor = IntakeMotorTalon; 
+  private CANSparkMax intakeMotorNEO = new CANSparkMax(4, MotorType.kBrushless);
+  public SpeedController intakeMotor = intakeMotorNEO; 
   public Intake() {}
 
   @Override
@@ -19,7 +22,9 @@ public class Intake extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void setPower() {
-    IntakeMotor.set(1.0);
+  //toggles intake power on and off
+  
+  public void setPower(double power) {
+    intakeMotor.set(power);
   }
 }

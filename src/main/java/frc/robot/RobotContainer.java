@@ -6,6 +6,11 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj.Joystick;
+
+import frc.robot.commands.*;
+import frc.robot.subsystems.*;
 
 
 /**
@@ -17,7 +22,20 @@ import edu.wpi.first.wpilibj2.command.Command;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 
-  //Buttons
+  // Subsystems
+  public Intake intake = new Intake();
+
+  //Commands
+  public IntakeIn intakeIn = new IntakeIn();
+  public IntakeOut intakeOut = new IntakeOut();
+
+
+  //Buttons and Joystick
+  Joystick leftJoystick = new Joystick(0);
+  Joystick rightJoystick = new Joystick(1);
+  JoystickButton intakeInButton = new JoystickButton(leftJoystick, 2);
+  JoystickButton intakeOutButton = new JoystickButton(leftJoystick, 1);
+
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -36,7 +54,8 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-
+    intakeInButton.whenPressed(intakeIn);
+    intakeInButton.whenPressed(intakeOut);
   }
 
   /**
