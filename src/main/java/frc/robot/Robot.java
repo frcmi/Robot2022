@@ -30,8 +30,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+    
     //I think it's just gonna give an error unless we select a camera from SmartDashboard
-    new Thread(() -> {
+    /*new Thread(() -> {
       UsbCamera camera = CameraServer.startAutomaticCapture();
       camera.setResolution(640, 480);
 
@@ -49,7 +50,7 @@ public class Robot extends TimedRobot {
       }
     }).start();
 
-    container.initialize();
+    container.initialize(); */
   }
 
   /** This function is run once each time the robot enters autonomous mode. */

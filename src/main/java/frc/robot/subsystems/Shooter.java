@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.PWMTalonFX;
 
 public class Shooter extends SubsystemBase {
   /** Creates a new Shooter. */
-  private PWMTalonFX shootMotorTalon = new PWMTalonFX(4);
+  private PWMTalonFX shootMotorTalon = new PWMTalonFX(7);
   public SpeedController shootMotor = shootMotorTalon; 
   public Shooter() {}
 

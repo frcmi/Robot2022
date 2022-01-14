@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class IntakeOut extends InstantCommand {
   public IntakeOut() {
+    addRequirements(Robot.container.intake);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 

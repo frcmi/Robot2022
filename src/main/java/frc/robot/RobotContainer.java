@@ -8,7 +8,8 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.Joystick;
-
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 
@@ -22,19 +23,26 @@ import frc.robot.subsystems.*;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 
+   //Buttons and Joystick
+   Joystick leftJoystick = new Joystick(0);
+   Joystick rightJoystick = new Joystick(1);
+   JoystickButton intakeInButton = new JoystickButton(leftJoystick, 2);
+   JoystickButton intakeOutButton = new JoystickButton(leftJoystick, 1);
+   public JoystickButton shiftGearButton = new JoystickButton(rightJoystick, 2); //go fast
+
   // Subsystems
   public Intake intake = new Intake();
+  public DriveTrain drive = new DriveTrain();
 
   //Commands
   public IntakeIn intakeIn = new IntakeIn();
   public IntakeOut intakeOut = new IntakeOut();
+  InstantCommand toShift = new InstantCommand(drive::shift, drive);
+  RunCommand toDrive = new RunCommand(() -> drive.drive(-leftJoystick.getRawAxis(1), rightJoystick.getRawAxis(1)), drive);
 
 
-  //Buttons and Joystick
-  Joystick leftJoystick = new Joystick(0);
-  Joystick rightJoystick = new Joystick(1);
-  JoystickButton intakeInButton = new JoystickButton(leftJoystick, 2);
-  JoystickButton intakeOutButton = new JoystickButton(leftJoystick, 1);
+
+
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -45,6 +53,7 @@ public class RobotContainer {
   public void initialize() {
       // Configure the button bindings
     configureButtonBindings();
+    drive.setDefaultCommand(toDrive);
   }
 
   /**
@@ -56,6 +65,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
     intakeInButton.whenPressed(intakeIn);
     intakeInButton.whenPressed(intakeOut);
+    shiftGearButton.whenPressed(new InstantCommand(drive::shift, drive));
   }
 
   /**
