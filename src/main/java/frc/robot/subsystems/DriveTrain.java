@@ -3,8 +3,8 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
-import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj.Solenoid;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.*;
@@ -20,16 +20,16 @@ public class DriveTrain extends SubsystemBase {
   WPI_TalonFX frontRight = new WPI_TalonFX(4);
   WPI_TalonFX middleRight = new WPI_TalonFX(5); // new motor
   WPI_TalonFX rearRight = new WPI_TalonFX(6);
-  SpeedControllerGroup left = new SpeedControllerGroup(frontLeft, middleLeft, rearLeft);
-  SpeedControllerGroup right = new SpeedControllerGroup(frontRight, middleRight, rearRight);
+  MotorControllerGroup left = new MotorControllerGroup(frontLeft, middleLeft, rearLeft);
+  MotorControllerGroup right = new MotorControllerGroup(frontRight, middleRight, rearRight);
   private DifferentialDrive myRobot = new DifferentialDrive(left,right);
 
-  SpeedController rL = rearLeft;
-  SpeedController mL = middleLeft;
-  SpeedController fL = frontLeft;
-  SpeedController rR = rearRight;
-  SpeedController mR = middleRight;
-  SpeedController fR = frontRight;
+  MotorController rL = rearLeft;
+  MotorController mL = middleLeft;
+  MotorController fL = frontLeft;
+  MotorController rR = rearRight;
+  MotorController mR = middleRight;
+  MotorController fR = frontRight;
   
   
   @Override

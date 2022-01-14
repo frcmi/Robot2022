@@ -5,13 +5,13 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj.SpeedController;
-import edu.wpi.first.wpilibj.PWMTalonFX;
+import edu.wpi.first.wpilibj.motorcontrol.MotorController;
+import edu.wpi.first.wpilibj.motorcontrol.PWMTalonFX;
 
 public class Shooter extends SubsystemBase {
   /** Creates a new Shooter. */
   private PWMTalonFX shootMotorTalon = new PWMTalonFX(4);
-  public SpeedController shootMotor = shootMotorTalon; 
+  public MotorController shootMotor = shootMotorTalon; 
   public Shooter() {}
 
   @Override
