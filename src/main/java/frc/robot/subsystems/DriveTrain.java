@@ -36,9 +36,7 @@ public class DriveTrain extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
   }
-  public void setInverted() {
-    right.setInverted(true);
-  }
+
   public void drive(double l, double r) {
     myRobot.tankDrive(l, r);
   }

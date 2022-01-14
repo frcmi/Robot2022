@@ -33,12 +33,14 @@ public class RobotContainer {
   // Subsystems
   public Intake intake = new Intake();
   public DriveTrain drive = new DriveTrain();
+  public Shooter shooter = new Shooter(1.0);
 
   //Commands
   public IntakeIn intakeIn = new IntakeIn();
   public IntakeOut intakeOut = new IntakeOut();
   InstantCommand toShift = new InstantCommand(drive::shift, drive);
   RunCommand toDrive = new RunCommand(() -> drive.drive(-leftJoystick.getRawAxis(1), rightJoystick.getRawAxis(1)), drive);
+  RunCommand runFlywheel = new RunCommand(() -> shooter.set(), drive);
 
 
 
@@ -54,6 +56,7 @@ public class RobotContainer {
       // Configure the button bindings
     configureButtonBindings();
     drive.setDefaultCommand(toDrive);
+    shooter.setDefaultCommand(runFlywheel);
   }
 
   /**
