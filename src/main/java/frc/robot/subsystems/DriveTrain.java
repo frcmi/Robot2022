@@ -6,13 +6,14 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
-import com.ctre.phoenix.motorcontrol.*;
 public class DriveTrain extends SubsystemBase {
   /** Creates a new DriveTrain. */
   
  public void ShiftingGearBox() {}
- public Solenoid solenoid = new Solenoid(0);
+ public Solenoid solenoid = new Solenoid(PneumaticsModuleType.REVPH, 1);
+
 
   WPI_TalonFX rearLeft = new WPI_TalonFX(3);
   WPI_TalonFX middleLeft = new WPI_TalonFX(2); // new motor
@@ -49,7 +50,7 @@ public class DriveTrain extends SubsystemBase {
       return right.get();
   }
   public void shift(){
-    solenoid.set(!solenoid.get());
+    solenoid.toggle();
   }
   public boolean getValue() {
     if (solenoid.get() == true) {
