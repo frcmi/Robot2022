@@ -27,13 +27,13 @@ public class RobotContainer {
    Joystick leftJoystick = new Joystick(0);
    Joystick rightJoystick = new Joystick(1);
    JoystickButton intakeInButton = new JoystickButton(leftJoystick, 2);
-   JoystickButton intakeOutButton = new JoystickButton(leftJoystick, 1);
-   public JoystickButton shiftGearButton = new JoystickButton(rightJoystick, 2); //go fast
+   JoystickButton intakeOutButton = new JoystickButton(leftJoystick, 3);
+   public JoystickButton shiftGearButton = new JoystickButton(rightJoystick, 1); //go fast
 
   // Subsystems
   public Intake intake = new Intake();
   public DriveTrain drive = new DriveTrain();
-  public Shooter shooter = new Shooter(1.0);
+  public Shooter shooter = new Shooter(1.0); //change value
 
   //Commands
   public IntakeIn intakeIn = new IntakeIn();
@@ -67,7 +67,7 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     intakeInButton.whenPressed(intakeIn);
-    intakeInButton.whenPressed(intakeOut);
+    intakeOutButton.whenPressed(intakeOut);
     shiftGearButton.whenPressed(new InstantCommand(drive::shift, drive));
   }
 
