@@ -18,6 +18,7 @@ public class RobotContainer {
 
   //Subsystems
   public DriveTrain drive = new DriveTrain();
+  public Intake intake = new Intake();
 
   //Commands
   InstantCommand toShift = new InstantCommand(drive::shift, drive);

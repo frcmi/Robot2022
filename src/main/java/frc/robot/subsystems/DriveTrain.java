@@ -12,7 +12,7 @@ public class DriveTrain extends SubsystemBase {
   /** Creates a new DriveTrain. */
   
  public void ShiftingGearBox() {}
- public Solenoid solenoid = new Solenoid(PneumaticsModuleType.REVPH, 1);
+ public Solenoid solenoid = new Solenoid(PneumaticsModuleType.CTREPCM, 1);
 
 
   WPI_TalonFX rearLeft = new WPI_TalonFX(3);
