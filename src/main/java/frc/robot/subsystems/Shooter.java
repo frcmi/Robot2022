@@ -5,15 +5,17 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.motorcontrol.MotorController;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 
-import edu.wpi.first.wpilibj.controller.PIDController;
+import edu.wpi.first.math.controller.PIDController;
+
 
 public class Shooter extends SubsystemBase {
   /** Creates a new Shooter. */
   public WPI_TalonFX shootMotorTalon = new WPI_TalonFX(7);
-  public SpeedController shootMotor = shootMotorTalon; 
+  public MotorController shootMotor = shootMotorTalon; 
   PIDController shootMotorPID = new PIDController(1, 1, 0);
   double setpoint;
 

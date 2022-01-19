@@ -3,14 +3,9 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot;
-<<<<<<< HEAD
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.Command;
-=======
-//import frc.robot.commands.*;
-import frc.robot.subsystems.*;
->>>>>>> 2e44c0cdb8b5478601b1ceaa4bc4acf1d757b0b1
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -38,11 +33,7 @@ public class RobotContainer {
   // Subsystems
   public Intake intake = new Intake();
   public DriveTrain drive = new DriveTrain();
-<<<<<<< HEAD
   public Shooter shooter = new Shooter(1.0); //change value
-=======
-  public Intake intake = new Intake();
->>>>>>> 2e44c0cdb8b5478601b1ceaa4bc4acf1d757b0b1
 
   //Commands
   public IntakeIn intakeIn = new IntakeIn();

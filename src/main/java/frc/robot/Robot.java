@@ -8,9 +8,9 @@ import edu.wpi.first.wpilibj.Joystick;
 import org.opencv.core.Mat;
 import org.opencv.imgproc.Imgproc;
 
-import edu.wpi.cscore.CvSink;
-import edu.wpi.cscore.CvSource;
-import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.cscore.CvSink;
+import edu.wpi.first.cscore.CvSource;
+import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 
@@ -32,7 +32,7 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     
     //I think it's just gonna give an error unless we select a camera from SmartDashboard
-    /*new Thread(() -> {
+    new Thread(() -> {
       UsbCamera camera = CameraServer.startAutomaticCapture();
       camera.setResolution(640, 480);
 
@@ -50,7 +50,7 @@ public class Robot extends TimedRobot {
       }
     }).start();
 
-    container.initialize(); */
+    container.initialize(); 
   }
 
   /** This function is run once each time the robot enters autonomous mode. */
