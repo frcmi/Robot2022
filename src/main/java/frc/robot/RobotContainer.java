@@ -34,6 +34,7 @@ public class RobotContainer {
   public Intake intake = new Intake();
   public DriveTrain drive = new DriveTrain();
   public Shooter shooter = new Shooter(1.0); //change value
+  public ConveyorBelt conveyorBelt = new ConveyorBelt();
 
   //Commands
   public IntakeIn intakeIn = new IntakeIn();

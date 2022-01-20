@@ -6,13 +6,19 @@ package frc.robot.commands;
 
 import frc.robot.Robot;
 import frc.robot.subsystems.ConveyorBelt;
-import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class SetConveyor extends CommandBase {
+public class SetConveyorIn extends CommandBase {
+  private MotorController conveyorMotor;
+  private ConveyorBelt conveyorBelt;
+  private double speed; 
+
   /** Creates a new Blank. */
-  public SetConveyor() {
-      
+  public SetConveyorIn() {
+      conveyorBelt = Robot.container.conveyorBelt;
+      conveyorMotor = conveyorBelt.conveyorMotor;
+      speed = conveyorBelt.speed;
   }
 
   // Called when the command is initially scheduled.
@@ -23,7 +29,7 @@ public class SetConveyor extends CommandBase {
   @Override
   public void execute() 
   {
-      
+      conveyorMotor.set(speed);
   }
 
   // Called once the command ends or is interrupted.

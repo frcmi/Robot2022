@@ -1,11 +1,14 @@
 package frc.robot.subsystems;
+import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 public class ConveyorBelt extends SubsystemBase {
-  
-  private WPI_TalonFX shootMotorTalon = new WPI_TalonFX(4);
+  public WPI_TalonFX conveyorMotorTalon = new WPI_TalonFX(7);
+  public MotorController conveyorMotor = conveyorMotorTalon; 
+  public double speed = 1;
+
   public ConveyorBelt() {
   }
   @Override
