@@ -21,7 +21,7 @@ public class Intake extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  //toggles intake power on and off
+  //toggles intake power to a set value
   
   public void setPower(double power) {
     intakeMotor.set(power);

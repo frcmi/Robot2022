@@ -14,6 +14,9 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 
 
 /**
@@ -34,6 +37,13 @@ public class RobotContainer {
    JoystickButton extendHangerUpButton = new JoystickButton(rightJoystick, 3);
    JoystickButton feedButton = new JoystickButton(rightJoystick, 4);
    public JoystickButton shiftGearButton = new JoystickButton(rightJoystick, 1); //go fast
+
+   //Limelight and NetworkTables
+   public NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
+   NetworkTableEntry tx = table.getEntry("tx"); //Horizontal Offset From Crosshair To Target (LL1: -27 degrees to 27 degrees | LL2: -29.8 to 29.8 degrees)
+  NetworkTableEntry ty = table.getEntry("ty"); //Vertical Offset From Crosshair To Target (LL1: -20.5 degrees to 20.5 degrees | LL2: -24.85 to 24.85 degrees)
+  NetworkTableEntry ta = table.getEntry("ta"); //Target Area (0% of image to 100% of image)
+  public NetworkTableEntry tv = table.getEntry("tv"); //if have valid target (0 or 1)
 
   // Subsystems
   public Intake intake = new Intake();
@@ -73,10 +83,11 @@ public class RobotContainer {
   }
 
   public void initialize() {
-      // Configure the button bindings
+      // Configure the button bindings and pipeline
     configureButtonBindings();
     drive.setDefaultCommand(toDrive);
     shooter.setDefaultCommand(runFlywheel);
+    NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(0); //0 for red, 1 for blue
   }
 
   /**
