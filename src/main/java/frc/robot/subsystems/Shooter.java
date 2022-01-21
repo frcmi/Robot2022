@@ -16,7 +16,7 @@ public class Shooter extends SubsystemBase {
   /** Creates a new Shooter. */
   public WPI_TalonFX shootMotorTalon = new WPI_TalonFX(7);
   public MotorController shootMotor = shootMotorTalon; 
-  PIDController shootMotorPID = new PIDController(1, 1, 0);
+  PIDController shootMotorPID = new PIDController(1, 1, 0); //adjust
   double setpoint;
 
   public Shooter(double setpoint) {
