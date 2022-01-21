@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
@@ -26,8 +27,8 @@ public class RobotContainer {
    //Buttons and Joystick
    Joystick leftJoystick = new Joystick(0);
    Joystick rightJoystick = new Joystick(1);
-   JoystickButton intakeInButton = new JoystickButton(leftJoystick, 2);
-   JoystickButton intakeOutButton = new JoystickButton(leftJoystick, 3);
+   JoystickButton conveyorInButton = new JoystickButton(leftJoystick, 2);
+   JoystickButton conveyorOutButton = new JoystickButton(leftJoystick, 3);
    public JoystickButton shiftGearButton = new JoystickButton(rightJoystick, 1); //go fast
 
   // Subsystems
@@ -39,9 +40,13 @@ public class RobotContainer {
   //Commands
   public IntakeIn intakeIn = new IntakeIn();
   public IntakeOut intakeOut = new IntakeOut();
+  public SetConveyorIn conveyorIn = new SetConveyorIn();
+  public SetConveyorOut conveyorOut = new SetConveyorOut();
   InstantCommand toShift = new InstantCommand(drive::shift, drive);
   RunCommand toDrive = new RunCommand(() -> drive.drive(-leftJoystick.getRawAxis(1), rightJoystick.getRawAxis(1)), drive);
   RunCommand runFlywheel = new RunCommand(() -> shooter.set(), drive);
+  ParallelCommandGroup conveyerIntakeIn = new ParallelCommandGroup(intakeIn, conveyorIn);
+  ParallelCommandGroup conveyerIntakeOut = new ParallelCommandGroup(intakeOut, conveyorOut);
 
 
 
@@ -67,8 +72,8 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    intakeInButton.whenPressed(intakeIn);
-    intakeOutButton.whenPressed(intakeOut);
+    conveyorInButton.whenPressed(conveyerIntakeIn);
+    conveyorOutButton.whenPressed(conveyerIntakeOut);
     shiftGearButton.whenPressed(new InstantCommand(drive::shift, drive));
   }
 
