@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 public class ConveyorBelt extends SubsystemBase {
-  public WPI_TalonFX conveyorMotorTalon = new WPI_TalonFX(7);
+  public WPI_TalonFX conveyorMotorTalon = new WPI_TalonFX(8);
   public MotorController conveyorMotor = conveyorMotorTalon; 
   // public double speed = 1;
 
