@@ -26,11 +26,12 @@ public class Hanger extends SubsystemBase {
     return hangerMotor.get();
   }
 
-  public void resetSensorValues(){
-    hangerMotorTalon.setSelectedSensorPosition(0);
-  }
+  //ADD SENSOR STUFF
+  // public void resetSensorValues(){
+  //   hangerMotorTalon.setSelectedSensorPosition(0);
+  // }
 
-  public void getSensorValues(){
-    hangerMotorTalon.getSelectedSensorPosition();
-  }
+  // public void getSensorValues(){
+  //   hangerMotorTalon.getSelectedSensorPosition();
+  // }
 }
