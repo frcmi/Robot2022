@@ -10,15 +10,13 @@ import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class SetConveyorOut extends CommandBase {
-  private MotorController conveyorMotor;
+  // private MotorController conveyorMotor;
   private ConveyorBelt conveyorBelt;
-  private double speed; 
+  // private double speed; 
 
   /** Creates a new Blank. */
   public SetConveyorOut() {
       conveyorBelt = Robot.container.conveyorBelt;
-      conveyorMotor = conveyorBelt.conveyorMotor;
-      speed = conveyorBelt.speed;
   }
 
   // Called when the command is initially scheduled.
@@ -29,7 +27,7 @@ public class SetConveyorOut extends CommandBase {
   @Override
   public void execute() 
   {
-      conveyorMotor.set(-speed);
+    conveyorBelt.setPower(-1);
   }
 
   // Called once the command ends or is interrupted.

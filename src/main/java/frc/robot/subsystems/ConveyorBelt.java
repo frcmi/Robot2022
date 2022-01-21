@@ -7,7 +7,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 public class ConveyorBelt extends SubsystemBase {
   public WPI_TalonFX conveyorMotorTalon = new WPI_TalonFX(7);
   public MotorController conveyorMotor = conveyorMotorTalon; 
-  public double speed = 1;
+  // public double speed = 1;
 
   public ConveyorBelt() {
   }
@@ -16,7 +16,11 @@ public class ConveyorBelt extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void SetSpeed(double s){
-    speed = s;
+  public void setPower(double s){
+    conveyorMotor.set(s);
+  }
+
+  public double getPower(){
+    return conveyorMotor.get();
   }
 }
