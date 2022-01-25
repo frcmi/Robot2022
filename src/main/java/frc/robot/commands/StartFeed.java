@@ -5,17 +5,19 @@
 package frc.robot.commands;
 
 import frc.robot.Robot;
-import frc.robot.subsystems.Hanger;
+import frc.robot.subsystems.Feed;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class ExtendHangerUp extends CommandBase {
-  private Hanger hanger;
+public class StartFeed extends CommandBase {
+  // private MotorController conveyorMotor;
+  private Feed feed;
+  // private double speed; 
 
   /** Creates a new Blank. */
-  public ExtendHangerUp() {
-    addRequirements(Robot.container.hanger);
-    hanger = Robot.container.hanger;
+  public StartFeed() {
+    addRequirements(Robot.container.feed);
+    feed = Robot.container.feed;
   }
 
   // Called when the command is initially scheduled.
@@ -26,13 +28,13 @@ public class ExtendHangerUp extends CommandBase {
   @Override
   public void execute() 
   {
-    hanger.setPower(1);
+    feed.setPower(1);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    hanger.stop();
+    feed.stop();
   }
 
   // Returns true when the command should end.
