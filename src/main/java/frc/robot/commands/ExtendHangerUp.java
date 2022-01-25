@@ -10,12 +10,11 @@ import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class ExtendHangerUp extends CommandBase {
-  // private MotorController conveyorMotor;
   private Hanger hanger;
-  // private double speed; 
 
   /** Creates a new Blank. */
   public ExtendHangerUp() {
+    addRequirements(Robot.container.hanger);
     hanger = Robot.container.hanger;
   }
 

@@ -16,6 +16,7 @@ public class SetConveyorIn extends CommandBase {
 
   /** Creates a new Blank. */
   public SetConveyorIn() {
+      addRequirements(Robot.container.conveyorBelt);
       conveyorBelt = Robot.container.conveyorBelt;
       // conveyorMotor = conveyorBelt.conveyorMotor;
       // speed = conveyorBelt.speed;

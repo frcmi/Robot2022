@@ -16,6 +16,7 @@ public class ExtendHangerDown extends CommandBase {
 
   /** Creates a new Blank. */
   public ExtendHangerDown() {
+    addRequirements(Robot.container.hanger);
     hanger = Robot.container.hanger;
   }
 

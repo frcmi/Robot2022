@@ -16,6 +16,7 @@ public class SetConveyorOut extends CommandBase {
 
   /** Creates a new Blank. */
   public SetConveyorOut() {
+     addRequirements(Robot.container.conveyorBelt);
       conveyorBelt = Robot.container.conveyorBelt;
   }
 
