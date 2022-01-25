@@ -8,10 +8,9 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 public class Hanger extends SubsystemBase {
   public WPI_TalonFX hangerMotorTalon = new WPI_TalonFX(9);
   public MotorController hangerMotor = hangerMotorTalon; 
-  // public double speed = 1;
 
   public Hanger() {
-    hangerMotorTalon.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
+    //hangerMotorTalon.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
   }
   @Override
   public void periodic() {

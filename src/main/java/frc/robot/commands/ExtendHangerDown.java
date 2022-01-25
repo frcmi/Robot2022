@@ -9,13 +9,13 @@ import frc.robot.subsystems.Hanger;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class ExtendHanger extends CommandBase {
+public class ExtendHangerDown extends CommandBase {
   // private MotorController conveyorMotor;
   private Hanger hanger;
   // private double speed; 
 
   /** Creates a new Blank. */
-  public ExtendHanger() {
+  public ExtendHangerDown() {
     hanger = Robot.container.hanger;
   }
 
@@ -27,7 +27,7 @@ public class ExtendHanger extends CommandBase {
   @Override
   public void execute() 
   {
-    hanger.setPower(1);
+    hanger.setPower(-1);
   }
 
   // Called once the command ends or is interrupted.
