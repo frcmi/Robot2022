@@ -53,7 +53,6 @@ public class RobotContainer {
   public ConveyorBelt conveyorBelt = new ConveyorBelt();
   public Hanger hanger = new Hanger();
   public Feed feed = new Feed();
-  public Pneumatics pneumatics = new Pneumatics();
   public Navx navx = new Navx();
 
   //Commands
@@ -65,8 +64,6 @@ public class RobotContainer {
   public ExtendHangerDown extendHangerDown = new ExtendHangerDown();
   public ExtendHangerUp extendHangerUp = new ExtendHangerUp();
   public StartFeed startFeed = new StartFeed();
-  public SolenoidReverse solenoidReverse = new SolenoidReverse();
-  public SolenoidForward solenoidForward = new SolenoidForward();
   public ShootIfStopped shootIfStopped = new ShootIfStopped();
   InstantCommand toShift = new InstantCommand(drive::shift, drive);
   RunCommand toDrive = new RunCommand(() -> drive.drive(-leftJoystick.getRawAxis(1), rightJoystick.getRawAxis(1)), drive);
@@ -86,7 +83,7 @@ public class RobotContainer {
   }
 
   public void initialize() {
-      // Configure the button bindings
+      // Configure the button bindings and run commands
     configureButtonBindings();
     drive.setDefaultCommand(toDrive);
     shooter.setDefaultCommand(runFlywheel);
