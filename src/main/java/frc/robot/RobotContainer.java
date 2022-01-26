@@ -30,6 +30,9 @@ public class RobotContainer {
    Joystick rightJoystick = new Joystick(1);
    JoystickButton conveyorInButton = new JoystickButton(leftJoystick, 2);
    JoystickButton conveyorOutButton = new JoystickButton(leftJoystick, 3);
+   JoystickButton extendHangerDownButton = new JoystickButton(rightJoystick, 2);
+   JoystickButton extendHangerUpButton = new JoystickButton(rightJoystick, 3);
+   JoystickButton feedButton = new JoystickButton(rightJoystick, 4);
    public JoystickButton shiftGearButton = new JoystickButton(rightJoystick, 1); //go fast
 
   // Subsystems
@@ -47,6 +50,8 @@ public class RobotContainer {
   public IntakeOut intakeOut = new IntakeOut();
   public SetConveyorIn conveyorIn = new SetConveyorIn();
   public SetConveyorOut conveyorOut = new SetConveyorOut();
+  public ExtendHangerDown extendHangerDown = new ExtendHangerDown();
+  public ExtendHangerUp extendHangerUp = new ExtendHangerUp();
   public StartFeed startFeed = new StartFeed();
   public SolenoidReverse solenoidReverse = new SolenoidReverse();
   public SolenoidForward solenoidForward = new SolenoidForward();
@@ -83,6 +88,9 @@ public class RobotContainer {
   private void configureButtonBindings() {
     conveyorInButton.whenPressed(conveyerIntakeIn);
     conveyorOutButton.whenPressed(conveyerIntakeOut);
+    extendHangerDownButton.whenPressed(extendHangerDown);
+    extendHangerUpButton.whenPressed(extendHangerUp);
+    feedButton.whenPressed(startFeed);
     shiftGearButton.whenPressed(new InstantCommand(drive::shift, drive));
   }
 
