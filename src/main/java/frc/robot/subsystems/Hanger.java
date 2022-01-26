@@ -24,6 +24,10 @@ public class Hanger extends SubsystemBase {
   public double getPower(){
     return hangerMotor.get();
   }
+  
+  public void stop(){
+    hangerMotor.set(0);
+  }
 
   //ADD SENSOR STUFF
   // public void resetSensorValues(){

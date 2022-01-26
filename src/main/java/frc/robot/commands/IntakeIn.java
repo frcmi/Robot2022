@@ -25,8 +25,13 @@ public class IntakeIn extends CommandBase {
   }
 
   @Override
+<<<<<<< HEAD
   public void execute() {
     Robot.container.intake.setPower(1.0);
+=======
+  public void end(boolean interrupted) {
+    Robot.container.intake.stop();
+>>>>>>> 5de3e814636e6ae210eacae0152301226e855d15
   }
 }
 

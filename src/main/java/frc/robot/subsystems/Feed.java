@@ -4,12 +4,12 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
-public class ConveyorBelt extends SubsystemBase {
-  public WPI_TalonFX conveyorMotorTalon = new WPI_TalonFX(8);
-  public MotorController conveyorMotor = conveyorMotorTalon; 
+public class Feed extends SubsystemBase {
+  public WPI_TalonFX feedMotorTalon = new WPI_TalonFX(9);
+  public MotorController feedMotor = feedMotorTalon; 
   // public double speed = 1;
 
-  public ConveyorBelt() {
+  public Feed() {
   }
   @Override
   public void periodic() {
@@ -17,14 +17,14 @@ public class ConveyorBelt extends SubsystemBase {
   }
 
   public void setPower(double s){
-    conveyorMotor.set(s);
+    feedMotor.set(s);
   }
 
   public double getPower(){
-    return conveyorMotor.get();
+    return feedMotor.get();
   }
-  
+
   public void stop(){
-    conveyorMotor.set(0);
+    feedMotor.set(0);
   }
 }

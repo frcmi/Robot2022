@@ -5,13 +5,21 @@
 package frc.robot.commands;
 
 import frc.robot.Robot;
+import frc.robot.subsystems.Hanger;
+import frc.robot.subsystems.Pneumatics;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class ShootIfStopped extends CommandBase {
-  /** Creates a new ShootIfStopped. */
-  public ShootIfStopped() {
-    // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(Robot.container.feed);
+public class SolenoidForward extends CommandBase {
+  // private MotorController conveyorMotor;
+  private Pneumatics pneumatics;
+  // private double speed; 
+
+  /** Creates a new Blank. */
+  public SolenoidForward() {
+    addRequirements(Robot.container.pneumatics);
+    pneumatics = Robot.container.pneumatics;
   }
 
   // Called when the command is initially scheduled.
@@ -20,16 +28,15 @@ public class ShootIfStopped extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    if (Robot.container.navx.isMoving()) {
-      Robot.container.feed.setPower(1.0); //change
-    }
+  public void execute() 
+  {
+    pneumatics.setSolenoid(Value.kForward);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    Robot.container.shooter.stop();
+    pneumatics.setSolenoid(Value.kOff);
   }
 
   // Returns true when the command should end.

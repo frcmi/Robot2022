@@ -16,6 +16,7 @@ public class SetConveyorIn extends CommandBase {
 
   /** Creates a new Blank. */
   public SetConveyorIn() {
+      addRequirements(Robot.container.conveyorBelt);
       conveyorBelt = Robot.container.conveyorBelt;
       // conveyorMotor = conveyorBelt.conveyorMotor;
       // speed = conveyorBelt.speed;
@@ -34,7 +35,9 @@ public class SetConveyorIn extends CommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    conveyorBelt.stop();
+  }
 
   // Returns true when the command should end.
   @Override

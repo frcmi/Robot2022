@@ -10,12 +10,11 @@ import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class ExtendHangerUp extends CommandBase {
-  // private MotorController conveyorMotor;
   private Hanger hanger;
-  // private double speed; 
 
   /** Creates a new Blank. */
   public ExtendHangerUp() {
+    addRequirements(Robot.container.hanger);
     hanger = Robot.container.hanger;
   }
 
@@ -32,7 +31,9 @@ public class ExtendHangerUp extends CommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    hanger.stop();
+  }
 
   // Returns true when the command should end.
   @Override
