@@ -17,12 +17,12 @@ public class Navx extends SubsystemBase {
     // This method will be called once per scheduler run
   }
   public boolean isMoving() {
-    //return ahrs.isMoving();
-    if (ahrs.getWorldLinearAccelX() > 0.1 && ahrs.getWorldLinearAccelY() > 0.1) {
+    return ahrs.isMoving();
+    /*if (ahrs.getWorldLinearAccelX() > 0.1 && ahrs.getWorldLinearAccelY() > 0.1 && ahrs.getWorldLinearAccelZ() > 0.1) {
       return true;
     } else {
       return false;
-    }
+    }*/
   }
 
   
