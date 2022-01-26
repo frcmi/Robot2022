@@ -25,11 +25,11 @@ public class IntakeOut extends CommandBase {
   }
 
   @Override
-  public void end(boolean interrupted) {
-    Robot.container.intake.stop();
-  }
-  
   public void execute() {
     Robot.container.intake.setPower(-1.0);
+  }
+
+  public void end(boolean interrupted) {
+    Robot.container.intake.stop();
   }
 }
