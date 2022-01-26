@@ -8,7 +8,7 @@ import frc.robot.Robot;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class ShootIfStopped extends CommandBase {
-  /** Creates a new ShootIfStopped. */
+  /** Creates a new ShootIfStopped. This is a command specifically for autonomous*/ 
   public ShootIfStopped() {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(Robot.container.feed);
@@ -21,7 +21,7 @@ public class ShootIfStopped extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (Robot.container.navx.isMoving()) {
+    if (!Robot.container.navx.isMoving()) {
       Robot.container.feed.setPower(1.0); //change
     }
   }
