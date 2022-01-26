@@ -11,11 +11,12 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
-import frc.robot.commands.*;
-import frc.robot.subsystems.*;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import frc.robot.commands.*;
+import frc.robot.subsystems.*;
 
 
 /**
@@ -27,19 +28,19 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 
+  //Limelight and values
+  public NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
+  NetworkTableEntry tx = table.getEntry("tx");
+  NetworkTableEntry ty = table.getEntry("ty");
+  NetworkTableEntry ta = table.getEntry("ta");
+
    //Buttons and Joystick
+   
    Joystick leftJoystick = new Joystick(0);
    Joystick rightJoystick = new Joystick(1);
    JoystickButton conveyorInButton = new JoystickButton(leftJoystick, 2);
    JoystickButton conveyorOutButton = new JoystickButton(leftJoystick, 3);
    public JoystickButton shiftGearButton = new JoystickButton(rightJoystick, 1); //go fast
-
-   //Limelight and NetworkTables
-   public NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
-   NetworkTableEntry tx = table.getEntry("tx"); //Horizontal Offset From Crosshair To Target (LL1: -27 degrees to 27 degrees | LL2: -29.8 to 29.8 degrees)
-  NetworkTableEntry ty = table.getEntry("ty"); //Vertical Offset From Crosshair To Target (LL1: -20.5 degrees to 20.5 degrees | LL2: -24.85 to 24.85 degrees)
-  NetworkTableEntry ta = table.getEntry("ta"); //Target Area (0% of image to 100% of image)
-  public NetworkTableEntry tv = table.getEntry("tv"); //if have valid target (0 or 1)
 
   // Subsystems
   public Intake intake = new Intake();
@@ -47,6 +48,7 @@ public class RobotContainer {
   public Shooter shooter = new Shooter(1.0); //change value
   public ConveyorBelt conveyorBelt = new ConveyorBelt();
   public Hanger hanger = new Hanger();
+  public Navx navx = new Navx();
 
   //Commands
   
@@ -54,6 +56,7 @@ public class RobotContainer {
   public IntakeOut intakeOut = new IntakeOut();
   public SetConveyorIn conveyorIn = new SetConveyorIn();
   public SetConveyorOut conveyorOut = new SetConveyorOut();
+  public ShootIfStopped shootIfStopped = new ShootIfStopped();
   InstantCommand toShift = new InstantCommand(drive::shift, drive);
   RunCommand toDrive = new RunCommand(() -> drive.drive(-leftJoystick.getRawAxis(1), rightJoystick.getRawAxis(1)), drive);
   RunCommand runFlywheel = new RunCommand(() -> shooter.set(), drive);
@@ -71,11 +74,10 @@ public class RobotContainer {
   }
 
   public void initialize() {
-      // Configure the button bindings and pipeline
+      // Configure the button bindings
     configureButtonBindings();
     drive.setDefaultCommand(toDrive);
     shooter.setDefaultCommand(runFlywheel);
-    NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(0); //0 for red, 1 for blue
   }
 
   /**
