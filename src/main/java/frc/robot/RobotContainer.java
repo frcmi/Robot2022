@@ -84,7 +84,7 @@ public class RobotContainer {
   }
 
   public void initialize() {
-      // Configure the button bindings
+      // Configure the button bindings and run commands
     configureButtonBindings();
     drive.setDefaultCommand(toDrive);
     shooter.setDefaultCommand(runFlywheel);

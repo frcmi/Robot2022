@@ -12,7 +12,10 @@ public class DriveTrain extends SubsystemBase {
   /** Creates a new DriveTrain. */
   
  public void ShiftingGearBox() {}
- public Solenoid solenoid = new Solenoid(PneumaticsModuleType.CTREPCM, 1);
+ public Solenoid solenoidLeft1 = new Solenoid(PneumaticsModuleType.CTREPCM, 0); //maybe need to change module type
+ public Solenoid solenoidLeft2 = new Solenoid(PneumaticsModuleType.CTREPCM, 1);
+ public Solenoid solenoidRight1 = new Solenoid(PneumaticsModuleType.CTREPCM, 2);
+ public Solenoid solenoidRight2 = new Solenoid(PneumaticsModuleType.CTREPCM, 3);
 
 
   WPI_TalonFX rearLeft = new WPI_TalonFX(3);
@@ -47,15 +50,25 @@ public class DriveTrain extends SubsystemBase {
   public double getRightMotors() {
       return right.get();
   }
-  public void shift(){
-    solenoid.toggle();
+  public void shift(){ //toggles pistons for gear shifting
+    solenoidLeft1.toggle();
+    solenoidLeft2.toggle();
+    solenoidRight1.toggle();
+    solenoidRight2.toggle();
   }
   public boolean getValue() {
-    if (solenoid.get() == true) {
+    if (solenoidLeft1.get() == true) {
       System.out.println("Speedy");
     } else {
       System.out.println("Tanky");
     }
-    return solenoid.get();
+    return solenoidLeft1.get();
+  }
+
+  public void setDefault() {
+    solenoidLeft1.set(false);
+    solenoidLeft2.set(false);
+    solenoidRight1.set(false);
+    solenoidRight2.set(false);
   }
 }
