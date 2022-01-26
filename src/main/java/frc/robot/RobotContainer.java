@@ -54,6 +54,7 @@ public class RobotContainer {
   public Hanger hanger = new Hanger();
   public Feed feed = new Feed();
   public Navx navx = new Navx();
+  
 
   //Commands
   
@@ -83,7 +84,7 @@ public class RobotContainer {
   }
 
   public void initialize() {
-      // Configure the button bindings and run commands
+      // Configure the button bindings
     configureButtonBindings();
     drive.setDefaultCommand(toDrive);
     shooter.setDefaultCommand(runFlywheel);

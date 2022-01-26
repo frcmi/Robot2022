@@ -56,11 +56,7 @@ public class Robot extends TimedRobot {
   /** This function is run once each time the robot enters autonomous mode. */
   @Override
   public void autonomousInit() {
-    container.drive.solenoidLeft1.set(false);
-    container.drive.solenoidLeft2.set(false);
-    container.drive.solenoidRight1.set(false);
-    container.drive.solenoidRight2.set(false);
-    }
+  }
 
   /** This function is called periodically during autonomous. */
   @Override
