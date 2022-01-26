@@ -56,7 +56,8 @@ public class Robot extends TimedRobot {
   /** This function is run once each time the robot enters autonomous mode. */
   @Override
   public void autonomousInit() {
-  }
+    container.drive.setDefault();
+    }
 
   /** This function is called periodically during autonomous. */
   @Override
