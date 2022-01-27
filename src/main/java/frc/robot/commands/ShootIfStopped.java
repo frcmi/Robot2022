@@ -12,6 +12,7 @@ public class ShootIfStopped extends CommandBase {
   public ShootIfStopped() {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(Robot.container.shooter);
+    addRequirements(Robot.container.feed);
   }
 
   // Called when the command is initially scheduled.

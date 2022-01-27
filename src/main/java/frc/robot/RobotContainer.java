@@ -52,8 +52,8 @@ public class RobotContainer {
   public Shooter shooter = new Shooter(1.0); //change value
   public ConveyorBelt conveyorBelt = new ConveyorBelt();
   public Hanger hanger = new Hanger();
-  public Feed feed = new Feed();
   public Navx navx = new Navx();
+  public Feed feed = new Feed();
   
 
   //Commands
