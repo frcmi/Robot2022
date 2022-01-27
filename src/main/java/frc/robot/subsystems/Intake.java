@@ -6,7 +6,6 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -22,9 +21,13 @@ public class Intake extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  //toggles intake power on and off
+  //toggles intake power to a set value
   
   public void setPower(double power) {
     intakeMotor.set(power);
+  }
+  
+  public void stop(){
+    intakeMotor.set(0);
   }
 }

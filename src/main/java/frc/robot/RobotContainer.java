@@ -8,8 +8,14 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 
@@ -23,24 +29,49 @@ import frc.robot.subsystems.*;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 
+  //Limelight and values
+  public NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
+  NetworkTableEntry tx = table.getEntry("tx");
+  NetworkTableEntry ty = table.getEntry("ty");
+  NetworkTableEntry ta = table.getEntry("ta");
+
    //Buttons and Joystick
+   
    Joystick leftJoystick = new Joystick(0);
    Joystick rightJoystick = new Joystick(1);
-   JoystickButton intakeInButton = new JoystickButton(leftJoystick, 2);
-   JoystickButton intakeOutButton = new JoystickButton(leftJoystick, 3);
+   JoystickButton conveyorInButton = new JoystickButton(leftJoystick, 2);
+   JoystickButton conveyorOutButton = new JoystickButton(leftJoystick, 3);
+   JoystickButton extendHangerDownButton = new JoystickButton(rightJoystick, 2);
+   JoystickButton extendHangerUpButton = new JoystickButton(rightJoystick, 3);
+   JoystickButton feedButton = new JoystickButton(rightJoystick, 4);
    public JoystickButton shiftGearButton = new JoystickButton(rightJoystick, 1); //go fast
 
   // Subsystems
   public Intake intake = new Intake();
   public DriveTrain drive = new DriveTrain();
   public Shooter shooter = new Shooter(1.0); //change value
+  public ConveyorBelt conveyorBelt = new ConveyorBelt();
+  public Hanger hanger = new Hanger();
+  public Navx navx = new Navx();
+  public Feed feed = new Feed();
+  
 
   //Commands
+  
   public IntakeIn intakeIn = new IntakeIn();
   public IntakeOut intakeOut = new IntakeOut();
+  public SetConveyorIn conveyorIn = new SetConveyorIn();
+  public SetConveyorOut conveyorOut = new SetConveyorOut();
+  public ExtendHangerDown extendHangerDown = new ExtendHangerDown();
+  public ExtendHangerUp extendHangerUp = new ExtendHangerUp();
+  public StartFeed startFeed = new StartFeed();
+  public ShootIfStopped shootIfStopped = new ShootIfStopped();
   InstantCommand toShift = new InstantCommand(drive::shift, drive);
   RunCommand toDrive = new RunCommand(() -> drive.drive(-leftJoystick.getRawAxis(1), rightJoystick.getRawAxis(1)), drive);
   RunCommand runFlywheel = new RunCommand(() -> shooter.set(), drive);
+  ParallelCommandGroup conveyerIntakeIn = new ParallelCommandGroup(intakeIn, conveyorIn);
+  ParallelCommandGroup conveyerIntakeOut = new ParallelCommandGroup(intakeOut, conveyorOut);
+
 
 
 
@@ -53,7 +84,7 @@ public class RobotContainer {
   }
 
   public void initialize() {
-      // Configure the button bindings
+      // Configure the button bindings and run commands
     configureButtonBindings();
     drive.setDefaultCommand(toDrive);
     shooter.setDefaultCommand(runFlywheel);
@@ -66,8 +97,11 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    intakeInButton.whenPressed(intakeIn);
-    intakeOutButton.whenPressed(intakeOut);
+    conveyorInButton.whenPressed(conveyerIntakeIn);
+    conveyorOutButton.whenPressed(conveyerIntakeOut);
+    extendHangerDownButton.whenPressed(extendHangerDown);
+    extendHangerUpButton.whenPressed(extendHangerUp);
+    feedButton.whenPressed(startFeed);
     shiftGearButton.whenPressed(new InstantCommand(drive::shift, drive));
   }
 
