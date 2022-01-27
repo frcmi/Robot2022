@@ -11,6 +11,7 @@ public class ShootIfStopped extends CommandBase {
   /** Creates a new ShootIfStopped. This is a command specifically for autonomous*/ 
   public ShootIfStopped() {
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(Robot.container.shooter);
     addRequirements(Robot.container.feed);
   }
 
