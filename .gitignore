@@ -135,10 +135,6 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-### Gradle ###
-.gradle
-/build/
-
 # Ignore Gradle GUI config
 gradle-app.setting
 
@@ -157,6 +153,9 @@ gradle-app.setting
 .project
 .settings/
 bin/
+.gradle/
+.vscode/
+build/
 
 # Simulation GUI and other tools window save file
 *-window.json
