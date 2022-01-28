@@ -50,28 +50,34 @@ public class Robot extends TimedRobot {
       }
     }).start();
 
-    container.initialize(); 
+    container.initialize(); //might not work because takes joystick inputs while in autonomous??
   }
 
   /** This function is run once each time the robot enters autonomous mode. */
   @Override
   public void autonomousInit() {
+    //reset sensors??
     container.drive.setDefault();
+    //sequential command probably: shooter on, shootathub (drivetohub, feed) , seekball, collectball (driveto ball, intake on)
     }
 
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
+        
    
   }
 
   /** This function is called once each time the robot enters teleoperated mode. */
   @Override
-  public void teleopInit() {}
+  public void teleopInit() {
+    //reset sensors??
+  }
 
   /** This function is called periodically during teleoperated mode. */
   @Override
   public void teleopPeriodic() {
+
     
   }
 

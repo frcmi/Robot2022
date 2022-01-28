@@ -41,10 +41,11 @@ public class RobotContainer {
    Joystick rightJoystick = new Joystick(1);
    JoystickButton conveyorInButton = new JoystickButton(leftJoystick, 2);
    JoystickButton conveyorOutButton = new JoystickButton(leftJoystick, 3);
+   public JoystickButton shiftGearButton = new JoystickButton(rightJoystick, 1); //go fast
    JoystickButton extendHangerDownButton = new JoystickButton(rightJoystick, 2);
    JoystickButton extendHangerUpButton = new JoystickButton(rightJoystick, 3);
    JoystickButton feedButton = new JoystickButton(rightJoystick, 4);
-   public JoystickButton shiftGearButton = new JoystickButton(rightJoystick, 1); //go fast
+
 
   // Subsystems
   public Intake intake = new Intake();
