@@ -45,6 +45,7 @@ public class RobotContainer {
    JoystickButton extendHangerDownButton = new JoystickButton(rightJoystick, 2);
    JoystickButton extendHangerUpButton = new JoystickButton(rightJoystick, 3);
    JoystickButton feedButton = new JoystickButton(rightJoystick, 4);
+   JoystickButton selectPipelineButton = new JoystickButton(rightJoystick, 4);
 
 
   // Subsystems
@@ -69,6 +70,7 @@ public class RobotContainer {
   public ShootIfStopped shootIfStopped = new ShootIfStopped();
   public DriveToHub driveToHub = new DriveToHub();
   public SeekBall seekBall = new SeekBall();
+  public SelectPipeline selectPipeline = new SelectPipeline();
   public AutonomousCommand autonomousCommand = new AutonomousCommand();
   InstantCommand toShift = new InstantCommand(drive::shift, drive);
   RunCommand toDrive = new RunCommand(() -> drive.drive(-leftJoystick.getRawAxis(1), rightJoystick.getRawAxis(1)), drive);
@@ -105,6 +107,7 @@ public class RobotContainer {
     conveyorOutButton.whenPressed(conveyerIntakeOut);
     extendHangerDownButton.whenPressed(extendHangerDown);
     extendHangerUpButton.whenPressed(extendHangerUp);
+    selectPipelineButton.whenPressed(selectPipeline);
     feedButton.whenPressed(startFeed);
     shiftGearButton.whenPressed(new InstantCommand(drive::shift, drive));
   }
