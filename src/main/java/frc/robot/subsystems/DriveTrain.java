@@ -45,7 +45,7 @@ public class DriveTrain extends SubsystemBase {
     myRobot.tankDrive(l, r);
   }
   public double getLeftMotors() {
-      return left.get();
+    return left.get();
   }
   public double getRightMotors() {
       return right.get();
