@@ -24,9 +24,11 @@ public class SelectPipeline extends InstantCommand {
   public void initialize() { //0 is red, 1 is blue??
     if (num % 2 == 0) {
       Robot.container.table.getEntry("pipeline").setNumber(num); //red
+      System.out.println("red");
       num++;
     } else {
       Robot.container.table.getEntry("pipeline").setNumber(num); //blue
+      System.out.println("blue");
       num++;
     }
 
