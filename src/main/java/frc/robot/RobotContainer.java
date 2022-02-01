@@ -41,7 +41,7 @@ public class RobotContainer {
    Joystick rightJoystick = new Joystick(1);
    JoystickButton conveyorInButton = new JoystickButton(leftJoystick, 2);
    JoystickButton conveyorOutButton = new JoystickButton(leftJoystick, 3);
-   public JoystickButton shiftGearButton = new JoystickButton(rightJoystick, 1); //go fast
+   JoystickButton shiftGearButton = new JoystickButton(rightJoystick, 1); //go fast
    JoystickButton extendHangerDownButton = new JoystickButton(rightJoystick, 2);
    JoystickButton extendHangerUpButton = new JoystickButton(rightJoystick, 3);
    JoystickButton feedButton = new JoystickButton(rightJoystick, 4);
@@ -67,9 +67,12 @@ public class RobotContainer {
   public ExtendHangerUp extendHangerUp = new ExtendHangerUp();
   public StartFeed startFeed = new StartFeed();
   public ShootIfStopped shootIfStopped = new ShootIfStopped();
+  public DriveToHub driveToHub = new DriveToHub();
+  public SeekBall seekBall = new SeekBall();
+  public AutonomousCommand autonomousCommand = new AutonomousCommand();
   InstantCommand toShift = new InstantCommand(drive::shift, drive);
   RunCommand toDrive = new RunCommand(() -> drive.drive(-leftJoystick.getRawAxis(1), rightJoystick.getRawAxis(1)), drive);
-  RunCommand runFlywheel = new RunCommand(() -> shooter.set(), drive);
+  RunCommand runFlywheel = new RunCommand(() -> shooter.set(), shooter);
   ParallelCommandGroup conveyerIntakeIn = new ParallelCommandGroup(intakeIn, conveyorIn);
   ParallelCommandGroup conveyerIntakeOut = new ParallelCommandGroup(intakeOut, conveyorOut);
 
@@ -113,6 +116,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return null;
+    return autonomousCommand;
   }
 }

@@ -11,7 +11,7 @@ import edu.wpi.first.math.controller.PIDController;
 public class SeekBall extends CommandBase {
   double steeringAdjust = 0.0;
   double headingError = 0.0;
-  final double Kp = 1.0;
+  final double Kp = 1.0; //change
   //PIDController shootMotorPID = new PIDController(1, 1, 0); //adjust
   /** Creates a new SeekBall. */
   public SeekBall() {

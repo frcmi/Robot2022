@@ -58,7 +58,12 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     //reset sensors??
     container.drive.setDefault();
-    //sequential command probably: shooter on, shootathub (drivetohub, feed) , seekball, collectball (driveto ball, intake on)
+
+    // schedule the autonomous command (example)
+    if (container.getAutonomousCommand() != null) {
+      container.autonomousCommand.schedule();
+    }
+    //sequential command probably: shooter on, shootathub (drivetohub, feed) , collectball (seekball while intake on)
     }
 
   /** This function is called periodically during autonomous. */
