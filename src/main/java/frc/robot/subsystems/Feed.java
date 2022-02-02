@@ -24,6 +24,10 @@ public class Feed extends SubsystemBase {
     return feedMotor.get();
   }
 
+  public void startFeed(){
+    feedMotor.set(1);
+  }
+
   public void stop(){
     feedMotor.set(0);
   }

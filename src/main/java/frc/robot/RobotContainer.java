@@ -50,31 +50,25 @@ public class RobotContainer {
 
   // Subsystems
   public Intake intake = new Intake();
+  public Navx navx = new Navx();
   public DriveTrain drive = new DriveTrain();
   public Shooter shooter = new Shooter(1.0); //change value
   public ConveyorBelt conveyorBelt = new ConveyorBelt();
   public Hanger hanger = new Hanger();
-  public Navx navx = new Navx();
   public Feed feed = new Feed();
   
 
   //Commands
   
-  public IntakeIn intakeIn = new IntakeIn();
-  public IntakeOut intakeOut = new IntakeOut();
-  public SetConveyorIn conveyorIn = new SetConveyorIn();
-  public SetConveyorOut conveyorOut = new SetConveyorOut();
-  public StartFeed startFeed = new StartFeed();
   public ShootIfStopped shootIfStopped = new ShootIfStopped();
-  public DriveToHub driveToHub = new DriveToHub();
   public SeekBall seekBall = new SeekBall();
   public SelectPipeline selectPipeline = new SelectPipeline();
   public AutonomousCommand autonomousCommand = new AutonomousCommand();
   InstantCommand toShift = new InstantCommand(drive::shift, drive);
   RunCommand toDrive = new RunCommand(() -> drive.drive(-leftJoystick.getRawAxis(1), rightJoystick.getRawAxis(1)), drive);
   RunCommand runFlywheel = new RunCommand(() -> shooter.set(), shooter);
-  ParallelCommandGroup conveyerIntakeIn = new ParallelCommandGroup(intakeIn, conveyorIn);
-  ParallelCommandGroup conveyerIntakeOut = new ParallelCommandGroup(intakeOut, conveyorOut);
+  ParallelCommandGroup conveyerIntakeIn = new ParallelCommandGroup(new InstantCommand(conveyorBelt::SetConveyorIn), new InstantCommand(intake::intakeIn));
+  ParallelCommandGroup conveyerIntakeOut = new ParallelCommandGroup(new InstantCommand(conveyorBelt::SetConveyorOut), new InstantCommand(intake::intakeIn));
 
 
 
@@ -101,12 +95,12 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    conveyorInButton.whenPressed(conveyerIntakeIn);
-    conveyorOutButton.whenPressed(conveyerIntakeOut);
+    conveyorInButton.whenPressed(new InstantCommand(conveyorBelt::SetConveyorIn));
+    conveyorOutButton.whenPressed(new InstantCommand(conveyorBelt::SetConveyorOut));
     extendHangerDownButton.whenPressed(new InstantCommand(hanger::extendHangerDown));
     extendHangerUpButton.whenPressed(new InstantCommand(hanger::extendHangerUp));
     selectPipelineButton.whenPressed(selectPipeline);
-    feedButton.whenPressed(startFeed);
+    feedButton.whenPressed(new InstantCommand(feed::startFeed));
     shiftGearButton.whenPressed(new InstantCommand(drive::shift, drive));
   }
 

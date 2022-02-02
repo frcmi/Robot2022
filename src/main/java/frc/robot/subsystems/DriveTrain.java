@@ -1,6 +1,9 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.RobotContainer;
+import frc.robot.Robot;
+import frc.robot.subsystems.*;
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
@@ -70,5 +73,11 @@ public class DriveTrain extends SubsystemBase {
     solenoidLeft2.set(false);
     solenoidRight1.set(false);
     solenoidRight2.set(false);
+  }
+
+  public void DriveToHub(){
+    while (Robot.container.navx.isMoving()) {
+      this.drive(1.0, 1.0);
+    }
   }
 }

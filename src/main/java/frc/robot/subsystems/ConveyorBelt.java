@@ -23,6 +23,14 @@ public class ConveyorBelt extends SubsystemBase {
   public double getPower(){
     return conveyorMotor.get();
   }
+
+  public void SetConveyorIn(){
+    conveyorMotor.set(1);
+  }
+
+  public void SetConveyorOut(){
+    conveyorMotor.set(-1);
+  }
   
   public void stop(){
     conveyorMotor.set(0);

@@ -5,7 +5,10 @@
 package frc.robot.commands;
 
 import frc.robot.commands.*;
+import edu.wpi.first.wpilibj2.command.*;
 import frc.robot.Robot;
+import frc.robot.RobotContainer;
+import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 
@@ -17,8 +20,9 @@ public class AutonomousCommand extends SequentialCommandGroup {
   public AutonomousCommand() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new ParallelCommandGroup(Robot.container.driveToHub, Robot.container.startFeed), 
-    new ParallelCommandGroup(Robot.container.seekBall, Robot.container.conveyorIn), 
-    new ParallelCommandGroup(Robot.container.driveToHub, Robot.container.startFeed));
+    addCommands(
+      new ParallelCommandGroup(Robot.container.seekBall, new InstantCommand(Robot.container.conveyorBelt::SetConveyorIn)),
+      new ParallelCommandGroup(new InstantCommand(Robot.container.drive::DriveToHub), new InstantCommand(Robot.container.feed::startFeed))
+    );
   }
 }
