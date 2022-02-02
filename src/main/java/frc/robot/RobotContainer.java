@@ -64,8 +64,6 @@ public class RobotContainer {
   public IntakeOut intakeOut = new IntakeOut();
   public SetConveyorIn conveyorIn = new SetConveyorIn();
   public SetConveyorOut conveyorOut = new SetConveyorOut();
-  public ExtendHangerDown extendHangerDown = new ExtendHangerDown();
-  public ExtendHangerUp extendHangerUp = new ExtendHangerUp();
   public StartFeed startFeed = new StartFeed();
   public ShootIfStopped shootIfStopped = new ShootIfStopped();
   public DriveToHub driveToHub = new DriveToHub();
@@ -105,8 +103,8 @@ public class RobotContainer {
   private void configureButtonBindings() {
     conveyorInButton.whenPressed(conveyerIntakeIn);
     conveyorOutButton.whenPressed(conveyerIntakeOut);
-    extendHangerDownButton.whenPressed(extendHangerDown);
-    extendHangerUpButton.whenPressed(extendHangerUp);
+    extendHangerDownButton.whenPressed(new InstantCommand(hanger::extendHangerDown));
+    extendHangerUpButton.whenPressed(new InstantCommand(hanger::extendHangerUp));
     selectPipelineButton.whenPressed(selectPipeline);
     feedButton.whenPressed(startFeed);
     shiftGearButton.whenPressed(new InstantCommand(drive::shift, drive));

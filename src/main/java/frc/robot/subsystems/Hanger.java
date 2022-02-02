@@ -29,6 +29,13 @@ public class Hanger extends SubsystemBase {
     hangerMotor.set(0);
   }
 
+  public void extendHangerDown(){
+    hangerMotor.set(-1);
+  }
+
+  public void extendHangerUp(){
+    hangerMotor.set(1);
+  }
   //ADD SENSOR STUFF
   // public void resetSensorValues(){
   //   hangerMotorTalon.setSelectedSensorPosition(0);
