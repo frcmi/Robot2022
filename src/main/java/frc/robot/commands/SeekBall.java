@@ -11,7 +11,7 @@ import edu.wpi.first.math.controller.PIDController;
 public class SeekBall extends CommandBase {
   double steeringAdjust = 0.0;
   double headingError = 0.0;
-  final double Kp = 1.0; //change
+  final double Kp = 1.0; //CHANGE
   //PIDController shootMotorPID = new PIDController(1, 1, 0); //adjust
   /** Creates a new SeekBall. */
   public SeekBall() {
@@ -40,7 +40,7 @@ public class SeekBall extends CommandBase {
   @Override
   public void end(boolean interrupted) {}
 
-  // Returns true when the command should end. FIX THIS
+  // Returns true when the command should end. FIX THIS!!!
   @Override
   public boolean isFinished() {
     return false;

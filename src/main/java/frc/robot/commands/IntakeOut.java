@@ -29,7 +29,15 @@ public class IntakeOut extends CommandBase {
     Robot.container.intake.setPower(-1.0);
   }
 
+  @Override
   public void end(boolean interrupted) {
     Robot.container.intake.stop();
   }
+
+  // Returns true when the command should end. FIX THIS!!!
+  @Override
+  public boolean isFinished() {
+    return false;
+  }
+
 }

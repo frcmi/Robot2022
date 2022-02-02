@@ -51,6 +51,7 @@ public class Robot extends TimedRobot {
     }).start();
 
     container.initialize(); //might not work because takes joystick inputs while in autonomous??
+    System.out.println("robot init");
   }
 
   /** This function is run once each time the robot enters autonomous mode. */
@@ -82,7 +83,11 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during teleoperated mode. */
   @Override
   public void teleopPeriodic() {
+    System.out.println(container.table.getEntry("tv").getDouble(0));
+    System.out.println(container.table.getEntry("tx").getDouble(0));
+    System.out.println();
 
+    
     
   }
 
