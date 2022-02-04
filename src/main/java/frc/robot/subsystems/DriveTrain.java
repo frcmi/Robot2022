@@ -61,7 +61,7 @@ public class DriveTrain extends SubsystemBase {
     return solenoidLeft1.get();
   }
 
-  public void setDefault() { //sets all solenoids to 
+  public void setDefaultGear() { //sets all solenoids to 
     solenoidLeft1.set(false);
     solenoidLeft2.set(false);
     solenoidRight1.set(false);

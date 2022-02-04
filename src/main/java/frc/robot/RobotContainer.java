@@ -86,15 +86,9 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    
+    configureButtonBindings();
   }
 
-  public void initialize() {
-      // Configure the button bindings and run commands
-    configureButtonBindings();
-    drive.setDefaultCommand(toDrive);
-    shooter.setDefaultCommand(runFlywheel);
-  }
 
   /**
    * Use this method to define your button->command mappings. Buttons can be created by
@@ -110,6 +104,12 @@ public class RobotContainer {
     selectPipelineButton.whenPressed(selectPipeline);
     feedButton.whenPressed(startFeed);
     shiftGearButton.whenPressed(new InstantCommand(drive::shift, drive));
+  }
+
+
+  public void setTeleop() {
+    drive.setDefaultCommand(toDrive);
+    shooter.setDefaultCommand(runFlywheel);
   }
 
   /**

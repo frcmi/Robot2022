@@ -49,8 +49,7 @@ public class Robot extends TimedRobot {
         outputStream.putFrame(output);
       }
     }).start();
-
-    container.initialize(); //might not work because takes joystick inputs while in autonomous??
+ 
     System.out.println("robot init");
   }
 
@@ -58,7 +57,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     //reset sensors??
-    container.drive.setDefault();
+    container.drive.setDefaultGear();
 
     // schedule the autonomous command (example)
     if (container.getAutonomousCommand() != null) {
@@ -77,12 +76,14 @@ public class Robot extends TimedRobot {
   /** This function is called once each time the robot enters teleoperated mode. */
   @Override
   public void teleopInit() {
-    //reset sensors??
+    //reset sensors/subsystems??
+    container.setTeleop();
   }
 
   /** This function is called periodically during teleoperated mode. */
   @Override
   public void teleopPeriodic() {
+    //just testing networktables
     System.out.println(container.table.getEntry("tv").getDouble(0));
     System.out.println(container.table.getEntry("tx").getDouble(0));
     System.out.println();
