@@ -6,7 +6,7 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 public class Hanger extends SubsystemBase {
-  public WPI_TalonFX hangerMotorTalon = new WPI_TalonFX(9);
+  public WPI_TalonFX hangerMotorTalon = new WPI_TalonFX(7);
   public MotorController hangerMotor = hangerMotorTalon; 
 
   public Hanger() {
