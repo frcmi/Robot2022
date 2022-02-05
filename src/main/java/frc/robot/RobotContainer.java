@@ -72,6 +72,7 @@ public class RobotContainer {
   public SeekBall seekBall = new SeekBall();
   public SelectPipeline selectPipeline = new SelectPipeline();
   public AutonomousCommand autonomousCommand = new AutonomousCommand();
+  public SpinAround spinAround = new SpinAround();
   InstantCommand toShift = new InstantCommand(drive::shift, drive);
   RunCommand toDrive = new RunCommand(() -> drive.drive(-leftJoystick.getRawAxis(1), rightJoystick.getRawAxis(1)), drive);
   RunCommand runFlywheel = new RunCommand(() -> shooter.set(), shooter);
@@ -79,14 +80,9 @@ public class RobotContainer {
   ParallelCommandGroup conveyerIntakeOut = new ParallelCommandGroup(intakeOut, conveyorOut);
 
 
-
-
-
-
-
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    configureButtonBindings();
+    configureButtonBindingsAndFlywheel();
   }
 
 
@@ -96,7 +92,7 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {
+  private void configureButtonBindingsAndFlywheel() {
     conveyorInButton.whenPressed(conveyerIntakeIn);
     conveyorOutButton.whenPressed(conveyerIntakeOut);
     extendHangerDownButton.whenPressed(extendHangerDown);
@@ -104,12 +100,12 @@ public class RobotContainer {
     selectPipelineButton.whenPressed(selectPipeline);
     feedButton.whenPressed(startFeed);
     shiftGearButton.whenPressed(new InstantCommand(drive::shift, drive));
+    shooter.setDefaultCommand(runFlywheel);
   }
 
 
   public void setTeleop() {
     drive.setDefaultCommand(toDrive);
-    shooter.setDefaultCommand(runFlywheel);
   }
 
   /**

@@ -51,6 +51,12 @@ public class Robot extends TimedRobot {
     }).start();
  
     System.out.println("robot init");
+    if (container.table.getEntry("pipeline").getDouble(0) == 0) {
+      System.out.println("looking for red balls");
+    } else {
+      System.out.println("looking for blue balls");
+    }
+  
   }
 
   /** This function is run once each time the robot enters autonomous mode. */
@@ -63,7 +69,8 @@ public class Robot extends TimedRobot {
     if (container.getAutonomousCommand() != null) {
       container.autonomousCommand.schedule();
     }
-    //sequential command probably: shooter on, shootathub (drivetohub, feed) , collectball (seekball while intake on)
+    //sequential command probably: shooter on, shootathub (drivetohub, feed) , 
+    //collectball (seekball while intake on), returnToShoot, feed
     }
 
   /** This function is called periodically during autonomous. */

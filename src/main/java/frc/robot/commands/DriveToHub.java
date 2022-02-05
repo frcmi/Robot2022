@@ -21,9 +21,7 @@ public class DriveToHub extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    while (Robot.container.navx.isMoving()) {
         Robot.container.drive.drive(1.0, 1.0);
-    }
   }
 
   // Called once the command ends or is interrupted.
