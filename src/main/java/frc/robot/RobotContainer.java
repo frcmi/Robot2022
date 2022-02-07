@@ -60,24 +60,24 @@ public class RobotContainer {
 
   //Commands
   
-  public IntakeIn intakeIn = new IntakeIn();
-  public IntakeOut intakeOut = new IntakeOut();
-  public SetConveyorIn conveyorIn = new SetConveyorIn();
-  public SetConveyorOut conveyorOut = new SetConveyorOut();
-  public ExtendHangerDown extendHangerDown = new ExtendHangerDown();
-  public ExtendHangerUp extendHangerUp = new ExtendHangerUp();
-  public StartFeed startFeed = new StartFeed();
-  public ShootIfStopped shootIfStopped = new ShootIfStopped();
-  public DriveToHub driveToHub = new DriveToHub();
-  public SeekBall seekBall = new SeekBall();
-  public SelectPipeline selectPipeline = new SelectPipeline();
+  // public IntakeIn intakeIn = new IntakeIn();
+  // public IntakeOut intakeOut = new IntakeOut();
+  // public SetConveyorIn conveyorIn = new SetConveyorIn();
+  // public SetConveyorOut conveyorOut = new SetConveyorOut();
+  // public ExtendHangerDown extendHangerDown = new ExtendHangerDown();
+  // public ExtendHangerUp extendHangerUp = new ExtendHangerUp();
+  // public StartFeed startFeed = new StartFeed();
+  // public ShootIfStopped shootIfStopped = new ShootIfStopped();
+  // public DriveToHub driveToHub = new DriveToHub();
+  // public SeekBall seekBall = new SeekBall();
+  // public SelectPipeline selectPipeline = new SelectPipeline();
   public AutonomousCommand autonomousCommand = new AutonomousCommand();
-  public SpinAround spinAround = new SpinAround();
-  InstantCommand toShift = new InstantCommand(drive::shift, drive);
+  // public SpinAround spinAround = new SpinAround();
+  //InstantCommand toShift = new InstantCommand(drive::shift, drive);
   RunCommand toDrive = new RunCommand(() -> drive.drive(-leftJoystick.getRawAxis(1), rightJoystick.getRawAxis(1)), drive);
   RunCommand runFlywheel = new RunCommand(() -> shooter.set(), shooter);
-  ParallelCommandGroup conveyerIntakeIn = new ParallelCommandGroup(intakeIn, conveyorIn);
-  ParallelCommandGroup conveyerIntakeOut = new ParallelCommandGroup(intakeOut, conveyorOut);
+  ParallelCommandGroup conveyorIntakeIn = new ParallelCommandGroup(new IntakeIn(), new SetConveyorIn());
+  ParallelCommandGroup conveyorIntakeOut = new ParallelCommandGroup(new IntakeOut(), new SetConveyorOut());
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -93,12 +93,12 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindingsAndFlywheel() {
-    conveyorInButton.whenPressed(conveyerIntakeIn);
-    conveyorOutButton.whenPressed(conveyerIntakeOut);
-    extendHangerDownButton.whenPressed(extendHangerDown);
-    extendHangerUpButton.whenPressed(extendHangerUp);
-    selectPipelineButton.whenPressed(selectPipeline);
-    feedButton.whenPressed(startFeed);
+    conveyorInButton.whenPressed(conveyorIntakeIn);
+    conveyorOutButton.whenPressed(conveyorIntakeOut);
+    extendHangerDownButton.whenPressed(new ExtendHangerDown());
+    extendHangerUpButton.whenPressed(new ExtendHangerUp());
+    selectPipelineButton.whenPressed(new SelectPipeline());
+    feedButton.whenPressed(new StartFeed());
     shiftGearButton.whenPressed(new InstantCommand(drive::shift, drive));
     shooter.setDefaultCommand(runFlywheel);
   }
