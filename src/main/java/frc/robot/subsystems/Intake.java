@@ -12,7 +12,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 public class Intake extends SubsystemBase {
   /** Creates a new Shooter. */
-  private CANSparkMax intakeMotorNEO = new CANSparkMax(9, MotorType.kBrushless);
+  private CANSparkMax intakeMotorNEO = new CANSparkMax(0, MotorType.kBrushless);
   public MotorController intakeMotor = intakeMotorNEO; 
   public Intake() {}
 
