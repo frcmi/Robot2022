@@ -5,20 +5,19 @@
 package frc.robot.commands;
 
 import frc.robot.Robot;
-import frc.robot.subsystems.Hanger;
+import frc.robot.subsystems.ConveyorBelt;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
-public class ExtendHangerDown extends CommandBase {
+public class ConveyorOut extends CommandBase {
   // private MotorController conveyorMotor;
-  private Hanger hanger;
+  private ConveyorBelt conveyorBelt;
   // private double speed; 
 
   /** Creates a new Blank. */
-  public ExtendHangerDown() {
-    addRequirements(Robot.container.hanger);
-    hanger = Robot.container.hanger;
+  public ConveyorOut() {
+     addRequirements(Robot.container.conveyorBelt);
+      conveyorBelt = Robot.container.conveyorBelt;
   }
 
   // Called when the command is initially scheduled.
@@ -29,13 +28,13 @@ public class ExtendHangerDown extends CommandBase {
   @Override
   public void execute() 
   {
-    hanger.setPower(-1);
+    conveyorBelt.setPower(-1);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    hanger.stop();
+    conveyorBelt.stop();
   }
 
   // Returns true when the command should end.
