@@ -77,7 +77,7 @@ public class RobotContainer {
   RunCommand toDrive = new RunCommand(() -> drive.drive(-leftJoystick.getRawAxis(1), rightJoystick.getRawAxis(1)), drive);
   RunCommand runFlywheel = new RunCommand(() -> shooter.set(), shooter);
   ParallelCommandGroup conveyorIntakeIn = new ParallelCommandGroup(new IntakeIn(), new ConveyorIn());
-  ParallelCommandGroup conveyorIntakeOut = new ParallelCommandGroup(new IntakeOutInstant(), new ConveyorOut());
+  ParallelCommandGroup conveyorIntakeOut = new ParallelCommandGroup(new IntakeOut(), new ConveyorOut());
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
