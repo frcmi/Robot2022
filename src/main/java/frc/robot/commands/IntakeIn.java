@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class IntakeIn extends CommandBase {
   private Intake intake;
+  private Boolean done;
   public IntakeIn() {
     addRequirements(Robot.container.intake);
     // Use addRequirements() here to declare subsystem dependencies.
@@ -29,6 +30,7 @@ public class IntakeIn extends CommandBase {
   @Override
   public void execute() {
     Robot.container.intake.setPower(1.0);
+    done = true;
   }
   
   @Override
@@ -38,7 +40,7 @@ public class IntakeIn extends CommandBase {
 // Returns true when the command should end. FIX THIS!!!
 @Override
 public boolean isFinished() {
-  return false;
+  return done ? true : false;
 }
 
 }

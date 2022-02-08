@@ -13,6 +13,7 @@ public class ExtendHangerDown extends CommandBase {
   // private MotorController conveyorMotor;
   private Hanger hanger;
   // private double speed; 
+  private Boolean done;
 
   /** Creates a new Blank. */
   public ExtendHangerDown() {
@@ -29,6 +30,7 @@ public class ExtendHangerDown extends CommandBase {
   public void execute() 
   {
     hanger.setPower(-1);
+    done = true;
   }
 
   // Called once the command ends or is interrupted.
@@ -40,6 +42,6 @@ public class ExtendHangerDown extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return done ? true : false;
   }
 }

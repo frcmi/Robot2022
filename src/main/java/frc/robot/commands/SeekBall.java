@@ -12,6 +12,7 @@ public class SeekBall extends CommandBase {
   double steeringAdjust = 0.0;
   double headingError = 0.0;
   final double Kp = 1.0; //CHANGE
+  private Boolean done;
   //PIDController shootMotorPID = new PIDController(1, 1, 0); //adjust
   /** Creates a new SeekBall. */
   public SeekBall() {
@@ -34,6 +35,7 @@ public class SeekBall extends CommandBase {
     }
     Robot.container.drive.drive(Robot.container.drive.getLeftMotors() +steeringAdjust, Robot.container.drive.getRightMotors() -steeringAdjust);
     
+    done = true;
   }
 
   // Called once the command ends or is interrupted.
@@ -43,6 +45,6 @@ public class SeekBall extends CommandBase {
   // Returns true when the command should end. FIX THIS!!!
   @Override
   public boolean isFinished() {
-    return false;
+    return done ? true : false;
   }
 }

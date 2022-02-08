@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class DriveToHub extends CommandBase {
   /** Creates a new DriveToHub. */
+  private Boolean done;
   public DriveToHub() {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(Robot.container.drive);
@@ -24,6 +25,7 @@ public class DriveToHub extends CommandBase {
     while (Robot.container.navx.isMoving()) {
         Robot.container.drive.drive(1.0, 1.0);
     }
+    done = true;
   }
 
   // Called once the command ends or is interrupted.
@@ -33,6 +35,6 @@ public class DriveToHub extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return done ? true : false;
   }
 }

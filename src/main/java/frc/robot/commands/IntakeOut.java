@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class IntakeOut extends CommandBase {
+  private Boolean done;
   public IntakeOut() {
     addRequirements(Robot.container.intake);
     // Use addRequirements() here to declare subsystem dependencies.
@@ -27,6 +28,7 @@ public class IntakeOut extends CommandBase {
   @Override
   public void execute() {
     Robot.container.intake.setPower(-1.0);
+    done = done ? true : true;
   }
 
   @Override

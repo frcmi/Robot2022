@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class ExtendHangerUp extends CommandBase {
   private Hanger hanger;
+  private Boolean done;
 
   /** Creates a new Blank. */
   public ExtendHangerUp() {
@@ -27,6 +28,7 @@ public class ExtendHangerUp extends CommandBase {
   public void execute() 
   {
     hanger.setPower(1);
+    done = true;
   }
 
   // Called once the command ends or is interrupted.
@@ -38,6 +40,6 @@ public class ExtendHangerUp extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return done ? true : false;
   }
 }

@@ -21,4 +21,7 @@ public class AutonomousCommand extends SequentialCommandGroup {
     new ParallelCommandGroup(Robot.container.seekBall, Robot.container.conveyorIn), 
     new ParallelCommandGroup(Robot.container.driveToHub, Robot.container.startFeed));
   }
+  public boolean isFinished() {
+    return false;
+  }
 }

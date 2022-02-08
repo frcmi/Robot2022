@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class ShootIfStopped extends CommandBase {
   /** Creates a new ShootIfStopped. This is a command specifically for autonomous*/ 
+  private Boolean done;
   public ShootIfStopped() {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(Robot.container.shooter);
@@ -25,6 +26,7 @@ public class ShootIfStopped extends CommandBase {
     if (!Robot.container.navx.isMoving()) {
       Robot.container.feed.setPower(1.0); //change
     }
+    done = true;
   }
 
   // Called once the command ends or is interrupted.
@@ -36,6 +38,6 @@ public class ShootIfStopped extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return done ? true : false;
   }
 }

@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class SetConveyorOut extends CommandBase {
   // private MotorController conveyorMotor;
   private ConveyorBelt conveyorBelt;
+  private Boolean done;
   // private double speed; 
 
   /** Creates a new Blank. */
@@ -29,6 +30,7 @@ public class SetConveyorOut extends CommandBase {
   public void execute() 
   {
     conveyorBelt.setPower(-1);
+    done = true;
   }
 
   // Called once the command ends or is interrupted.
@@ -40,6 +42,6 @@ public class SetConveyorOut extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return done ? true : false;
   }
 }
