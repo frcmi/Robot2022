@@ -49,13 +49,13 @@ public class RobotContainer {
 
 
   // Subsystems
-  public Intake intake = new Intake();
-  public DriveTrain drive = new DriveTrain();
-  public Shooter shooter = new Shooter(1.0); //change value
-  public ConveyorBelt conveyorBelt = new ConveyorBelt();
-  public Hanger hanger = new Hanger();
-  public Navx navx = new Navx();
-  public Feed feed = new Feed();
+  public static Intake intake = new Intake();
+  public static DriveTrain drive = new DriveTrain();
+  public static Shooter shooter = new Shooter(1.0); //change value
+  public static ConveyorBelt conveyorBelt = new ConveyorBelt();
+  public static Hanger hanger = new Hanger();
+  public static Navx navx = new Navx();
+  public static Feed feed = new Feed();
   
 
   //Commands
@@ -76,7 +76,7 @@ public class RobotContainer {
   //InstantCommand toShift = new InstantCommand(drive::shift, drive);
   RunCommand toDrive = new RunCommand(() -> drive.drive(-leftJoystick.getRawAxis(1), rightJoystick.getRawAxis(1)), drive);
   RunCommand runFlywheel = new RunCommand(() -> shooter.set(), shooter);
-  ParallelCommandGroup conveyorIntakeIn = new ParallelCommandGroup(new IntakeIn(), new SetConveyorIn());
+  ParallelCommandGroup conveyorIntakeIn = new ParallelCommandGroup(new IntakeIn(), new SetConveyorIn()); //problem line
   ParallelCommandGroup conveyorIntakeOut = new ParallelCommandGroup(new IntakeOut(), new SetConveyorOut());
 
 
