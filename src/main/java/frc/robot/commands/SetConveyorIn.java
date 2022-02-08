@@ -30,7 +30,7 @@ public class SetConveyorIn extends CommandBase {
   @Override
   public void execute() 
   {
-      conveyorBelt.setPower(1);
+    conveyorBelt.setPower(1);
   }
 
   // Called once the command ends or is interrupted.
