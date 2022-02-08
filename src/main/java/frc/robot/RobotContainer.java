@@ -39,11 +39,11 @@ public class RobotContainer {
    
    Joystick leftJoystick = new Joystick(0);
    Joystick rightJoystick = new Joystick(1);
-   JoystickButton conveyorInButton = new JoystickButton(leftJoystick, 2);
-   JoystickButton conveyorOutButton = new JoystickButton(leftJoystick, 3);
+   public JoystickButton conveyorInButton = new JoystickButton(leftJoystick, 2);
+   public JoystickButton conveyorOutButton = new JoystickButton(leftJoystick, 3);
    JoystickButton shiftGearButton = new JoystickButton(rightJoystick, 1); //go fast
-   JoystickButton extendHangerDownButton = new JoystickButton(rightJoystick, 2);
-   JoystickButton extendHangerUpButton = new JoystickButton(rightJoystick, 3);
+   public JoystickButton extendHangerDownButton = new JoystickButton(rightJoystick, 2);
+   public JoystickButton extendHangerUpButton = new JoystickButton(rightJoystick, 3);
    JoystickButton feedButton = new JoystickButton(rightJoystick, 4);
    JoystickButton selectPipelineButton = new JoystickButton(rightJoystick, 4);
 
@@ -76,9 +76,14 @@ public class RobotContainer {
   //InstantCommand toShift = new InstantCommand(drive::shift, drive);
   RunCommand toDrive = new RunCommand(() -> drive.drive(-leftJoystick.getRawAxis(1), rightJoystick.getRawAxis(1)), drive);
   RunCommand runFlywheel = new RunCommand(() -> shooter.set(), shooter);
+<<<<<<< HEAD
   ParallelCommandGroup conveyorIntakeIn = new ParallelCommandGroup(new IntakeIn(), new SetConveyorIn()); //problem line
   ParallelCommandGroup conveyorIntakeOut = new ParallelCommandGroup(new IntakeOut(), new SetConveyorOut());
 
+=======
+  ParallelCommandGroup conveyorIntakeIn = new ParallelCommandGroup(new IntakeIn(), new ConveyorIn());
+  ParallelCommandGroup conveyorIntakeOut = new ParallelCommandGroup(new IntakeOut(), new ConveyorOut());
+>>>>>>> 8c30ddc0368d6545a81aac76a13dc81363582b14
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -93,10 +98,10 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindingsAndFlywheel() {
-    conveyorInButton.whenPressed(conveyorIntakeIn);
-    conveyorOutButton.whenPressed(conveyorIntakeOut);
-    extendHangerDownButton.whenPressed(new ExtendHangerDown());
-    extendHangerUpButton.whenPressed(new ExtendHangerUp());
+    conveyorInButton.whenHeld(conveyorIntakeIn);
+    conveyorOutButton.whenHeld(conveyorIntakeOut);
+    extendHangerDownButton.whenHeld(new ExtendHangerDown());
+    extendHangerUpButton.whenHeld(new ExtendHangerUp());
     selectPipelineButton.whenPressed(new SelectPipeline());
     feedButton.whenPressed(new StartFeed());
     shiftGearButton.whenPressed(new InstantCommand(drive::shift, drive));
