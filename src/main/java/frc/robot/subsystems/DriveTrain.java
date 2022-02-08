@@ -18,10 +18,10 @@ public class DriveTrain extends SubsystemBase {
  public Solenoid solenoidRight2 = new Solenoid(PneumaticsModuleType.CTREPCM, 3);
 
 
-  WPI_TalonFX rearLeft = new WPI_TalonFX(2);
-  WPI_TalonFX frontLeft = new WPI_TalonFX(1);
-  WPI_TalonFX frontRight = new WPI_TalonFX(3);
-  WPI_TalonFX rearRight = new WPI_TalonFX(4);
+  WPI_TalonFX rearLeft = new WPI_TalonFX(3);
+  WPI_TalonFX frontLeft = new WPI_TalonFX(4);
+  WPI_TalonFX frontRight = new WPI_TalonFX(1);
+  WPI_TalonFX rearRight = new WPI_TalonFX(2);
   MotorControllerGroup left = new MotorControllerGroup(frontLeft, rearLeft);
   MotorControllerGroup right = new MotorControllerGroup(frontRight, rearRight);
   private DifferentialDrive myRobot = new DifferentialDrive(left,right);
