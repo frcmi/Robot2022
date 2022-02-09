@@ -13,7 +13,7 @@ import edu.wpi.first.cscore.CvSource;
 import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
-
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.RobotContainer; 
 
 /**
@@ -91,12 +91,11 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     //just testing networktables
-    System.out.println(container.table.getEntry("tv").getDouble(0));
-    System.out.println(container.table.getEntry("tx").getDouble(0));
-    System.out.println();
+    //System.out.println(container.table.getEntry("tv").getDouble(0));
+    //System.out.println(container.table.getEntry("tx").getDouble(0));
+    //System.out.println();
+    CommandScheduler.getInstance().run();
 
-    
-    
   }
 
   /** This function is called once each time the robot enters test mode. */
