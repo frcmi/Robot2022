@@ -26,7 +26,7 @@ public class IntakeOut extends CommandBase {
 
   @Override
   public void execute() {
-    Robot.container.intake.setPower(-1.0);
+    Robot.container.intake.setPower(-.50);
   }
 
   @Override

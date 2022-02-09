@@ -25,7 +25,7 @@ public class SpinAround extends CommandBase {
   @Override
   public void execute() {
     timer.start();
-    while (timer.get() > 5) { //in seconds, change this value
+    while (timer.get() < 5) { //in seconds, change this value
       Robot.container.drive.drive(-1.0, 1.0);
     }
     done = true;

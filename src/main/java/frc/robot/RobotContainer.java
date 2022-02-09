@@ -41,19 +41,16 @@ public class RobotContainer {
    Joystick rightJoystick = new Joystick(1);
    public JoystickButton conveyorInButton = new JoystickButton(leftJoystick, 2);
    public JoystickButton conveyorOutButton = new JoystickButton(leftJoystick, 3);
-   JoystickButton shiftGearButton = new JoystickButton(rightJoystick, 1); //go fast
-   public JoystickButton extendHangerDownButton = new JoystickButton(rightJoystick, 2);
-   public JoystickButton extendHangerUpButton = new JoystickButton(rightJoystick, 3);
-   JoystickButton feedButton = new JoystickButton(rightJoystick, 4);
-   JoystickButton selectPipelineButton = new JoystickButton(rightJoystick, 4);
+   //JoystickButton shiftGearButton = new JoystickButton(rightJoystick, 1); //go fast
+   JoystickButton feedButton = new JoystickButton(rightJoystick, 1);
+   JoystickButton selectPipelineButton = new JoystickButton(rightJoystick, 2);
 
 
   // Subsystems
   public static Intake intake = new Intake();
   public static DriveTrain drive = new DriveTrain();
-  public static Shooter shooter = new Shooter(1.0); //change value
+  public static Shooter shooter = new Shooter(); //change value
   public static ConveyorBelt conveyorBelt = new ConveyorBelt();
-  public static Hanger hanger = new Hanger();
   public static Navx navx = new Navx();
   public static Feed feed = new Feed();
   
@@ -64,14 +61,12 @@ public class RobotContainer {
   // public IntakeOut intakeOut = new IntakeOut();
   // public SetConveyorIn conveyorIn = new SetConveyorIn();
   // public SetConveyorOut conveyorOut = new SetConveyorOut();
-  // public ExtendHangerDown extendHangerDown = new ExtendHangerDown();
-  // public ExtendHangerUp extendHangerUp = new ExtendHangerUp();
   // public StartFeed startFeed = new StartFeed();
   // public ShootIfStopped shootIfStopped = new ShootIfStopped();
   // public DriveToHub driveToHub = new DriveToHub();
   // public SeekBall seekBall = new SeekBall();
   // public SelectPipeline selectPipeline = new SelectPipeline();
-  public AutonomousCommand autonomousCommand = new AutonomousCommand();
+  public AutonomousPlanB autonomousCommand = new AutonomousPlanB();
   // public SpinAround spinAround = new SpinAround();
   //InstantCommand toShift = new InstantCommand(drive::shift, drive);
   RunCommand toDrive = new RunCommand(() -> drive.drive(-leftJoystick.getRawAxis(1), rightJoystick.getRawAxis(1)), drive);
@@ -81,7 +76,7 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    configureButtonBindingsAndFlywheel();
+    configureButtonBindings();
   }
 
 
@@ -91,20 +86,20 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindingsAndFlywheel() {
+  private void configureButtonBindings() {
     conveyorInButton.whenHeld(conveyorIntakeIn);
     conveyorOutButton.whenHeld(conveyorIntakeOut);
-    extendHangerDownButton.whenHeld(new ExtendHangerDown());
-    extendHangerUpButton.whenHeld(new ExtendHangerUp());
     selectPipelineButton.whenPressed(new SelectPipeline());
     feedButton.whenPressed(new StartFeed());
-    //shiftGearButton.whenPressed(new InstantCommand(drive::shift, drive));
+    shooter.changeSetpoint(0.75);
     shooter.setDefaultCommand(runFlywheel);
+    //shiftGearButton.whenPressed(new InstantCommand(drive::shift, drive));
   }
 
 
   public void setTeleop() {
     drive.setDefaultCommand(toDrive);
+    shooter.changeSetpoint(1.0);
   }
 
   /**
@@ -113,6 +108,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
+    System.out.println("getAutonomousCommand returns autonomous");
     // An ExampleCommand will run in autonomous
     return autonomousCommand;
   }

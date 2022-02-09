@@ -28,7 +28,7 @@ public class ConveyorOut extends CommandBase {
   @Override
   public void execute() 
   {
-    conveyorBelt.setPower(-1);
+    conveyorBelt.setPower(-0.50);
   }
 
   // Called once the command ends or is interrupted.

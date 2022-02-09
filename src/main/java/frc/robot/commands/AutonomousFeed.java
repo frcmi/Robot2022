@@ -4,15 +4,17 @@
 
 package frc.robot.commands;
 
-import frc.robot.Robot;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Robot;
+import edu.wpi.first.wpilibj.Timer;
 
-public class DriveToHub extends CommandBase {
-  boolean done;
-  /** Creates a new DriveToHub. */
-  public DriveToHub() {
+public class AutonomousFeed extends CommandBase {
+  Timer timer = new Timer();
+  boolean done = false;
+  /** Creates a new AutonomousFeed. */
+  public AutonomousFeed() {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(Robot.container.drive);
+    addRequirements(Robot.container.feed);
   }
 
   // Called when the command is initially scheduled.
@@ -22,15 +24,18 @@ public class DriveToHub extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-        Robot.container.drive.drive(1.0, 1.0);
-        if (Robot.container.navx.isMoving() == false) {
-          done = true;
-        }
+    timer.start();
+    while (timer.get() < 2) { //in seconds, change this value
+      Robot.container.feed.setPower(1.0);
+    }
+    done = true;
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    Robot.container.feed.stop();
+  }
 
   // Returns true when the command should end.
   @Override

@@ -69,8 +69,7 @@ public class Robot extends TimedRobot {
     if (container.getAutonomousCommand() != null) {
       container.autonomousCommand.schedule();
     }
-    //sequential command probably: shooter on, shootathub (drivetohub, feed) , 
-    //collectball (seekball while intake on), returnToShoot, feed
+    
     }
 
   /** This function is called periodically during autonomous. */

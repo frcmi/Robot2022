@@ -25,7 +25,7 @@ public class SeekBall extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
+  public void execute() { //Find way for this to run repeatedly
     if (Robot.container.table.getEntry("tv").getDouble(0) == 0.0) {
       steeringAdjust = 0.3;
     } else {

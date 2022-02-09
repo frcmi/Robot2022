@@ -12,15 +12,14 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class AutonomousCommand extends SequentialCommandGroup {
+public class AutonomousPlanB extends SequentialCommandGroup {
   /** Creates a new AutonomousCommand. */
-  public AutonomousCommand() {
+  public AutonomousPlanB() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand()); 
     //NEEDS A LOT OF WORK
-    addCommands(new ParallelCommandGroup(new DriveToHub(), new ShootIfStopped()), new SpinAround(),
-    new ParallelCommandGroup(new SeekBall(), new  ParallelCommandGroup(new IntakeIn(), new ConveyorIn())), 
-    new SpinAround(), new ParallelCommandGroup(new DriveToHub(), new ShootIfStopped())); //drivetohub not actualy drivetohub, pathfindtohub
-    //Can't be driveToHub in line 23, must navigate back to shooting position
+    addCommands(new ParallelCommandGroup(new SeekBall(), new  ParallelCommandGroup(new IntakeIn(), new ConveyorIn())), 
+    new SpinAround(), new ParallelCommandGroup(new DriveOutOfTarmac(), new AutonomousFeed())); //driveoutoftarmac not actualy driveoutoftarmac, pathfindtohub
+    //Not sure if spinaround is needed. Probably would be factored into gyro angle compared to start so figure that out
   }
 }
