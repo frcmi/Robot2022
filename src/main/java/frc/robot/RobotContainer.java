@@ -76,14 +76,8 @@ public class RobotContainer {
   //InstantCommand toShift = new InstantCommand(drive::shift, drive);
   RunCommand toDrive = new RunCommand(() -> drive.drive(-leftJoystick.getRawAxis(1), rightJoystick.getRawAxis(1)), drive);
   RunCommand runFlywheel = new RunCommand(() -> shooter.set(), shooter);
-<<<<<<< HEAD
-  ParallelCommandGroup conveyorIntakeIn = new ParallelCommandGroup(new IntakeIn(), new SetConveyorIn()); //problem line
-  ParallelCommandGroup conveyorIntakeOut = new ParallelCommandGroup(new IntakeOut(), new SetConveyorOut());
-
-=======
   ParallelCommandGroup conveyorIntakeIn = new ParallelCommandGroup(new IntakeIn(), new ConveyorIn());
   ParallelCommandGroup conveyorIntakeOut = new ParallelCommandGroup(new IntakeOut(), new ConveyorOut());
->>>>>>> 8c30ddc0368d6545a81aac76a13dc81363582b14
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
