@@ -47,7 +47,7 @@ public class DriveTrain extends SubsystemBase {
   public double getRightMotors() {
       return right.get();
   }
-  public void shift(){ //toggles pistons for gear shifting
+  /*public void shift(){ //toggles pistons for gear shifting
     solenoidLeft1.toggle();
     solenoidLeft2.toggle();
     solenoidRight1.toggle();
@@ -67,5 +67,5 @@ public class DriveTrain extends SubsystemBase {
     solenoidLeft2.set(false);
     solenoidRight1.set(false);
     solenoidRight2.set(false);
-  }
+  }*/
 }

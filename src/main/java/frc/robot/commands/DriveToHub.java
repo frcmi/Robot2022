@@ -8,6 +8,7 @@ import frc.robot.Robot;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class DriveToHub extends CommandBase {
+  boolean done;
   /** Creates a new DriveToHub. */
   public DriveToHub() {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -22,6 +23,9 @@ public class DriveToHub extends CommandBase {
   @Override
   public void execute() {
         Robot.container.drive.drive(1.0, 1.0);
+        if (Robot.container.navx.isMoving() == false) {
+          done = true;
+        }
   }
 
   // Called once the command ends or is interrupted.
@@ -31,6 +35,6 @@ public class DriveToHub extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return done;
   }
 }

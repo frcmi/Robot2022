@@ -63,7 +63,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     //reset sensors??
-    container.drive.setDefaultGear();
+    //container.drive.setDefaultGear();
 
     // schedule the autonomous command (example)
     if (container.getAutonomousCommand() != null) {

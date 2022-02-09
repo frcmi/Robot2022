@@ -20,7 +20,6 @@ import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 
 
-
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -99,7 +98,7 @@ public class RobotContainer {
     extendHangerUpButton.whenHeld(new ExtendHangerUp());
     selectPipelineButton.whenPressed(new SelectPipeline());
     feedButton.whenPressed(new StartFeed());
-    shiftGearButton.whenPressed(new InstantCommand(drive::shift, drive));
+    //shiftGearButton.whenPressed(new InstantCommand(drive::shift, drive));
     shooter.setDefaultCommand(runFlywheel);
   }
 

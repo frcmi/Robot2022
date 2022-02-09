@@ -20,7 +20,7 @@ public class AutonomousCommand extends SequentialCommandGroup {
     //NEEDS A LOT OF WORK
     addCommands(new ParallelCommandGroup(new DriveToHub(), new ShootIfStopped()), new SpinAround(),
     new ParallelCommandGroup(new SeekBall(), new  ParallelCommandGroup(new IntakeIn(), new ConveyorIn())), 
-    new SpinAround(), new ParallelCommandGroup(new DriveToHub(), new ShootIfStopped())); 
+    new SpinAround(), new ParallelCommandGroup(new DriveToHub(), new ShootIfStopped())); //drivetohub not actualy drivetohub, pathfindtohub
     //Can't be driveToHub in line 23, must navigate back to shooting position
   }
 }
