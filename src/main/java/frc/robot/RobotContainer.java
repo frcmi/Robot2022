@@ -90,13 +90,15 @@ public class RobotContainer {
     conveyorInButton.whenHeld(conveyorIntakeIn);
     conveyorOutButton.whenHeld(conveyorIntakeOut);
     selectPipelineButton.whenPressed(new SelectPipeline());
-    feedButton.whenPressed(new StartFeed());
-    shooter.changeSetpoint(0.75);
-    shooter.setDefaultCommand(runFlywheel);
+    feedButton.whenHeld(new StartFeed()); //probably want when held??
     //shiftGearButton.whenPressed(new InstantCommand(drive::shift, drive));
   }
 
 
+  public void setAutonomous() {
+    shooter.changeSetpoint(0.75);
+    shooter.setDefaultCommand(runFlywheel);
+  }
   public void setTeleop() {
     drive.setDefaultCommand(toDrive);
     shooter.changeSetpoint(1.0);
