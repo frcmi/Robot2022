@@ -14,7 +14,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class SelectPipeline extends InstantCommand {
-  int num = 0;
+  int PIPELINE = 0;
   public SelectPipeline() {
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -22,14 +22,14 @@ public class SelectPipeline extends InstantCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() { //0 is red, 1 is blue??
-    if (num % 2 == 0) {
-      Robot.container.table.getEntry("pipeline").setNumber(num); //red
+    if (PIPELINE % 2 == 0) {
+      Robot.container.table.getEntry("pipeline").setNumber(PIPELINE); //red
       System.out.println("red");
-      num++;
+      PIPELINE++;
     } else {
-      Robot.container.table.getEntry("pipeline").setNumber(num); //blue
+      Robot.container.table.getEntry("pipeline").setNumber(PIPELINE); //blue
       System.out.println("blue");
-      num++;
+      PIPELINE++;
     }
 
   }

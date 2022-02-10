@@ -18,7 +18,7 @@ public class Shooter extends SubsystemBase {
   public MotorController shootMotor = shootMotorTalon; 
   PIDController shootMotorPID = new PIDController(1, 1, 0); //adjust
 
-  public Shooter() {
+  public Shooter(){
   }
 
   @Override

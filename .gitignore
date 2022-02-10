@@ -153,9 +153,7 @@ gradle-app.setting
 .project
 .settings/
 bin/
-.gradle/6.0.1/
-.gradle/6.4/
-.gradle/7.1.1/
+.gradle/
 .vscode/
 build/
 
