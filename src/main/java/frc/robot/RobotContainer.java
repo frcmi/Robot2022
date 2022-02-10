@@ -69,7 +69,7 @@ public class RobotContainer {
   public AutonomousPlanB autonomousCommand = new AutonomousPlanB();
   // public SpinAround spinAround = new SpinAround();
   //InstantCommand toShift = new InstantCommand(drive::shift, drive);
-  RunCommand toDrive = new RunCommand(() -> drive.drive(-leftJoystick.getRawAxis(1), rightJoystick.getRawAxis(1)), drive);
+  RunCommand joystickDrive = new RunCommand(() -> drive.drive(-leftJoystick.getRawAxis(1), rightJoystick.getRawAxis(1)), drive);
   RunCommand runFlywheel = new RunCommand(() -> shooter.set(), shooter);
   ParallelCommandGroup conveyorIntakeIn = new ParallelCommandGroup(new IntakeIn(), new ConveyorIn());
   ParallelCommandGroup conveyorIntakeOut = new ParallelCommandGroup(new IntakeOut(), new ConveyorOut());
@@ -100,7 +100,7 @@ public class RobotContainer {
     shooter.setDefaultCommand(runFlywheel);
   }
   public void setTeleop() {
-    drive.setDefaultCommand(toDrive);
+    drive.setDefaultCommand(joystickDrive);
     shooter.changeSetpoint(1.0);
   }
 
