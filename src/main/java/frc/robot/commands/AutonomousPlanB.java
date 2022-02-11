@@ -19,7 +19,7 @@ public class AutonomousPlanB extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand()); 
     //NEEDS A LOT OF WORK
     addCommands(new ParallelCommandGroup(new SeekBall(), new  ParallelCommandGroup(new IntakeIn(), new ConveyorIn())), 
-    new SpinAround(), new ParallelCommandGroup(new DriveOutOfTarmac(), new AutonomousFeed())); //driveoutoftarmac not actualy driveoutoftarmac, pathfindtohub
+    new SpinAround(), new PathfindToStartingPosition(), new AutonomousFeed(5)); //driveoutoftarmac not actualy driveoutoftarmac, pathfindtohub
     //Not sure if spinaround is needed. Probably would be factored into gyro angle compared to start so figure that out
   }
 }
