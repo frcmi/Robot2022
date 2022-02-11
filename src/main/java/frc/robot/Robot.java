@@ -65,6 +65,7 @@ public class Robot extends TimedRobot {
     //reset sensors??
     //container.drive.setDefaultGear();
     container.setAutonomous();
+    container.drive.setEncoders();
 
     // schedule the autonomous command (example)
     if (container.getAutonomousCommand() != null) {

@@ -10,11 +10,13 @@ import edu.wpi.first.wpilibj.Timer;
 
 public class AutonomousFeed extends CommandBase {
   Timer timer = new Timer();
+  double seconds;
   boolean done = false;
   /** Creates a new AutonomousFeed. */
-  public AutonomousFeed() {
+  public AutonomousFeed(double seconds) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(Robot.container.feed);
+    this.seconds = seconds;
   }
 
   // Called when the command is initially scheduled.
@@ -25,7 +27,7 @@ public class AutonomousFeed extends CommandBase {
   @Override
   public void execute() {
     timer.start();
-    while (timer.get() < 2) { //in seconds, change this value
+    while (timer.get() < seconds) { //in seconds, change this value
       Robot.container.feed.setPower(1.0);
     }
     done = true;

@@ -15,6 +15,6 @@ public class AutonomousPlanA extends SequentialCommandGroup {
   public AutonomousPlanA() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new AutonomousFeed(), new DriveOutOfTarmac());
+    addCommands(new AutonomousFeed(2), new DriveOutOfTarmac());
   }
 }

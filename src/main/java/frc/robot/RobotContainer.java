@@ -18,6 +18,7 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
+import static frc.robot.Constants.*;
 
 
 /**
@@ -51,7 +52,6 @@ public class RobotContainer {
   public static DriveTrain drive = new DriveTrain();
   public static Shooter shooter = new Shooter(); //change value
   public static ConveyorBelt conveyorBelt = new ConveyorBelt();
-  public static Navx navx = new Navx();
   public static Feed feed = new Feed();
   
 
@@ -66,7 +66,7 @@ public class RobotContainer {
   // public DriveToHub driveToHub = new DriveToHub();
   // public SeekBall seekBall = new SeekBall();
   // public SelectPipeline selectPipeline = new SelectPipeline();
-  public AutonomousPlanB autonomousCommand = new AutonomousPlanB();
+  public AutonomousPlanA autonomousCommand = new AutonomousPlanA(); //change??
   // public SpinAround spinAround = new SpinAround();
   //InstantCommand toShift = new InstantCommand(drive::shift, drive);
   RunCommand joystickDrive = new RunCommand(() -> drive.drive(-leftJoystick.getRawAxis(1), rightJoystick.getRawAxis(1)), drive);
@@ -96,12 +96,12 @@ public class RobotContainer {
 
 
   public void setAutonomous() {
-    shooter.changeSetpoint(0.75);
+    shooter.changeSetpoint(AUTOSETPOINT);
     shooter.setDefaultCommand(runFlywheel);
   }
   public void setTeleop() {
     drive.setDefaultCommand(joystickDrive);
-    shooter.changeSetpoint(1.0);
+    shooter.changeSetpoint(TELEOPSETPOINT);
   }
 
   /**

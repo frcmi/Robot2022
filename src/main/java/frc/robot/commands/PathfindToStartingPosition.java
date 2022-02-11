@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import java.util.List;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.math.trajectory.constraint.DifferentialDriveVoltageConstraint;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
@@ -13,10 +14,15 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
+import edu.wpi.first.wpilibj2.command.RamseteCommand;
+import edu.wpi.first.math.controller.RamseteController;
+import edu.wpi.first.math.controller.PIDController;
 import frc.robot.Constants;
+import frc.robot.Robot;
 
 
 public class PathfindToStartingPosition extends CommandBase {
+  boolean done = false;
   /** Creates a new PathfindToStartingPosition. */
   public PathfindToStartingPosition() {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -47,7 +53,7 @@ public class PathfindToStartingPosition extends CommandBase {
         // Apply the voltage constraint
         .addConstraint(autoVoltageConstraint);
 
-    Trajectory exampleTrajectory =
+    Trajectory trajectory =
     TrajectoryGenerator.generateTrajectory(
         // Start at the origin facing the +X direction
         new Pose2d(0, 0, new Rotation2d(0)),
@@ -57,6 +63,30 @@ public class PathfindToStartingPosition extends CommandBase {
         new Pose2d(3, 0, new Rotation2d(0)),
         // Pass config
         config);
+
+    RamseteCommand ramseteCommand =
+    new RamseteCommand(
+        trajectory,
+        Robot.container.drive::getPose,
+        new RamseteController(Constants.kRamseteB, Constants.kRamseteZeta),
+        new SimpleMotorFeedforward(
+            Constants.ksVolts,
+            Constants.kvVoltSecondsPerMeter,
+            Constants.kaVoltSecondsSquaredPerMeter),
+        Constants.kDriveKinematics,
+        Robot.container.drive::getWheelSpeeds,
+        new PIDController(Constants.kPDriveVel, 0, 0),
+        new PIDController(Constants.kPDriveVel, 0, 0),
+        // RamseteCommand passes volts to the callback
+        Robot.container.drive::tankDriveVolts,
+        Robot.container.drive);
+
+     // Reset odometry to the starting pose of the trajectory.
+     Robot.container.drive.resetOdometry(trajectory.getInitialPose());
+
+     // Run path following command, then stop at the end.
+    ramseteCommand.andThen(() -> Robot.container.drive.tankDriveVolts(0, 0));
+    done = true;
   }
 
   // Called once the command ends or is interrupted.
@@ -66,6 +96,6 @@ public class PathfindToStartingPosition extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return done;
   }
 }
