@@ -54,7 +54,6 @@ public class RobotContainer {
   public static DriveTrain drive = new DriveTrain();
   public static Shooter shooter = new Shooter(1.0); //change value
   public static ConveyorBelt conveyorBelt = new ConveyorBelt();
-  public static Hanger hanger = new Hanger();
   public static Navx navx = new Navx();
   public static Feed feed = new Feed();
   
@@ -95,8 +94,6 @@ public class RobotContainer {
   private void configureButtonBindingsAndFlywheel() {
     conveyorInButton.whenHeld(conveyorIntakeIn);
     conveyorOutButton.whenHeld(conveyorIntakeOut);
-    extendHangerDownButton.whenHeld(new ExtendHangerDown());
-    extendHangerUpButton.whenHeld(new ExtendHangerUp());
     selectPipelineButton.whenPressed(new SelectPipeline());
     feedButton.whenPressed(new StartFeed());
     shiftGearButton.whenPressed(new InstantCommand(drive::shift, drive));
