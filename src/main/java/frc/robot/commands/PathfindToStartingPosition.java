@@ -53,6 +53,7 @@ public class PathfindToStartingPosition extends CommandBase {
         // Apply the voltage constraint
         .addConstraint(autoVoltageConstraint);
 
+        //Change this!
     Trajectory trajectory =
     TrajectoryGenerator.generateTrajectory(
         // Start at the origin facing the +X direction
