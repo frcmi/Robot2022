@@ -13,8 +13,11 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class IntakeOut extends CommandBase {
-  public IntakeOut() {
-    addRequirements(Robot.container.intake);
+  private Intake m_intake;
+
+  public IntakeOut(Intake p_intake) {
+    m_intake = p_intake;
+    addRequirements(m_intake);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -26,12 +29,12 @@ public class IntakeOut extends CommandBase {
 
   @Override
   public void execute() {
-    Robot.container.intake.setPower(-.50);
+    m_intake.setPower(-.50);
   }
 
   @Override
   public void end(boolean interrupted) {
-    Robot.container.intake.stop();
+    m_intake.stop();
   }
 
   // Returns true when the command should end. FIX THIS!!!

@@ -19,43 +19,45 @@ import edu.wpi.first.math.controller.RamseteController;
 import edu.wpi.first.math.controller.PIDController;
 import frc.robot.Constants;
 import frc.robot.Robot;
-
+import frc.robot.subsystems.DriveTrain;
 
 public class PathfindToStartingPosition extends CommandBase {
   boolean done = false;
+  private DriveTrain m_drive;
+
   /** Creates a new PathfindToStartingPosition. */
-  public PathfindToStartingPosition() {
+  public PathfindToStartingPosition(DriveTrain p_drive) {
+    m_drive = p_drive;
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(m_drive);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    var autoVoltageConstraint =
-        new DifferentialDriveVoltageConstraint(
-            new SimpleMotorFeedforward(
-                Constants.ksVolts,
-                Constants.kvVoltSecondsPerMeter,
-                Constants.kaVoltSecondsSquaredPerMeter),
-            Constants.kDriveKinematics,
-            10);
+    var autoVoltageConstraint = new DifferentialDriveVoltageConstraint(
+        new SimpleMotorFeedforward(
+            Constants.ksVolts,
+            Constants.kvVoltSecondsPerMeter,
+            Constants.kaVoltSecondsSquaredPerMeter),
+        Constants.kDriveKinematics,
+        10);
 
-    TrajectoryConfig config =
-    new TrajectoryConfig(
-            Constants.kMaxSpeedMetersPerSecond,
-            Constants.kMaxAccelerationMetersPerSecondSquared)
-        // Add kinematics to ensure max speed is actually obeyed
-        .setKinematics(Constants.kDriveKinematics)
-        // Apply the voltage constraint
-        .addConstraint(autoVoltageConstraint);
+    TrajectoryConfig config = new TrajectoryConfig(
+        Constants.kMaxSpeedMetersPerSecond,
+        Constants.kMaxAccelerationMetersPerSecondSquared)
+            // Add kinematics to ensure max speed is actually obeyed
+            .setKinematics(Constants.kDriveKinematics)
+            // Apply the voltage constraint
+            .addConstraint(autoVoltageConstraint);
 
-        //Change this!
-    Trajectory trajectory =
-    TrajectoryGenerator.generateTrajectory(
+    // Change this!
+    Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
         // Start at the origin facing the +X direction
         new Pose2d(0, 0, new Rotation2d(0)),
         // Pass through these two interior waypoints, making an 's' curve path
@@ -65,34 +67,34 @@ public class PathfindToStartingPosition extends CommandBase {
         // Pass config
         config);
 
-    RamseteCommand ramseteCommand =
-    new RamseteCommand(
+    RamseteCommand ramseteCommand = new RamseteCommand(
         trajectory,
-        Robot.container.drive::getPose,
+        m_drive::getPose,
         new RamseteController(Constants.kRamseteB, Constants.kRamseteZeta),
         new SimpleMotorFeedforward(
             Constants.ksVolts,
             Constants.kvVoltSecondsPerMeter,
             Constants.kaVoltSecondsSquaredPerMeter),
         Constants.kDriveKinematics,
-        Robot.container.drive::getWheelSpeeds,
+        m_drive::getWheelSpeeds,
         new PIDController(Constants.kPDriveVel, 0, 0),
         new PIDController(Constants.kPDriveVel, 0, 0),
         // RamseteCommand passes volts to the callback
-        Robot.container.drive::tankDriveVolts,
-        Robot.container.drive);
+        m_drive::tankDriveVolts,
+        m_drive);
 
-     // Reset odometry to the starting pose of the trajectory.
-     Robot.container.drive.resetOdometry(trajectory.getInitialPose());
+    // Reset odometry to the starting pose of the trajectory.
+    m_drive.resetOdometry(trajectory.getInitialPose());
 
-     // Run path following command, then stop at the end.
-    ramseteCommand.andThen(() -> Robot.container.drive.tankDriveVolts(0, 0));
+    // Run path following command, then stop at the end.
+    ramseteCommand.andThen(() -> m_drive.tankDriveVolts(0, 0));
     done = true;
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+  }
 
   // Returns true when the command should end.
   @Override

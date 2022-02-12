@@ -13,35 +13,36 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class IntakeIn extends CommandBase {
-  private Intake intake;
-  public IntakeIn() {
-    addRequirements(Robot.container.intake);
+  private Intake m_intake;
+
+  public IntakeIn(Intake p_intake) {
+    m_intake = p_intake;
+    addRequirements(m_intake);
     // Use addRequirements() here to declare subsystem dependencies.
-    intake = Robot.container.intake;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    //System.out.println("intake in ran");
+    // System.out.println("intake in ran");
   }
 
   @Override
   public void execute() {
-    Robot.container.intake.setPower(.10);
+    m_intake.setPower(.10);
   }
-  
+
   @Override
   public void end(boolean interrupted) {
-    Robot.container.intake.stop();
-    //System.out.println("intake in stopped");
+    m_intake.stop();
+    // System.out.println("intake in stopped");
 
   }
-// Returns true when the command should end. FIX THIS!!!
-@Override
-public boolean isFinished() {
-  return false;
-}
+
+  // Returns true when the command should end. FIX THIS!!!
+  @Override
+  public boolean isFinished() {
+    return false;
+  }
 
 }
-
