@@ -50,32 +50,34 @@ public class RobotContainer {
   JoystickButton selectPipelineButton = new JoystickButton(rightJoystick, 2);
 
   // Subsystems
-  private static Intake intake = new Intake();
-  public static DriveTrain drive = new DriveTrain(); // if robot.java is head this should be private, if isnt head ublic
-  private static Shooter shooter = new Shooter(); // change value
-  private static ConveyorBelt cBelt = new ConveyorBelt();
-  private static Feed feed = new Feed();
+  public static Intake intake = new Intake();
+  public static DriveTrain drive = new DriveTrain();
+  public static Shooter shooter = new Shooter(); //change value
+  public static ConveyorBelt conveyorBelt = new ConveyorBelt();
+  public static Navx navx = new Navx();
+  public static Feed feed = new Feed();
+  
 
-  // Commands
-
-  public IntakeOut intakeOut = new IntakeOut(intake);
-  public ConveyorIn conveyorIn = new ConveyorIn(cBelt);
-  public IntakeIn intakeIn = new IntakeIn(intake);
-  public ConveyorOut conveyorOut = new ConveyorOut(cBelt);
-  public StartFeed startFeed = new StartFeed(feed);
-  public DriveOutOfTarmac driveOutOfTarmac = new DriveOutOfTarmac(drive);
-  public SeekBall seekBall = new SeekBall(drive, table);
-  public SelectPipeline selectPipeline = new SelectPipeline(table);
-  public AutonomousPlanA autonomousCommand = new AutonomousPlanA(drive, feed); // change??
-  // public AutonomousPlanB autonomousCommand = new AutonomousPlanB();
-  // public AutonomousFeed autonomousCommand = new AutonomousFeed();
-  public SpinAround spinAround = new SpinAround(drive);
-  // InstantCommand toShift = new InstantCommand(drive::shift, drive);
-  RunCommand joystickDrive = new RunCommand(() -> drive.drive(-leftJoystick.getRawAxis(1), rightJoystick.getRawAxis(1)),
-      drive);
+  //Commands
+  
+  // public IntakeIn intakeIn = new IntakeIn();
+  // public IntakeOut intakeOut = new IntakeOut();
+  // public SetConveyorIn conveyorIn = new SetConveyorIn();
+  // public SetConveyorOut conveyorOut = new SetConveyorOut();
+  // public ExtendHangerDown extendHangerDown = new ExtendHangerDown();
+  // public ExtendHangerUp extendHangerUp = new ExtendHangerUp();
+  // public StartFeed startFeed = new StartFeed();
+  // public ShootIfStopped shootIfStopped = new ShootIfStopped();
+  // public DriveToHub driveToHub = new DriveToHub();
+  // public SeekBall seekBall = new SeekBall();
+  // public SelectPipeline selectPipeline = new SelectPipeline();
+  public AutonomousPlanA autonomousCommand = new AutonomousPlanA(drive, feed);
+  // public SpinAround spinAround = new SpinAround();
+  //InstantCommand toShift = new InstantCommand(drive::shift, drive);
+  RunCommand joystickDrive = new RunCommand(() -> drive.drive(-leftJoystick.getRawAxis(1), rightJoystick.getRawAxis(1)), drive);
   RunCommand runFlywheel = new RunCommand(() -> shooter.set(), shooter);
-  ParallelCommandGroup conveyorIntakeIn = new ParallelCommandGroup(new IntakeIn(intake), new ConveyorIn(cBelt));
-  ParallelCommandGroup conveyorIntakeOut = new ParallelCommandGroup(new IntakeOut(intake), new ConveyorOut(cBelt));
+  ParallelCommandGroup conveyorIntakeIn = new ParallelCommandGroup(new IntakeIn(intake), new ConveyorIn(conveyorBelt));
+  ParallelCommandGroup conveyorIntakeOut = new ParallelCommandGroup(new IntakeOut(intake), new ConveyorOut(conveyorBelt));
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
