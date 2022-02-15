@@ -13,8 +13,8 @@ import edu.wpi.first.cscore.CvSource;
 import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
-
-import frc.robot.RobotContainer;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.RobotContainer; 
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -49,22 +49,28 @@ public class Robot extends TimedRobot {
         outputStream.putFrame(output);
       }
     }).start();
-
-    container.initialize(); //might not work because takes joystick inputs while in autonomous??
+ 
     System.out.println("robot init");
+    if (container.table.getEntry("pipeline").getDouble(0) == 0) {
+      System.out.println("looking for red balls");
+    } else {
+      System.out.println("looking for blue balls");
+    }
+  
   }
 
   /** This function is run once each time the robot enters autonomous mode. */
   @Override
   public void autonomousInit() {
     //reset sensors??
-    container.drive.setDefault();
+    container.drive.setDefaultGear();
 
     // schedule the autonomous command (example)
     if (container.getAutonomousCommand() != null) {
       container.autonomousCommand.schedule();
     }
-    //sequential command probably: shooter on, shootathub (drivetohub, feed) , collectball (seekball while intake on)
+    //sequential command probably: shooter on, shootathub (drivetohub, feed) , 
+    //collectball (seekball while intake on), returnToShoot, feed
     }
 
   /** This function is called periodically during autonomous. */
@@ -77,18 +83,19 @@ public class Robot extends TimedRobot {
   /** This function is called once each time the robot enters teleoperated mode. */
   @Override
   public void teleopInit() {
-    //reset sensors??
+    //reset sensors/subsystems??
+    container.setTeleop();
   }
 
   /** This function is called periodically during teleoperated mode. */
   @Override
   public void teleopPeriodic() {
-    System.out.println(container.table.getEntry("tv").getDouble(0));
-    System.out.println(container.table.getEntry("tx").getDouble(0));
-    System.out.println();
+    //just testing networktables
+    //System.out.println(container.table.getEntry("tv").getDouble(0));
+    //System.out.println(container.table.getEntry("tx").getDouble(0));
+    //System.out.println();
+    CommandScheduler.getInstance().run();
 
-    
-    
   }
 
   /** This function is called once each time the robot enters test mode. */

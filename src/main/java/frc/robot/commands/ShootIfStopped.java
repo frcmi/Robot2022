@@ -24,7 +24,7 @@ public class ShootIfStopped extends CommandBase {
   @Override
   public void execute() {
     if (!Robot.container.navx.isMoving()) {
-      Robot.container.feed.setPower(1.0); //change
+      Robot.container.feed.setPower(1.0); //change?
     }
     done = true;
   }

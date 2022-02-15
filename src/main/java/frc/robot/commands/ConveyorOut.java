@@ -9,14 +9,14 @@ import frc.robot.subsystems.ConveyorBelt;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class SetConveyorOut extends CommandBase {
+public class ConveyorOut extends CommandBase {
   // private MotorController conveyorMotor;
   private ConveyorBelt conveyorBelt;
   private Boolean done;
   // private double speed; 
 
   /** Creates a new Blank. */
-  public SetConveyorOut() {
+  public ConveyorOut() {
      addRequirements(Robot.container.conveyorBelt);
       conveyorBelt = Robot.container.conveyorBelt;
   }

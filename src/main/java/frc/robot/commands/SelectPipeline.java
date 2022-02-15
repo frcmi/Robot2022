@@ -33,8 +33,4 @@ public class SelectPipeline extends InstantCommand {
     }
 
   }
-  public boolean isFinished() {
-    return false;
-  }
-
 }

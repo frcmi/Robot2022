@@ -24,7 +24,7 @@ public class IntakeIn extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-
+    //System.out.println("intake in ran");
   }
 
   @Override
@@ -36,6 +36,8 @@ public class IntakeIn extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     Robot.container.intake.stop();
+    //System.out.println("intake in stopped");
+
   }
 // Returns true when the command should end. FIX THIS!!!
 @Override

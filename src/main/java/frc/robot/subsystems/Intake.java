@@ -6,14 +6,12 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 public class Intake extends SubsystemBase {
   /** Creates a new Shooter. */
-  private CANSparkMax intakeMotorNEO = new CANSparkMax(4, MotorType.kBrushless);
-  public MotorController intakeMotor = intakeMotorNEO; 
+  public WPI_TalonFX intakeMotorTalon = new WPI_TalonFX(8);
+  public MotorController intakeMotor = intakeMotorTalon; 
   public Intake() {}
 
   @Override

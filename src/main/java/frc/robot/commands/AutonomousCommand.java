@@ -16,10 +16,12 @@ public class AutonomousCommand extends SequentialCommandGroup {
   /** Creates a new AutonomousCommand. */
   public AutonomousCommand() {
     // Add your commands in the addCommands() call, e.g.
-    // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new ParallelCommandGroup(Robot.container.driveToHub, Robot.container.startFeed), 
-    new ParallelCommandGroup(Robot.container.seekBall, Robot.container.conveyorIn), 
-    new ParallelCommandGroup(Robot.container.driveToHub, Robot.container.startFeed));
+    // addCommands(new FooCommand(), new BarCommand()); 
+    //NEEDS A LOT OF WORK
+    addCommands(new ParallelCommandGroup(new DriveToHub(), new ShootIfStopped()), new SpinAround(),
+    new ParallelCommandGroup(new SeekBall(), new  ParallelCommandGroup(new IntakeIn(), new ConveyorIn())), 
+    new SpinAround(), new ParallelCommandGroup(new DriveToHub(), new ShootIfStopped())); 
+    //Can't be driveToHub in line 23, must navigate back to shooting position
   }
   public boolean isFinished() {
     return false;
