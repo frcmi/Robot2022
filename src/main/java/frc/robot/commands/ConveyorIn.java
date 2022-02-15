@@ -11,39 +11,37 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class ConveyorIn extends CommandBase {
   // private MotorController conveyorMotor;
-  private ConveyorBelt conveyorBelt;
-  private Boolean done;
-  // private double speed; 
+  private ConveyorBelt m_cBelt;
+  // private double speed;
 
   /** Creates a new Blank. */
-  public ConveyorIn() {
-      addRequirements(Robot.container.conveyorBelt);
-      conveyorBelt = Robot.container.conveyorBelt;
-      // conveyorMotor = conveyorBelt.conveyorMotor;
-      // speed = conveyorBelt.speed;
+  public ConveyorIn(ConveyorBelt p_cBelt) {
+    m_cBelt = p_cBelt;
+    addRequirements(m_cBelt);
+    // conveyorMotor = conveyorBelt.conveyorMotor;
+    // speed = conveyorBelt.speed;
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() 
-  {
-    conveyorBelt.setPower(1);
-    done = true;
+  public void execute() {
+    m_cBelt.setPower(0.10);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    conveyorBelt.stop();
+    m_cBelt.stop();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return done ? true : false;
+    return false;
   }
 }

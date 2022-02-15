@@ -11,37 +11,35 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class StartFeed extends CommandBase {
   // private MotorController conveyorMotor;
-  private Feed feed;
-  private Boolean done;
-  // private double speed; 
+  private Feed m_feed;
+  // private double speed;
 
   /** Creates a new Blank. */
-  public StartFeed() {
-    addRequirements(Robot.container.feed);
-    feed = Robot.container.feed;
+  public StartFeed(Feed p_feed) {
+    addRequirements(p_feed);
+    m_feed = p_feed;
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() 
-  {
-    feed.setPower(1);
-    done = true;
+  public void execute() {
+    m_feed.setPower(1);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    feed.stop();
+    m_feed.stop();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return done ? true : false;
+    return false;
   }
 }

@@ -63,14 +63,15 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     //reset sensors??
-    container.drive.setDefaultGear();
+    //container.drive.setDefaultGear();
+    container.setAutonomous();
+    container.drive.setEncoders();
 
     // schedule the autonomous command (example)
     if (container.getAutonomousCommand() != null) {
       container.autonomousCommand.schedule();
     }
-    //sequential command probably: shooter on, shootathub (drivetohub, feed) , 
-    //collectball (seekball while intake on), returnToShoot, feed
+    
     }
 
   /** This function is called periodically during autonomous. */
@@ -91,9 +92,9 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     //just testing networktables
-    //System.out.println(container.table.getEntry("tv").getDouble(0));
-    //System.out.println(container.table.getEntry("tx").getDouble(0));
-    //System.out.println();
+    System.out.println("tv" + container.table.getEntry("tv").getDouble(0));
+    System.out.println("tx" + container.table.getEntry("tx").getDouble(0));
+    System.out.println();
     CommandScheduler.getInstance().run();
 
   }

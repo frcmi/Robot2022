@@ -17,11 +17,8 @@ public class Shooter extends SubsystemBase {
   public WPI_TalonFX shootMotorTalon = new WPI_TalonFX(7);
   public MotorController shootMotor = shootMotorTalon; 
   PIDController shootMotorPID = new PIDController(1, 1, 0); //adjust
-  double setpoint;
 
-  public Shooter(double setpoint) {
-      this.setpoint = setpoint;
-      shootMotorPID.setSetpoint(setpoint);
+  public Shooter(){
   }
 
   @Override
@@ -35,6 +32,10 @@ public class Shooter extends SubsystemBase {
 
   public void stop() {
     shootMotor.set(0.0);
+  }
+
+  public void changeSetpoint(double setpoint) {
+    shootMotorPID.setSetpoint(setpoint);
   }
 
 
