@@ -34,11 +34,11 @@ public class SeekBall extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() { //Find way for this to run repeatedly
-    while (Robot.container.table.getEntry("tv").getDouble(0) == 0.0) {
+    while (m_table.getEntry("tv").getDouble(0) == 0.0) {
       steeringAdjust = 0.3;
     } 
-    while (Robot.container.table.getEntry("tv").getDouble(0) != 0.0) {
-      headingError = Robot.container.table.getEntry("tx").getDouble(0);
+    while (m_table.getEntry("tv").getDouble(0) != 0.0) {
+      headingError = m_table.getEntry("tx").getDouble(0);
       steeringAdjust = Kp * headingError;
       m_drive.drive(m_drive.getLeftMotors() +steeringAdjust, m_drive.getRightMotors() -steeringAdjust);
     }
