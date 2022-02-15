@@ -27,6 +27,12 @@ public class Constants {
     public static final double kMaxSpeedMetersPerSecond = 3;
     public static final double kMaxAccelerationMetersPerSecondSquared = 3;
 
+    public static final float GEAR_RATIO = (float) 11/120; //1 falcon rotation = 11/120 wheel rotation
+    public static final double WHEEL_RADIUS_METERS = 0.0762;
+    public static final double DISTANCE_PER_WHEEL_ROTATION = 2 * WHEEL_RADIUS_METERS * Math.PI;
+    public static final double DISTANCE_PER_MOTOR_ROTATION = GEAR_RATIO * DISTANCE_PER_WHEEL_ROTATION;
+
+
     public static final double kTrackwidthMeters = 0.69;
     public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(kTrackwidthMeters);
 

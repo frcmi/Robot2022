@@ -17,7 +17,7 @@ public class SeekBall extends CommandBase {
   double steeringAdjust = 0.0;
   double headingError = 0.0;
   final double Kp = 1.0; // CHANGE
-  // PIDController shootMotorPID = new PIDController(1, 1, 0); //adjust
+  boolean done = false;
 
   /** Creates a new SeekBall. */
   public SeekBall(DriveTrain p_DriveTrain, NetworkTable p_table) {
@@ -29,31 +29,30 @@ public class SeekBall extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() { // Find way for this to run repeatedly
-    if (m_table.getEntry("tv").getDouble(0) == 0.0) {
+  public void execute() { //Find way for this to run repeatedly
+    while (Robot.container.table.getEntry("tv").getDouble(0) == 0.0) {
       steeringAdjust = 0.3;
-    } else {
-      headingError = m_table.getEntry("tx").getDouble(0);
+    } 
+    while (Robot.container.table.getEntry("tv").getDouble(0) != 0.0) {
+      headingError = Robot.container.table.getEntry("tx").getDouble(0);
       steeringAdjust = Kp * headingError;
+      m_drive.drive(m_drive.getLeftMotors() +steeringAdjust, m_drive.getRightMotors() -steeringAdjust);
     }
-    m_drive.drive(m_drive.getLeftMotors() + steeringAdjust,
-        m_drive.getRightMotors() - steeringAdjust);
-
+    done = true;
+    
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end. FIX THIS!!!
   @Override
   public boolean isFinished() {
-    return false;
+    return done;
   }
 }
