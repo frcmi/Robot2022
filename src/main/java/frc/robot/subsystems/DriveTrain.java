@@ -36,6 +36,7 @@ public class DriveTrain extends SubsystemBase {
   //autonomous and encoders
   public AHRS ahrs = new AHRS();
   private final DifferentialDriveOdometry odometry = new DifferentialDriveOdometry(ahrs.getRotation2d());
+  public static Pose2d startingPose = new Pose2d();
 
   
   
@@ -79,6 +80,7 @@ public class DriveTrain extends SubsystemBase {
 
   public void resetOdometry(Pose2d pose) {
     resetEncoders();
+    startingPose = pose;
     odometry.resetPosition(pose, ahrs.getRotation2d());
   }
 

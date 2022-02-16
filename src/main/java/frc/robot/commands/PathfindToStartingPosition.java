@@ -56,14 +56,13 @@ public class PathfindToStartingPosition extends CommandBase {
             // Apply the voltage constraint
             .addConstraint(autoVoltageConstraint);
 
-    // Change this!
     Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
-        // Start at the origin facing the +X direction
-        new Pose2d(0, 0, new Rotation2d(0)),
-        // Pass through these two interior waypoints, making an 's' curve path
-        List.of(new Translation2d(1, 1), new Translation2d(2, -1)),
-        // End 3 meters straight ahead of where we started, facing forward
-        new Pose2d(3, 0, new Rotation2d(0)),
+        // gets current location in terms of pose
+        m_drive.getPose().relativeTo(DriveTrain.startingPose),
+        // no interior waypoints
+        null,
+        // go to where bot started (starting pose)...can add translation2d if robot is placed at edge of tarmac
+        m_drive.startingPose,
         // Pass config
         config);
 

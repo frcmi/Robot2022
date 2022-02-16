@@ -14,6 +14,7 @@ import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.math.geometry.Pose2d;
 import frc.robot.RobotContainer; 
 
 /**
@@ -64,8 +65,8 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     //reset sensors??
     //container.drive.setDefaultGear();
+    container.drive.resetOdometry(new Pose2d());
     container.setAutonomous();
-    container.drive.setEncoders();
 
     // schedule the autonomous command (example)
     if (container.getAutonomousCommand() != null) {
