@@ -72,14 +72,14 @@ public class DriveTrain extends SubsystemBase {
   }
 
   //Autonomous
-  public boolean isMoving() {
+  /*public boolean isMoving() {
     return ahrs.isMoving();
     /*if (ahrs.getWorldLinearAccelX() > 0.1 && ahrs.getWorldLinearAccelY() > 0.1 && ahrs.getWorldLinearAccelZ() > 0.1) {
       return true;
     } else {
       return false;
-    }*/
-  }
+    }
+  }*/
 
   public Pose2d getPose() { //position related to how much moved (distance) and angular movement (rotation)
     return odometry.getPoseMeters();
@@ -91,6 +91,7 @@ public class DriveTrain extends SubsystemBase {
 
   public void resetOdometry(Pose2d pose) { //resets position to input parameter pose
     resetEncoders();
+    zeroHeading();
     startingPose = pose;
     odometry.resetPosition(pose, ahrs.getRotation2d());
   }

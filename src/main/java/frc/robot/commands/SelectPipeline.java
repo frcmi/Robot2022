@@ -13,7 +13,6 @@ import edu.wpi.first.networktables.NetworkTable;
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class SelectPipeline extends InstantCommand {
-  int pipeline = 0;
   private NetworkTable table;
 
   public SelectPipeline(NetworkTable table) {
@@ -23,17 +22,10 @@ public class SelectPipeline extends InstantCommand {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() { // 0 is red, 1 is blue??
-    if (pipeline % 2 == 0) {
-      table.getEntry("pipeline").setNumber(pipeline); // red
-      System.out.println("red");
-      pipeline++;
-    } else {
-      table.getEntry("pipeline").setNumber(pipeline); // blue
-      System.out.println("blue");
-      pipeline++;
-    }
-
+  public void initialize() {
+    table.getEntry("pipeline").setNumber((table.getEntry("pipeline").getDouble(0) + 1) % 2);
+    System.out.println("pipeline set to: " + table.getEntry("pipeline").getDouble(0));
+    System.out.println("O is red, 1 is blue");
   }
 
 }
