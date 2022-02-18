@@ -39,14 +39,12 @@ public class RobotContainer {
   NetworkTableEntry ty = table.getEntry("ty");
   NetworkTableEntry ta = table.getEntry("ta");
 
-  // Buttons and Joystick
-
+  // Buttons and Joysticks
   Joystick leftJoystick = new Joystick(0);
   Joystick rightJoystick = new Joystick(1);
   public JoystickButton conveyorInButton = new JoystickButton(leftJoystick, 2);
   public JoystickButton conveyorOutButton = new JoystickButton(leftJoystick, 3);
-  // JoystickButton shiftGearButton = new JoystickButton(rightJoystick, 1); //go
-  // fast
+  // JoystickButton shiftGearButton = new JoystickButton(rightJoystick, 1);
   JoystickButton feedButton = new JoystickButton(rightJoystick, 1);
   JoystickButton selectPipelineButton = new JoystickButton(rightJoystick, 2);
 
@@ -57,9 +55,7 @@ public class RobotContainer {
   public static ConveyorBelt conveyorBelt = new ConveyorBelt();
   public static Feed feed = new Feed();
   
-
   //Commands
-
   public AutonomousPlanA autonomousCommand = new AutonomousPlanA(drive, feed);
   public AutonomousPlanB backupAutonomous = new AutonomousPlanB(drive, table, intake, conveyorBelt, feed);
   //InstantCommand toShift = new InstantCommand(drive::shift, drive);
