@@ -14,24 +14,27 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class AutonomousPlanB extends SequentialCommandGroup {
-  private DriveTrain m_drive;
-  private NetworkTable m_table;
-  private Intake m_intake;
-  private ConveyorBelt m_cBelt;
-  private Feed m_feed;
+  private DriveTrain drive;
+  private NetworkTable table;
+  private Intake intake;
+  private ConveyorBelt cBelt;
+  private Feed feed;
 
   /** Creates a new AutonomousCommand. */
-  public AutonomousPlanB(DriveTrain p_drive, NetworkTable p_table, Intake p_intake, ConveyorBelt p_cBelt, Feed p_feed) {
-    m_drive = p_drive;
-    m_table = p_table;
-    m_intake = p_intake;
-    m_cBelt = p_cBelt;
-    m_feed = p_feed;
-    addRequirements(m_drive, m_intake, m_cBelt, m_feed);
+  public AutonomousPlanB(DriveTrain drive, NetworkTable table, Intake intake, ConveyorBelt cBelt, Feed feed) {
+    this.drive = drive;
+    this.table = table;
+    this.intake = intake;
+    this.cBelt = cBelt;
+    this.feed = feed;
     // Add your commands in the addCommands() call, e.g.
-    addCommands(new ParallelCommandGroup(new SeekBall(m_drive, m_table)),
-        new ParallelCommandGroup(new IntakeIn(m_intake), new ConveyorIn(m_cBelt)),
-        new SpinAround(m_drive), new PathfindToStartingPosition(m_drive), new AutonomousFeed(5, m_feed)); // driveoutoftarmac
+    // addCommands(new FooCommand(), new BarCommand());
+    // NEEDS A LOT OF WORK
+    addCommands(new ParallelCommandGroup(new SeekBall(drive, table)),
+        new ParallelCommandGroup(new IntakeIn(intake), new ConveyorIn(cBelt)),
+        new SpinAround(drive), new PathfindToStartingPosition(drive), new AutonomousFeed(5, feed)); // driveoutoftarmac
+    // not actualy
+    // driveoutoftarmac, pathfindtohub
     // Not sure if spinaround is needed. Probably would be factored into gyro angle
   }
 }

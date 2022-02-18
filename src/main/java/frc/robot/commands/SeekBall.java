@@ -5,14 +5,12 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Robot;
 import frc.robot.subsystems.DriveTrain;
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.networktables.NetworkTable;
 
 public class SeekBall extends CommandBase {
-  private DriveTrain m_drive;
-  private NetworkTable m_table;
+  private DriveTrain drive;
+  private NetworkTable table;
 
   double steeringAdjust = 0.0;
   double headingError = 0.0;
@@ -20,11 +18,11 @@ public class SeekBall extends CommandBase {
   boolean done = false;
 
   /** Creates a new SeekBall. */
-  public SeekBall(DriveTrain p_DriveTrain, NetworkTable p_table) {
-    m_drive = p_DriveTrain;
-    m_table = p_table;
+  public SeekBall(DriveTrain drive, NetworkTable table) {
+    this.drive = drive;
+    this.table = table;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(m_drive);
+    addRequirements(this.drive);
   }
 
   // Called when the command is initially scheduled.
@@ -34,13 +32,13 @@ public class SeekBall extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() { //Find way for this to run repeatedly
-    while (m_table.getEntry("tv").getDouble(0) == 0.0) {
+    while (table.getEntry("tv").getDouble(0) == 0.0) {
       steeringAdjust = 0.3;
     } 
-    while (m_table.getEntry("tv").getDouble(0) != 0.0) {
-      headingError = m_table.getEntry("tx").getDouble(0);
+    while (table.getEntry("tv").getDouble(0) != 0.0) {
+      headingError = table.getEntry("tx").getDouble(0);
       steeringAdjust = Kp * headingError;
-      m_drive.drive(m_drive.getLeftMotors() +steeringAdjust, m_drive.getRightMotors() -steeringAdjust);
+      drive.drive(drive.getLeftMotors() +steeringAdjust, drive.getRightMotors() -steeringAdjust);
     }
     done = true;
     

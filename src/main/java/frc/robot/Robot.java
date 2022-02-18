@@ -24,7 +24,7 @@ import frc.robot.RobotContainer;
  * directory.
  */
 public class Robot extends TimedRobot {
-  public static RobotContainer container = new RobotContainer();
+  public static final RobotContainer container = new RobotContainer();
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -63,8 +63,8 @@ public class Robot extends TimedRobot {
   /** This function is run once each time the robot enters autonomous mode. */
   @Override
   public void autonomousInit() {
-    //reset sensors??
     //container.drive.setDefaultGear();
+    
     container.drive.resetOdometry(new Pose2d());
     container.setAutonomous();
 

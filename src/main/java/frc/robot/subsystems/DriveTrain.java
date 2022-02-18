@@ -1,18 +1,18 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
-import edu.wpi.first.wpilibj.motorcontrol.MotorController;
-import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
+//import edu.wpi.first.wpilibj.Solenoid;
+//import edu.wpi.first.wpilibj.PneumaticsModuleType;
+
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.kauailabs.navx.frc.AHRS;
-import com.ctre.phoenix.motorcontrol.*; //change this import to be specific to feedback device
-import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+
 import static frc.robot.Constants.*;
 
 public class DriveTrain extends SubsystemBase {
@@ -58,7 +58,7 @@ public class DriveTrain extends SubsystemBase {
   public double getLeftMotors() {
     return left.get();
   }
-  
+
   public double getRightMotors() {
       return right.get();
   }

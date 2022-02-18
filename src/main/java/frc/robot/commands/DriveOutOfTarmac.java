@@ -11,13 +11,13 @@ import edu.wpi.first.wpilibj.Timer;
 public class DriveOutOfTarmac extends CommandBase {
   Timer timer = new Timer();
   boolean done = false;
-  private DriveTrain m_drive;
+  private DriveTrain drive;
 
   /** Creates a new DriveToHub. */
-  public DriveOutOfTarmac(DriveTrain p_drive) {
-    m_drive = p_drive;
+  public DriveOutOfTarmac(DriveTrain drive) {
+    this.drive = drive;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(m_drive);
+    addRequirements(this.drive);
   }
 
   // Called when the command is initially scheduled.
@@ -30,7 +30,7 @@ public class DriveOutOfTarmac extends CommandBase {
   public void execute() {
     timer.start();
     while (timer.get() < 5) { // in seconds, change this value
-      m_drive.drive(-1.0, -1.0);
+      drive.drive(-1.0, -1.0);
     }
     done = true;
 
@@ -39,7 +39,7 @@ public class DriveOutOfTarmac extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_drive.stop();
+    drive.stop();
   }
 
   // Returns true when the command should end. MAKE IT STOP

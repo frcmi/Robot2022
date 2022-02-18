@@ -12,11 +12,11 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class IntakeIn extends CommandBase {
-  private Intake m_intake;
+  private Intake intake;
 
-  public IntakeIn(Intake p_intake) {
-    m_intake = p_intake;
-    addRequirements(m_intake);
+  public IntakeIn(Intake intake) {
+    this.intake = intake;
+    addRequirements(this.intake);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -27,12 +27,12 @@ public class IntakeIn extends CommandBase {
 
   @Override
   public void execute() {
-    m_intake.setPower(.10);
+    intake.setPower(.10);
   }
 
   @Override
   public void end(boolean interrupted) {
-    m_intake.stop();
+    intake.stop();
   }
 
   @Override

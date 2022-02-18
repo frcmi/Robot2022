@@ -8,12 +8,12 @@ import frc.robot.subsystems.ConveyorBelt;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class ConveyorOut extends CommandBase {
-  private ConveyorBelt m_cBelt;
+  private ConveyorBelt cBelt;
 
   /** Creates a new Blank. */
-  public ConveyorOut(ConveyorBelt p_cBelt) {
-    m_cBelt = p_cBelt;
-    addRequirements(m_cBelt);
+  public ConveyorOut(ConveyorBelt cBelt) {
+    this.cBelt = cBelt;
+    addRequirements(this.cBelt);
   }
 
   // Called when the command is initially scheduled.
@@ -24,13 +24,13 @@ public class ConveyorOut extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_cBelt.setPower(-0.50);
+    cBelt.setPower(-0.50);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_cBelt.stop();
+    cBelt.stop();
   }
 
   // Returns true when the command should end.
