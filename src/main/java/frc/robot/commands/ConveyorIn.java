@@ -4,20 +4,18 @@
 
 package frc.robot.commands;
 
-import frc.robot.Robot;
 import frc.robot.subsystems.ConveyorBelt;
-import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class ConveyorIn extends CommandBase {
   // private MotorController conveyorMotor;
-  private ConveyorBelt m_cBelt;
+  private ConveyorBelt cBelt;
   // private double speed;
 
   /** Creates a new Blank. */
-  public ConveyorIn(ConveyorBelt p_cBelt) {
-    m_cBelt = p_cBelt;
-    addRequirements(m_cBelt);
+  public ConveyorIn(ConveyorBelt cBelt) {
+    this.cBelt = cBelt;
+    addRequirements(cBelt);
     // conveyorMotor = conveyorBelt.conveyorMotor;
     // speed = conveyorBelt.speed;
   }
@@ -30,13 +28,13 @@ public class ConveyorIn extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_cBelt.setPower(0.10);
+    cBelt.setPower(0.10);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_cBelt.stop();
+    cBelt.stop();
   }
 
   // Returns true when the command should end.

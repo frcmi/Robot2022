@@ -5,21 +5,19 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Robot;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.subsystems.*;
 
 public class AutonomousFeed extends CommandBase {
-  private Feed m_feed;
+  private Feed feed;
   Timer timer = new Timer();
   double seconds;
   boolean done = false;
 
   /** Creates a new AutonomousFeed. */
-  public AutonomousFeed(double seconds, Feed p_feed) {
+  public AutonomousFeed(double seconds, Feed feed) {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_feed = p_feed;
-    addRequirements(m_feed);
+    this.feed = feed;
     this.seconds = seconds;
   }
 
@@ -33,7 +31,7 @@ public class AutonomousFeed extends CommandBase {
   public void execute() {
     timer.start();
     while (timer.get() < seconds) { // in seconds, change this value
-      m_feed.setPower(1.0);
+      feed.setPower(1.0);
     }
     done = true;
   }
@@ -41,7 +39,7 @@ public class AutonomousFeed extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_feed.stop();
+    feed.stop();
   }
 
   // Returns true when the command should end.

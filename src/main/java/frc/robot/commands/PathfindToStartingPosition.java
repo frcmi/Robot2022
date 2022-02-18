@@ -18,18 +18,17 @@ import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import edu.wpi.first.math.controller.RamseteController;
 import edu.wpi.first.math.controller.PIDController;
 import frc.robot.Constants;
-import frc.robot.Robot;
 import frc.robot.subsystems.DriveTrain;
 
 public class PathfindToStartingPosition extends CommandBase {
   boolean done = false;
-  private DriveTrain m_drive;
+  private DriveTrain drive;
 
   /** Creates a new PathfindToStartingPosition. */
-  public PathfindToStartingPosition(DriveTrain p_drive) {
-    m_drive = p_drive;
+  public PathfindToStartingPosition(DriveTrain drive) {
+    this.drive = drive;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(m_drive);
+    addRequirements(drive);
   }
 
   // Called when the command is initially scheduled.
@@ -69,25 +68,25 @@ public class PathfindToStartingPosition extends CommandBase {
 
     RamseteCommand ramseteCommand = new RamseteCommand(
         trajectory,
-        m_drive::getPose,
+        drive::getPose,
         new RamseteController(Constants.kRamseteB, Constants.kRamseteZeta),
         new SimpleMotorFeedforward(
             Constants.ksVolts,
             Constants.kvVoltSecondsPerMeter,
             Constants.kaVoltSecondsSquaredPerMeter),
         Constants.kDriveKinematics,
-        m_drive::getWheelSpeeds,
+        drive::getWheelSpeeds,
         new PIDController(Constants.kPDriveVel, 0, 0),
         new PIDController(Constants.kPDriveVel, 0, 0),
         // RamseteCommand passes volts to the callback
-        m_drive::tankDriveVolts,
-        m_drive);
+        drive::tankDriveVolts,
+        drive);
 
     // Reset odometry to the starting pose of the trajectory.
-    m_drive.resetOdometry(trajectory.getInitialPose());
+    drive.resetOdometry(trajectory.getInitialPose());
 
     // Run path following command, then stop at the end.
-    ramseteCommand.andThen(() -> m_drive.tankDriveVolts(0, 0));
+    ramseteCommand.andThen(() -> drive.tankDriveVolts(0, 0));
     done = true;
   }
 

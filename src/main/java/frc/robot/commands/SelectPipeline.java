@@ -4,21 +4,18 @@
 
 package frc.robot.commands;
 
-import frc.robot.Robot;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.networktables.NetworkTableInstance;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class SelectPipeline extends InstantCommand {
   int pipeline = 0;
-  private NetworkTable m_table;
+  private NetworkTable table;
 
-  public SelectPipeline(NetworkTable p_table) {
-    m_table = p_table;
+  public SelectPipeline(NetworkTable table) {
+    this.table = table;
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -26,11 +23,11 @@ public class SelectPipeline extends InstantCommand {
   @Override
   public void initialize() { // 0 is red, 1 is blue??
     if (pipeline % 2 == 0) {
-      m_table.getEntry("pipeline").setNumber(pipeline); // red
+      table.getEntry("pipeline").setNumber(pipeline); // red
       System.out.println("red");
       pipeline++;
     } else {
-      m_table.getEntry("pipeline").setNumber(pipeline); // blue
+      table.getEntry("pipeline").setNumber(pipeline); // blue
       System.out.println("blue");
       pipeline++;
     }
