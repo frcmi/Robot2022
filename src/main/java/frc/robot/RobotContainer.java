@@ -54,7 +54,6 @@ public class RobotContainer {
   public static DriveTrain drive = new DriveTrain();
   public static Shooter shooter = new Shooter(); //change value
   public static ConveyorBelt conveyorBelt = new ConveyorBelt();
-  public static Navx navx = new Navx();
   public static Feed feed = new Feed();
   
 

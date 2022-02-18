@@ -4,9 +4,8 @@
 
 package frc.robot.commands;
 
-import frc.robot.Robot;
-import frc.robot.subsystems.*;
 import frc.robot.subsystems.Intake;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -24,7 +23,6 @@ public class IntakeIn extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    // System.out.println("intake in ran");
   }
 
   @Override
@@ -35,11 +33,8 @@ public class IntakeIn extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     m_intake.stop();
-    // System.out.println("intake in stopped");
-
   }
 
-  // Returns true when the command should end. FIX THIS!!!
   @Override
   public boolean isFinished() {
     return false;

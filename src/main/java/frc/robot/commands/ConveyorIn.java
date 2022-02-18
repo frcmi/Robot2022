@@ -4,22 +4,16 @@
 
 package frc.robot.commands;
 
-import frc.robot.Robot;
 import frc.robot.subsystems.ConveyorBelt;
-import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class ConveyorIn extends CommandBase {
-  // private MotorController conveyorMotor;
   private ConveyorBelt m_cBelt;
-  // private double speed;
 
   /** Creates a new Blank. */
   public ConveyorIn(ConveyorBelt p_cBelt) {
     m_cBelt = p_cBelt;
     addRequirements(m_cBelt);
-    // conveyorMotor = conveyorBelt.conveyorMotor;
-    // speed = conveyorBelt.speed;
   }
 
   // Called when the command is initially scheduled.

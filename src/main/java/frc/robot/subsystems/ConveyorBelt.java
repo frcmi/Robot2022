@@ -7,9 +7,8 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 public class ConveyorBelt extends SubsystemBase {
   public WPI_TalonFX conveyorMotorTalon = new WPI_TalonFX(5);
   public MotorController conveyorMotor = conveyorMotorTalon; 
-  // public double speed = 1;
 
-  public ConveyorBelt() {
+  public ConveyorBelt() { //Controls conveyor belt carrying ball from intake to feed
   }
   
   @Override

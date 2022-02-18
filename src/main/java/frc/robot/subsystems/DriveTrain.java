@@ -18,13 +18,14 @@ import static frc.robot.Constants.*;
 public class DriveTrain extends SubsystemBase {
   /** Creates a new DriveTrain. */
   
- /*public Solenoid solenoidLeft1 = new Solenoid(PneumaticsModuleType.CTREPCM, 0); //maybe need to change module type
+ /* Initializing solenoids
+ public Solenoid solenoidLeft1 = new Solenoid(PneumaticsModuleType.CTREPCM, 0); //maybe need to change module type
  public Solenoid solenoidLeft2 = new Solenoid(PneumaticsModuleType.CTREPCM, 1);
  public Solenoid solenoidRight1 = new Solenoid(PneumaticsModuleType.CTREPCM, 2);
  public Solenoid solenoidRight2 = new Solenoid(PneumaticsModuleType.CTREPCM, 3);*/
 
 
-  //Drivetrain and motors
+  //Drivetrain and motor initialization
   WPI_TalonFX rearLeft = new WPI_TalonFX(REAR_LEFT_MOTOR_ID);
   WPI_TalonFX frontLeft = new WPI_TalonFX(FRONT_LEFT_MOTOR_ID);
   WPI_TalonFX frontRight = new WPI_TalonFX(FRONT_RIGHT_MOTOR_ID);
@@ -33,12 +34,10 @@ public class DriveTrain extends SubsystemBase {
   MotorControllerGroup right = new MotorControllerGroup(frontRight, rearRight);
   private DifferentialDrive difDrive = new DifferentialDrive(left,right);
 
-  //autonomous and encoders
+  //autonomous navx initialization
   public AHRS ahrs = new AHRS();
   private final DifferentialDriveOdometry odometry = new DifferentialDriveOdometry(ahrs.getRotation2d());
   public static Pose2d startingPose = new Pose2d();
-
-  
   
   @Override
   public void periodic() {
@@ -47,17 +46,32 @@ public class DriveTrain extends SubsystemBase {
     //maybe change left and right encoder positions to navx?? doubt it though... since it reads only aboslute distance
   }
 
+  //motors and driving
   public void drive(double l, double r) {
     difDrive.tankDrive(l, r);
-    //System.out.println(l+r);
   }
+
+  public void stop() {
+    difDrive.tankDrive(0,0);
+  }
+
   public double getLeftMotors() {
     return left.get();
   }
+  
   public double getRightMotors() {
       return right.get();
   }
 
+  //encoders
+  public void setEncoders() { //need to set distance per pulse in constants and in here
+    rearLeft.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
+    frontLeft.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
+    rearRight.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
+    frontRight.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
+  }
+
+  //Autonomous
   public boolean isMoving() {
     return ahrs.isMoving();
     /*if (ahrs.getWorldLinearAccelX() > 0.1 && ahrs.getWorldLinearAccelY() > 0.1 && ahrs.getWorldLinearAccelZ() > 0.1) {
@@ -67,18 +81,11 @@ public class DriveTrain extends SubsystemBase {
     }*/
   }
 
-  public void setEncoders() { //need to set distance per pulse in constants and in here
-    rearLeft.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
-    frontLeft.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
-    rearRight.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
-    frontRight.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
-  }
-
-  public Pose2d getPose() {
+  public Pose2d getPose() { //position related to how much moved (distance) and angular movement (rotation)
     return odometry.getPoseMeters();
   }
 
-  public void resetOdometry(Pose2d pose) {
+  public void resetOdometry(Pose2d pose) { //resets position to input parameter pose
     resetEncoders();
     startingPose = pose;
     odometry.resetPosition(pose, ahrs.getRotation2d());
@@ -91,11 +98,11 @@ public class DriveTrain extends SubsystemBase {
     frontRight.setSelectedSensorPosition(0);
   }
 
-  public void zeroHeading() {
+  public void zeroHeading() { //resets gyro so angle diff is 0
     ahrs.reset();
   }
 
-  public double getHeading() {
+  public double getHeading() { //gets the offset in degrees
     return ahrs.getRotation2d().getDegrees();
   }
 
@@ -108,13 +115,14 @@ public class DriveTrain extends SubsystemBase {
     (rearRight.getSelectedSensorVelocity() + frontRight.getSelectedSensorVelocity())/2);
   }
 
-  public void tankDriveVolts(double leftVolts, double rightVolts) {
+  public void tankDriveVolts(double leftVolts, double rightVolts) { //tank drive but with volts instead of perecent output
     left.setVoltage(leftVolts);
     right.setVoltage(rightVolts);
     difDrive.feed();
   }
 
-  /*public void shift(){ //toggles pistons for gear shifting
+  /*Gear shifting that got removed
+  public void shift(){ //toggles pistons for gear shifting
     solenoidLeft1.toggle();
     solenoidLeft2.toggle();
     solenoidRight1.toggle();

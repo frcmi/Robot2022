@@ -27,7 +27,7 @@ public class Shooter extends SubsystemBase {
   }
 
   public void set() {
-    shootMotor.set(shootMotorPID.calculate(get()));
+    shootMotor.set(shootMotorPID.calculate(shootMotor.get()));
   }
 
   public void stop() {
@@ -38,9 +38,4 @@ public class Shooter extends SubsystemBase {
     shootMotorPID.setSetpoint(setpoint);
   }
 
-
-
-  public double get() {
-    return shootMotor.get();
-  }
 }
