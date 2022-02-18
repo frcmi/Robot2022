@@ -11,16 +11,11 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class AutonomousPlanA extends SequentialCommandGroup {
-  private DriveTrain drive;
-  private Feed feed;
 
   /** Creates a new AutonomousPlanA. */
   public AutonomousPlanA(DriveTrain drive, Feed feed) {
-    this.feed = feed;
     // Add your commands in the addCommands() call, e.g.
-    // addCommands(new FooCommand(), new BarCommand());
-    this.drive = drive;
-    addRequirements(drive);
+    addRequirements(drive, feed);
     addCommands(new AutonomousFeed(2, feed), new DriveOutOfTarmac(drive));
   }
 }
