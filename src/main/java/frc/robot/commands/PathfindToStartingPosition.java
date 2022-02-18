@@ -57,7 +57,7 @@ public class PathfindToStartingPosition extends CommandBase {
         // no interior waypoints
         null,
         // go to where bot started (starting pose)...can add translation2d if robot is placed at edge of tarmac
-        drive.getStartingPose(),
+        drive.getStartingPose(), //trajectory.getInitialPose() maybe?
         // Pass config
         config);
 
@@ -77,7 +77,7 @@ public class PathfindToStartingPosition extends CommandBase {
         drive::tankDriveVolts,
         drive);
 
-    // Reset odometry to the starting pose of the trajectory.
+    // Reset odometry to the starting pose of the trajectory. Not sure if we need this since we want to get to our initial pose, not start at it
     drive.resetOdometry(trajectory.getInitialPose());
 
     // Run path following command, then stop at the end.
