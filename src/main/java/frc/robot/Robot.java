@@ -14,7 +14,6 @@ import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.math.geometry.Pose2d;
-import frc.robot.RobotContainer; 
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -23,7 +22,7 @@ import frc.robot.RobotContainer;
  * directory.
  */
 public class Robot extends TimedRobot {
-  public static final RobotContainer container = new RobotContainer();
+  private RobotContainer container = new RobotContainer();
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.

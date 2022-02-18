@@ -4,15 +4,11 @@
 
 package frc.robot.commands;
 
-import java.util.List;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.math.trajectory.constraint.DifferentialDriveVoltageConstraint;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.Trajectory;
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import edu.wpi.first.math.controller.RamseteController;
@@ -57,11 +53,11 @@ public class PathfindToStartingPosition extends CommandBase {
 
     Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
         // gets current location in terms of pose
-        drive.getPose().relativeTo(DriveTrain.startingPose),
+        drive.getPose().relativeTo(drive.startingPose),
         // no interior waypoints
         null,
         // go to where bot started (starting pose)...can add translation2d if robot is placed at edge of tarmac
-        drive.startingPose,
+        drive.getStartingPose(),
         // Pass config
         config);
 

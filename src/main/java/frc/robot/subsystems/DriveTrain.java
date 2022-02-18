@@ -35,9 +35,9 @@ public class DriveTrain extends SubsystemBase {
   private DifferentialDrive difDrive = new DifferentialDrive(left,right);
 
   //autonomous navx initialization
-  public AHRS ahrs = new AHRS();
+  private AHRS ahrs = new AHRS();
   private final DifferentialDriveOdometry odometry = new DifferentialDriveOdometry(ahrs.getRotation2d());
-  public static Pose2d startingPose = new Pose2d();
+  public Pose2d startingPose = new Pose2d();
   
   @Override
   public void periodic() {
@@ -83,6 +83,10 @@ public class DriveTrain extends SubsystemBase {
 
   public Pose2d getPose() { //position related to how much moved (distance) and angular movement (rotation)
     return odometry.getPoseMeters();
+  }
+  
+  public Pose2d getStartingPose() {
+    return startingPose;
   }
 
   public void resetOdometry(Pose2d pose) { //resets position to input parameter pose
