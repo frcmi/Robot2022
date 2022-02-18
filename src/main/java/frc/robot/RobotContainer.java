@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 import static frc.robot.Constants.*;
@@ -58,20 +59,9 @@ public class RobotContainer {
   
 
   //Commands
-  
-  // public IntakeIn intakeIn = new IntakeIn();
-  // public IntakeOut intakeOut = new IntakeOut();
-  // public SetConveyorIn conveyorIn = new SetConveyorIn();
-  // public SetConveyorOut conveyorOut = new SetConveyorOut();
-  // public ExtendHangerDown extendHangerDown = new ExtendHangerDown();
-  // public ExtendHangerUp extendHangerUp = new ExtendHangerUp();
-  // public StartFeed startFeed = new StartFeed();
-  // public ShootIfStopped shootIfStopped = new ShootIfStopped();
-  // public DriveToHub driveToHub = new DriveToHub();
-  // public SeekBall seekBall = new SeekBall();
-  // public SelectPipeline selectPipeline = new SelectPipeline();
+
   public AutonomousPlanA autonomousCommand = new AutonomousPlanA(drive, feed);
-  // public SpinAround spinAround = new SpinAround();
+  public AutonomousPlanB backupAutonomous = new AutonomousPlanB(drive, table, intake, conveyorBelt, feed);
   //InstantCommand toShift = new InstantCommand(drive::shift, drive);
   RunCommand joystickDrive = new RunCommand(() -> drive.drive(-leftJoystick.getRawAxis(1), rightJoystick.getRawAxis(1)), drive);
   RunCommand runFlywheel = new RunCommand(() -> shooter.set(), shooter);
@@ -97,16 +87,16 @@ public class RobotContainer {
     conveyorInButton.whenHeld(conveyorIntakeIn);
     conveyorOutButton.whenHeld(conveyorIntakeOut);
     selectPipelineButton.whenPressed(new SelectPipeline(table));
-    feedButton.whenHeld(new StartFeed(feed)); // probably want when held??
+    feedButton.whenHeld(new StartFeed(feed)); 
     // shiftGearButton.whenPressed(new InstantCommand(drive::shift, drive));
   }
 
-  public void setAutonomous() {
+  public void setAutonomous() { //set autonomous constants and flywheel 
     shooter.changeSetpoint(AUTOSETPOINT);
     shooter.setDefaultCommand(runFlywheel);
   }
 
-  public void setTeleop() {
+  public void setTeleop() { //set teleop constants and flywheel 
     drive.setDefaultCommand(joystickDrive);
     shooter.changeSetpoint(TELEOPSETPOINT);
   }
@@ -118,7 +108,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     System.out.println("getAutonomousCommand returns autonomous");
-    // An ExampleCommand will run in autonomous
     return autonomousCommand;
   }
 }

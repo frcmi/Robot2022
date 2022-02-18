@@ -4,9 +4,8 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.Joystick;
 import org.opencv.core.Mat;
-import org.opencv.imgproc.Imgproc;
+
 
 import edu.wpi.first.cscore.CvSink;
 import edu.wpi.first.cscore.CvSource;
