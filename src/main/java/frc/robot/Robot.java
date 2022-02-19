@@ -91,9 +91,9 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     //just testing networktables
-    System.out.println("tv" + container.table.getEntry("tv").getDouble(0));
+    /*System.out.println("tv" + container.table.getEntry("tv").getDouble(0));
     System.out.println("tx" + container.table.getEntry("tx").getDouble(0));
-    System.out.println();
+    System.out.println();*/
     CommandScheduler.getInstance().run();
 
   }

@@ -41,7 +41,7 @@ public class RobotContainer {
   // Buttons and Joysticks
   Joystick leftJoystick = new Joystick(0);
   Joystick rightJoystick = new Joystick(1);
-  JoystickButton conveyorInButton = new JoystickButton(leftJoystick, 2);
+  JoystickButton conveyorInButton = new JoystickButton(leftJoystick, 4);
   JoystickButton conveyorOutButton = new JoystickButton(leftJoystick, 3);
   // JoystickButton shiftGearButton = new JoystickButton(rightJoystick, 1);
   JoystickButton feedButton = new JoystickButton(rightJoystick, 1);
