@@ -43,7 +43,7 @@ public class DriveTrain extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     odometry.update(ahrs.getRotation2d(), (rearLeft.getSelectedSensorPosition() + frontLeft.getSelectedSensorPosition())/2, (rearRight.getSelectedSensorPosition() + frontRight.getSelectedSensorPosition())/2);
-    //maybe change left and right encoder positions to navx?? doubt it though... since it reads only aboslute distance
+    
   }
 
   //motors and driving
@@ -72,15 +72,6 @@ public class DriveTrain extends SubsystemBase {
   }
 
   //Autonomous
-  /*public boolean isMoving() {
-    return ahrs.isMoving();
-    /*if (ahrs.getWorldLinearAccelX() > 0.1 && ahrs.getWorldLinearAccelY() > 0.1 && ahrs.getWorldLinearAccelZ() > 0.1) {
-      return true;
-    } else {
-      return false;
-    }
-  }*/
-
   public Pose2d getPose() { //position related to how much moved (distance) and angular movement (rotation)
     return odometry.getPoseMeters();
   }

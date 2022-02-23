@@ -4,8 +4,9 @@
 
 package frc.robot.commands;
 
-import frc.robot.subsystems.ConveyorBelt;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+
+import frc.robot.subsystems.ConveyorBelt;
 
 public class ConveyorIn extends CommandBase {
   private ConveyorBelt cBelt;
