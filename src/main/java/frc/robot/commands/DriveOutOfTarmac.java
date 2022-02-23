@@ -29,10 +29,11 @@ public class DriveOutOfTarmac extends CommandBase {
   @Override
   public void execute() {
     timer.start();
-    while (timer.get() < 5) { // in seconds, change this value
+    if (timer.get() < 5) { // in seconds, change this value
       drive.drive(-1.0, -1.0);
     }
-    done = true;
+    if (timer.get() >= 5)
+      done = true;
 
   }
 
