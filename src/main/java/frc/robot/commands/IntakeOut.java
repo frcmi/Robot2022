@@ -28,7 +28,6 @@ public class IntakeOut extends CommandBase {
   @Override
   public void execute() {
     intake.setPower(-.50);
-    System.out.println("intake out working");
   }
 
   @Override

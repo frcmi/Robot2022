@@ -25,7 +25,6 @@ public class ConveyorOut extends CommandBase {
   @Override
   public void execute() {
     cBelt.setPower(-0.50);
-    System.out.println("conveyor out working");
   }
 
   // Called once the command ends or is interrupted.
