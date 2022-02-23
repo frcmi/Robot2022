@@ -5,6 +5,7 @@
 package frc.robot;
 
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
+import edu.wpi.first.math.controller.PIDController;
 
 /** Add your docs here. */
 public class Constants {
@@ -17,6 +18,9 @@ public class Constants {
     //Shooter constants
     public static final double AUTOSETPOINT = 0.75;
     public static final double TELEOPSETPOINT = 1.0;
+    //PID constants
+    public static final PIDController SHOOTER_PID_AUTO = new PIDController(1, 1, 0); //adjust
+    public static final PIDController SHOOTER_PID_TELEOP = new PIDController(1, 1, 0); //adjust
 
     //Autnomous constants using preprogrammed names. CHANGE THEM!
     public static final double ksVolts = 0.22;

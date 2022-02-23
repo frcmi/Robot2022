@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.math.controller.PIDController;
 //import edu.wpi.first.wpilibj.PneumaticsModuleType;
 //import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
@@ -50,16 +51,16 @@ public class RobotContainer {
   // Subsystems
   private static Intake intake = new Intake();
   public static final DriveTrain drive = new DriveTrain();
-  private static Shooter shooter = new Shooter(); //change value
+  private static Shooter shooter = new Shooter(); 
   private static ConveyorBelt conveyorBelt = new ConveyorBelt();
   private static Feed feed = new Feed();
   
   //Commands
   public final AutonomousPlanA autonomousCommand = new AutonomousPlanA(drive, feed, shooter);
-  private AutonomousPlanB backupAutonomousCommand = new AutonomousPlanB(drive, table, intake, conveyorBelt, feed);
+  private AutonomousPlanB backupAutonomousCommand = new AutonomousPlanB(drive, table, intake, conveyorBelt, feed, shooter);
   //InstantCommand toShift = new InstantCommand(drive::shift, drive);
   public RunCommand joystickDrive = new RunCommand(() -> drive.drive(-leftJoystick.getRawAxis(1), rightJoystick.getRawAxis(1)), drive);
-  public RunCommand runFlywheel = new RunCommand(() -> shooter.set(), shooter);
+  public RunCommand runFlywheel = new RunCommand(() -> shooter.set(SHOOTER_PID_TELEOP), shooter);
   ParallelCommandGroup conveyorIntakeIn = new ParallelCommandGroup(new IntakeIn(intake), new ConveyorIn(conveyorBelt));
   ParallelCommandGroup conveyorIntakeOut = new ParallelCommandGroup(new IntakeOut(intake), new ConveyorOut(conveyorBelt));
 
@@ -88,9 +89,9 @@ public class RobotContainer {
 
 
   public void setTeleop() { //set to take joystick inputs and changes setpoint
+    shooter.changeSetpoint(TELEOPSETPOINT, SHOOTER_PID_TELEOP);
     shooter.setDefaultCommand(runFlywheel);
     drive.setDefaultCommand(joystickDrive);
-    shooter.changeSetpoint(TELEOPSETPOINT);
   }
 
   /**

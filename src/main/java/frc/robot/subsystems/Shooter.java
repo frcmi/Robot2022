@@ -16,7 +16,6 @@ public class Shooter extends SubsystemBase {
   /** Creates a new Shooter. */
   public WPI_TalonFX shootMotorTalon = new WPI_TalonFX(7);
   public MotorController shootMotor = shootMotorTalon; 
-  PIDController shootMotorPID = new PIDController(1, 1, 0); //adjust
 
   public Shooter(){
   }
@@ -26,16 +25,16 @@ public class Shooter extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void set() {
-    shootMotor.set(shootMotorPID.calculate(shootMotor.get()));
+  public void set(PIDController PIDCont) {
+    shootMotor.set(PIDCont.calculate(shootMotor.get()));
   }
 
   public void stop() {
     shootMotor.set(0.0);
   }
 
-  public void changeSetpoint(double setpoint) {
-    shootMotorPID.setSetpoint(setpoint);
+  public void changeSetpoint(double setpoint, PIDController PIDCont) {
+    PIDCont.setSetpoint(setpoint);
   }
 
 }

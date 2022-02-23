@@ -32,16 +32,16 @@ public class SeekBall extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() { 
-    while (table.getEntry("tv").getDouble(0) == 0.0) {
-      drive.drive(drive.getLeftMotors() +0.3, drive.getRightMotors() -0.3);
+    if (table.getEntry("tv").getDouble(0) == 0.0) {
+      steeringAdjust = 0.3;
     } 
-    while (table.getEntry("tv").getDouble(0) != 0.0) {
+    if (table.getEntry("tv").getDouble(0) != 0.0) {
       headingError = table.getEntry("tx").getDouble(0); //test how much off by default from camera placement
       steeringAdjust = Kp * headingError;
-      drive.drive(drive.getLeftMotors() +steeringAdjust, drive.getRightMotors() -steeringAdjust);
     }
-    //Maybe need a timer for it to move forward just for a bit more? Need to test
-    done = true;
+    drive.drive(drive.getLeftMotors() +steeringAdjust, drive.getRightMotors() -steeringAdjust);
+    //Maybe need a timer for it to move forward just for a bit more? after ball gets too close and cannot be detected Need to test
+    done = true; //don't know what to do with this
     
   }
 
