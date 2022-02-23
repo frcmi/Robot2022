@@ -63,8 +63,8 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     //container.drive.setDefaultGear();
     
+    System.out.println("Autonomous init started");
     container.drive.resetOdometry(new Pose2d());
-    container.setAutonomous();
 
     // schedule the autonomous command (example)
     if (container.getAutonomousCommand() != null) {
@@ -76,14 +76,13 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
-        
    
   }
 
   /** This function is called once each time the robot enters teleoperated mode. */
   @Override
   public void teleopInit() {
-    //reset sensors/subsystems??
+    container.drive.setDTExpiration();
     container.setTeleop();
   }
 

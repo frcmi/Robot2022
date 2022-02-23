@@ -55,11 +55,11 @@ public class RobotContainer {
   private static Feed feed = new Feed();
   
   //Commands
-  public  final AutonomousPlanA autonomousCommand = new AutonomousPlanA(drive, feed);
+  public  final AutonomousPlanA autonomousCommand = new AutonomousPlanA(drive, feed, shooter);
   private AutonomousPlanB backupAutonomousCommand = new AutonomousPlanB(drive, table, intake, conveyorBelt, feed);
   //InstantCommand toShift = new InstantCommand(drive::shift, drive);
-  RunCommand joystickDrive = new RunCommand(() -> drive.drive(-leftJoystick.getRawAxis(1), rightJoystick.getRawAxis(1)), drive);
-  RunCommand runFlywheel = new RunCommand(() -> shooter.set(), shooter);
+  public RunCommand joystickDrive = new RunCommand(() -> drive.drive(-leftJoystick.getRawAxis(1), rightJoystick.getRawAxis(1)), drive);
+  public RunCommand runFlywheel = new RunCommand(() -> shooter.set(), shooter);
   ParallelCommandGroup conveyorIntakeIn = new ParallelCommandGroup(new IntakeIn(intake), new ConveyorIn(conveyorBelt));
   ParallelCommandGroup conveyorIntakeOut = new ParallelCommandGroup(new IntakeOut(intake), new ConveyorOut(conveyorBelt));
 
@@ -86,12 +86,9 @@ public class RobotContainer {
     // shiftGearButton.whenPressed(new InstantCommand(drive::shift, drive));
   }
 
-  public void setAutonomous() { //set autonomous constants and flywheel 
-    shooter.changeSetpoint(AUTOSETPOINT);
-    shooter.setDefaultCommand(runFlywheel);
-  }
 
   public void setTeleop() { //set to take joystick inputs and changes setpoint
+    shooter.setDefaultCommand(runFlywheel);
     drive.setDefaultCommand(joystickDrive);
     shooter.changeSetpoint(TELEOPSETPOINT);
   }

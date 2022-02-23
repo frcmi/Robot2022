@@ -63,6 +63,10 @@ public class DriveTrain extends SubsystemBase {
       return right.get();
   }
 
+  public void setDTExpiration() {
+    difDrive.setExpiration(0.5);
+  }
+
   //encoders
   public void setEncoders() { //need to set distance per pulse in constants and in here
     rearLeft.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);

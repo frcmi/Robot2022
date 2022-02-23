@@ -13,9 +13,9 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 public class AutonomousPlanA extends SequentialCommandGroup {
 
   /** Creates a new AutonomousPlanA. */
-  public AutonomousPlanA(DriveTrain drive, Feed feed) {
+  public AutonomousPlanA(DriveTrain drive, Feed feed, Shooter shooter) {
     // Add your commands in the addCommands() call, e.g.
-    addRequirements(drive, feed);
-    addCommands(new AutonomousFeed(2, feed), new DriveOutOfTarmac(drive));
+    addRequirements(drive, feed, shooter);
+    addCommands(new AutonomousShooter(shooter), new AutonomousFeed(2, feed), new DriveOutOfTarmac(drive));
   }
 }
