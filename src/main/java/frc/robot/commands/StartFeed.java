@@ -26,7 +26,6 @@ public class StartFeed extends CommandBase {
   @Override
   public void execute() {
     feed.setPower(0.5); //change this later during testing
-    System.out.println("start feed working");
   }
 
   // Called once the command ends or is interrupted.
