@@ -20,8 +20,8 @@ public class AutonomousPlanB extends SequentialCommandGroup {
  
     addRequirements(drive, intake, cBelt, feed);
     // Add your commands in the addCommands() call, e.g.
-    addCommands(new ParallelCommandGroup(new SeekBall(drive, table)),
-        new ParallelCommandGroup(new IntakeIn(intake), new ConveyorIn(cBelt)),
+    addCommands(new ParallelCommandGroup(new SeekBall(drive, table),
+       new IntakeIn(intake), new ConveyorIn(cBelt)),
         new SpinAround(drive), new PathfindToStartingPosition(drive), new AutonomousFeed(5, feed));
     // Not sure if spinaround is needed. Probably would be factored into gyro angle
   }
