@@ -6,7 +6,6 @@ package frc.robot;
 
 import org.opencv.core.Mat;
 
-
 import edu.wpi.first.cscore.CvSink;
 import edu.wpi.first.cscore.CvSource;
 import edu.wpi.first.cscore.UsbCamera;
@@ -76,13 +75,13 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
-   
+    CommandScheduler.getInstance().run();
+ 
   }
 
   /** This function is called once each time the robot enters teleoperated mode. */
   @Override
   public void teleopInit() {
-    container.drive.setDTExpiration();
     container.setTeleop();
   }
 

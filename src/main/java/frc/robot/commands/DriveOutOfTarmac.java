@@ -23,17 +23,18 @@ public class DriveOutOfTarmac extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    timer.start();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    timer.start();
     if (timer.get() < 5) { // in seconds, change this value
       drive.drive(-1.0, -1.0);
-    }
-    if (timer.get() >= 5)
+    } else {
       done = true;
+    }
+   
 
   }
 

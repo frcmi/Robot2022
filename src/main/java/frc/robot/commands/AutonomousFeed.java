@@ -25,18 +25,18 @@ public class AutonomousFeed extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    timer.start();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    System.out.println("autonomous feed working");
-    timer.start();
     if (timer.get() < seconds) { // in seconds, change this value
       feed.setPower(1.0);
-    }
-    if (timer.get() >= seconds)
+    } else {
       done = true;
+    }
+    
   }
 
   // Called once the command ends or is interrupted.

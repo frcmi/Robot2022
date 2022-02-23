@@ -55,7 +55,7 @@ public class RobotContainer {
   private static Feed feed = new Feed();
   
   //Commands
-  public  final AutonomousPlanA autonomousCommand = new AutonomousPlanA(drive, feed, shooter);
+  public final AutonomousPlanA autonomousCommand = new AutonomousPlanA(drive, feed, shooter);
   private AutonomousPlanB backupAutonomousCommand = new AutonomousPlanB(drive, table, intake, conveyorBelt, feed);
   //InstantCommand toShift = new InstantCommand(drive::shift, drive);
   public RunCommand joystickDrive = new RunCommand(() -> drive.drive(-leftJoystick.getRawAxis(1), rightJoystick.getRawAxis(1)), drive);
@@ -99,7 +99,6 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    System.out.println("getAutonomousCommand returns autonomous");
     return autonomousCommand;
   }
 }
