@@ -16,6 +16,7 @@ public class SeekBall extends CommandBase {
   double headingError = 0.0;
   final double Kp = 1.0; // CHANGE
   boolean done = false;
+  boolean foundBall = false;
 
   /** Creates a new SeekBall. */
   public SeekBall(DriveTrain drive, NetworkTable table) {
@@ -38,10 +39,13 @@ public class SeekBall extends CommandBase {
     if (table.getEntry("tv").getDouble(0) != 0.0) {
       headingError = table.getEntry("tx").getDouble(0); //test how much off by default from camera placement
       steeringAdjust = Kp * headingError;
+      foundBall = true;
     }
     drive.drive(drive.getLeftMotors() +steeringAdjust, drive.getRightMotors() -steeringAdjust);
     //Maybe need a timer for it to move forward just for a bit more? after ball gets too close and cannot be detected Need to test
-    done = true; //don't know what to do with this
+    if (foundBall && table.getEntry("tv").getDouble(0) == 0) {
+      done = true;
+    } //for when the ball gets too close to be seen by the limelight but we still need to go forward
     
   }
 

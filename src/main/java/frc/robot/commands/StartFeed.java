@@ -25,7 +25,7 @@ public class StartFeed extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    feed.setPower(0.5); //change this later during testing
+    feed.setPower(-0.2); //change this later during testing
   }
 
   // Called once the command ends or is interrupted.
