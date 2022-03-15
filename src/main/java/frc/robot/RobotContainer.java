@@ -51,7 +51,6 @@ public class RobotContainer {
   private static Intake intake = new Intake();
   public static final DriveTrain drive = new DriveTrain();
   private static Shooter shooter = new Shooter(); 
-  private static ConveyorBelt conveyorBelt = new ConveyorBelt();
   private static Feed feed = new Feed();
   
   //Commands
