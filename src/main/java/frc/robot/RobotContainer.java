@@ -55,12 +55,11 @@ public class RobotContainer {
   
   //Commands
   public final AutonomousPlanA autonomousCommand = new AutonomousPlanA(drive, feed, shooter);
-  private AutonomousPlanB backupAutonomousCommand = new AutonomousPlanB(drive, table, intake, conveyorBelt, feed, shooter);
+  private AutonomousPlanB backupAutonomousCommand = new AutonomousPlanB(drive, table, intake, feed, shooter);
   //InstantCommand toShift = new InstantCommand(drive::shift, drive);
   public RunCommand joystickDrive = new RunCommand(() -> drive.drive(-leftJoystick.getRawAxis(1), rightJoystick.getRawAxis(1)), drive);
   public RunCommand runFlywheel = new RunCommand(() -> shooter.set(SHOOTER_PID_TELEOP), shooter);
-  ParallelCommandGroup conveyorIntakeIn = new ParallelCommandGroup(new IntakeIn(intake), new ConveyorIn(conveyorBelt));
-  ParallelCommandGroup conveyorIntakeOut = new ParallelCommandGroup(new IntakeOut(intake), new ConveyorOut(conveyorBelt));
+
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -78,8 +77,8 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    conveyorInButton.whenHeld(conveyorIntakeIn);
-    conveyorOutButton.whenHeld(conveyorIntakeOut);
+    conveyorInButton.whenHeld(new IntakeIn(intake));
+    conveyorOutButton.whenHeld(new IntakeIn(intake));
     selectPipelineButton.whenPressed(new SelectPipeline(table));
     feedButton.whenHeld(new StartFeed(feed)); 
     // shiftGearButton.whenPressed(new InstantCommand(drive::shift, drive));
