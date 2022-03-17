@@ -33,7 +33,7 @@ public class Constants {
     public static final double TELEOPSETPOINT = 0.9;
 
     public static final PIDController SHOOTER_PID_AUTO = new PIDController(0, 0, 0); //adjust
-    public static final PIDController SHOOTER_PID_TELEOP = new PIDController(0, 0, 0); //adjust
+    public static final PIDController SHOOTER_PID_TELEOP = new PIDController(0.9, 0, 0); //adjust
 
     //Autnomous constants using preprogrammed names. CHANGE THEM!
     public static final double ksVolts = 0.22;

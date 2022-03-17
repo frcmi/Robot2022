@@ -3,40 +3,38 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.commands;
+import frc.robot.subsystems.Feed;
 
-import frc.robot.subsystems.Intake;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-// NOTE:  Consider using this command inline, rather than writing a subclass.  For more
-// information, see:
-// https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class IntakeIn extends CommandBase {
-  private Intake intake;
-
-  public IntakeIn(Intake intake) {
-    this.intake = intake;
-    addRequirements(this.intake);
+public class FeederOut extends CommandBase {
+  private Feed feed;
+  /** Creates a new FeederOut. */
+  public FeederOut(Feed feed) {
+    this.feed = feed;
+    addRequirements(this.feed);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-  }
+  public void initialize() {}
 
+  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intake.setPower(0.9);
+    feed.setPower(0.5);
   }
 
+  // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    intake.stop();
+    feed.stop();
   }
 
+  // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     return false;
   }
-
 }

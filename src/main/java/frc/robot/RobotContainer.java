@@ -57,8 +57,9 @@ public class RobotContainer {
   public final AutonomousPlanA autonomousCommand = new AutonomousPlanA(drive, feed, shooter);
   private AutonomousPlanB backupAutonomousCommand = new AutonomousPlanB(drive, table, intake, feed, shooter);
   //InstantCommand toShift = new InstantCommand(drive::shift, drive);
-  public RunCommand joystickDrive = new RunCommand(() -> drive.drive(-leftJoystick.getRawAxis(1), rightJoystick.getRawAxis(1)), drive);
+  public RunCommand joystickDrive = new RunCommand(() -> drive.drive(leftJoystick.getRawAxis(1), -rightJoystick.getRawAxis(1)), drive);
   public RunCommand runFlywheel = new RunCommand(() -> shooter.set(SHOOTER_PID_TELEOP), shooter);
+  public ParallelCommandGroup spitOut = new ParallelCommandGroup(new IntakeOut(intake), new FeederOut(feed));
 
 
   /**
@@ -77,8 +78,10 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    conveyorInButton.whenHeld(new IntakeIn(intake));
-    conveyorOutButton.whenHeld(new IntakeIn(intake));
+    conveyorInButton.toggleWhenPressed(new IntakeIn(intake));
+    //conveyorOutButton.whileHeld(spitOut);
+    conveyorOutButton.whileHeld(new IntakeOut(intake));
+    conveyorOutButton.whenHeld(new FeederOut(feed));
     selectPipelineButton.whenPressed(new SelectPipeline(table));
     feedButton.whenHeld(new StartFeed(feed)); 
     // shiftGearButton.whenPressed(new InstantCommand(drive::shift, drive));
