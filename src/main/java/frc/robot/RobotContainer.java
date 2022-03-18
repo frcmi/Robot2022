@@ -58,7 +58,7 @@ public class RobotContainer {
   private AutonomousPlanB backupAutonomousCommand = new AutonomousPlanB(drive, table, intake, feed, shooter);
   //InstantCommand toShift = new InstantCommand(drive::shift, drive);
   public RunCommand joystickDrive = new RunCommand(() -> drive.drive(leftJoystick.getRawAxis(1), -rightJoystick.getRawAxis(1)), drive);
-  public RunCommand runFlywheel = new RunCommand(() -> shooter.set(SHOOTER_PID_TELEOP), shooter);
+  public RunCommand runFlywheel = new RunCommand(() -> shooter., shooter);
   public ParallelCommandGroup spitOut = new ParallelCommandGroup(new IntakeOut(intake), new FeederOut(feed));
 
 

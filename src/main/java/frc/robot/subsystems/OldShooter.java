@@ -4,25 +4,37 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.wpilibj2.command.PIDSubsystem;
+import static frc.robot.Constants.*;
 
-public class Shooter extends PIDSubsystem {
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+
+public class OldShooter extends SubsystemBase {
   /** Creates a new Shooter. */
-  public Shooter() {
-    super(
-        // The PIDController used by the subsystem
-        new PIDController(0, 0, 0));
+  public WPI_TalonFX shootMotorTalon = new WPI_TalonFX(SHOOTER_MOTOR_ID);
+  public MotorController shootMotor = shootMotorTalon; 
+
+  public OldShooter(){
   }
 
   @Override
-  public void useOutput(double output, double setpoint) {
-    // Use the output here
+  public void periodic() {
+    // This method will be called once per scheduler run
   }
 
-  @Override
-  public double getMeasurement() {
-    // Return the process variable measurement here
-    return 0;
+  public void set(PIDController PIDCont) {
+    System.out.println(shootMotor.get());
+    shootMotor.set(PIDCont.calculate(shootMotor.get()));
   }
+
+  public void stop() {
+    shootMotor.set(0.0);
+  }
+
+  public void changeSetpoint(double setpoint, PIDController PIDCont) {
+    PIDCont.setSetpoint(setpoint);
+  }
+
 }

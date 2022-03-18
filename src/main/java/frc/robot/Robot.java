@@ -58,7 +58,7 @@ public class Robot extends TimedRobot {
     } else {
       System.out.println("looking for blue balls");
     }
-
+  container.drive.setEncoders();
     PIDTuner.addOption("", 1.0);
     PIDTuner.addOption("Dual Stick", 2.0);
   

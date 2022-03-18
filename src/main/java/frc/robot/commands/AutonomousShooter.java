@@ -6,7 +6,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.OldShooter;
 import static frc.robot.Constants.*;
 
 public class AutonomousShooter extends CommandBase {
@@ -24,7 +24,7 @@ public class AutonomousShooter extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooter.changeSetpoint(AUTOSETPOINT, SHOOTER_PID_AUTO);
+    shooter.changeSetpoint(AUTOSETPOINT);
     shooter.set(SHOOTER_PID_AUTO);
   }
 
