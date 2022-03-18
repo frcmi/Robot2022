@@ -3,16 +3,17 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.commands;
-import frc.robot.subsystems.Feed;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.Shooter;
+import static frc.robot.Constants.*;
 
-public class FeederOut extends CommandBase {
-  private Feed feed;
-  /** Creates a new FeederOut. */
-  public FeederOut(Feed feed) {
-    this.feed = feed;
-    addRequirements(this.feed);
+public class ShooterPower extends CommandBase {
+  private Shooter shooter;
+  /** Creates a new ShooterPower. */
+  public ShooterPower(Shooter shooter) {
+    this.shooter = shooter;
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -23,13 +24,17 @@ public class FeederOut extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    feed.setPower(1.0);
+  shooter.set(SHOOTER_PID_TELEOP);
+  }
+
+  public void changeSetpoint(double TELEOPSETPOINT, PIDController SHOOTER_PID_TELEOP) {
+    shooter.changeSetpoint(TELEOPSETPOINT, SHOOTER_PID_TELEOP);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    feed.stop();
+  shooter.stop();
   }
 
   // Returns true when the command should end.

@@ -39,14 +39,14 @@ public class RobotContainer {
   NetworkTableEntry ta = table.getEntry("ta");
 
   // Buttons and Joysticks
-  Joystick leftJoystick = new Joystick(0);
-  Joystick rightJoystick = new Joystick(1);
+  Joystick leftJoystick = new Joystick(1);
+  Joystick rightJoystick = new Joystick(0);
   JoystickButton conveyorInButton = new JoystickButton(leftJoystick, 4);
   JoystickButton conveyorOutButton = new JoystickButton(leftJoystick, 3);
   // JoystickButton shiftGearButton = new JoystickButton(rightJoystick, 1);
-  JoystickButton feedButton = new JoystickButton(rightJoystick, 1);
+  JoystickButton feedButton = new JoystickButton(leftJoystick, 1);
   JoystickButton selectPipelineButton = new JoystickButton(rightJoystick, 2);
-
+  JoystickButton toggleJoystickButton = new JoystickButton(leftJoystick, 2);
   // Subsystems
   private static Intake intake = new Intake();
   public static final DriveTrain drive = new DriveTrain();
@@ -81,16 +81,17 @@ public class RobotContainer {
     conveyorInButton.toggleWhenPressed(new IntakeIn(intake));
     //conveyorOutButton.whileHeld(spitOut);
     conveyorOutButton.whileHeld(new IntakeOut(intake));
-    conveyorOutButton.whenHeld(new FeederOut(feed));
+    conveyorOutButton.whileHeld(new FeederOut(feed));
     selectPipelineButton.whenPressed(new SelectPipeline(table));
-    feedButton.whenHeld(new StartFeed(feed)); 
+    feedButton.whenHeld(new FeederIn(feed)); 
+    toggleJoystickButton.toggleWhenPressed(new ShooterPower(shooter));
     // shiftGearButton.whenPressed(new InstantCommand(drive::shift, drive));
   }
 
 
   public void setTeleop() { //set to take joystick inputs and changes setpoint
-    shooter.changeSetpoint(TELEOPSETPOINT, SHOOTER_PID_TELEOP);
-    shooter.setDefaultCommand(runFlywheel);
+    new ShooterPower(shooter).changeSetpoint(TELEOPSETPOINT, SHOOTER_PID_TELEOP);
+    //shooter.setDefaultCommand(runFlywheel);
     drive.setDefaultCommand(joystickDrive);
   }
 

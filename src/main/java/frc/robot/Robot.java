@@ -13,6 +13,8 @@ import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -21,6 +23,8 @@ import edu.wpi.first.math.geometry.Pose2d;
  * directory.
  */
 public class Robot extends TimedRobot {
+  SendableChooser PIDTuner = new SendableChooser<Double>();
+  
   private RobotContainer container = new RobotContainer();
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -54,6 +58,9 @@ public class Robot extends TimedRobot {
     } else {
       System.out.println("looking for blue balls");
     }
+
+    PIDTuner.addOption("", 1.0);
+    PIDTuner.addOption("Dual Stick", 2.0);
   
   }
 
@@ -94,7 +101,8 @@ public class Robot extends TimedRobot {
 
   /** This function is called once each time the robot enters test mode. */
   @Override
-  public void testInit() {}
+  public void testInit() {
+  }
 
   /** This function is called periodically during test mode. */
   @Override

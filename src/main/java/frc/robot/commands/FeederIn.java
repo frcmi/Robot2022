@@ -8,11 +8,11 @@ package frc.robot.commands;
 import frc.robot.subsystems.Feed;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class StartFeed extends CommandBase {
+public class FeederIn extends CommandBase {
   private Feed feed;
 
   /** Creates a new Blank. */
-  public StartFeed(Feed feed) {
+  public FeederIn(Feed feed) {
     this.feed = feed;
     addRequirements(this.feed);
   }
@@ -25,7 +25,7 @@ public class StartFeed extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    feed.setPower(-1.0); //change this later during testing
+    feed.setPower(-6); //change this later during testing
   }
 
   // Called once the command ends or is interrupted.
