@@ -9,10 +9,10 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.TeleopShooter;
 import static frc.robot.Constants.*;
 
-public class ShooterPower extends CommandBase {
+public class TeleopShootForButton extends CommandBase {
   private TeleopShooter shooter;
   /** Creates a new ShooterPower. */
-  public ShooterPower(TeleopShooter shooter) {
+  public TeleopShootForButton(TeleopShooter shooter) {
     this.shooter = shooter;
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -27,9 +27,7 @@ public class ShooterPower extends CommandBase {
   shooter.enable();
   }
 
-  public void changeSetpoint(double TELEOPSETPOINT) {
-    shooter.changeSetpoint(TELEOPSETPOINT);
-  }
+ 
 
   // Called once the command ends or is interrupted.
   @Override

@@ -4,7 +4,8 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
 import frc.robot.subsystems.*;
@@ -14,9 +15,9 @@ import frc.robot.subsystems.*;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class AutonomousPlanA extends SequentialCommandGroup {
   /** Creates a new AutonomousPlanA. */
-  public AutonomousPlanA(DriveTrain drive, Feed feed, TeleopShooter shooter) {
+  public AutonomousPlanA(DriveTrain drive, Feed feed, AutoShooter autoShooter, TeleopShooter teleopShooter) {
     // Add your commands in the addCommands() call, e.g.
-    addRequirements(drive, feed, shooter);
-    addCommands(new ParallelCommandGroup(new ShootAutonomously(shooter), new SequentialCommandGroup(new AutonomousFeed(2, feed), new DriveOutOfTarmac(drive))));
+    addRequirements(drive, feed, autoShooter, teleopShooter);
+    addCommands(new ParallelRaceGroup(new ShootAutonomously(autoShooter), new SequentialCommandGroup(new AutonomousFeed(2, feed), new DriveOutOfTarmac(drive))));
   }
 }

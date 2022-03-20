@@ -5,7 +5,10 @@
 package frc.robot;
 
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
-import edu.wpi.first.math.controller.PIDController;
+//import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.motorcontrol.MotorController;
+
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 /** Add your docs here. */
 public class Constants {
@@ -29,6 +32,9 @@ public class Constants {
     public static final double DISTANCE_PER_MOTOR_ROTATION = GEAR_RATIO * DISTANCE_PER_WHEEL_ROTATION;
 
     //Shooter constants
+    public static WPI_TalonFX shooterMotorTalon = new WPI_TalonFX(SHOOTER_MOTOR_ID);
+    public static MotorController shooterMotor = shooterMotorTalon; 
+    
     //public static final PIDController SHOOTER_PID_AUTO = new PIDController(0, 0, 0); //adjust
     //public static final PIDController SHOOTER_PID_TELEOP = new PIDController(0.9, 0, 0); //adjust
     

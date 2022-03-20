@@ -17,11 +17,11 @@ public class AutonomousPlanB extends SequentialCommandGroup {
 
 
   /** Creates a new AutonomousCommand. */
-  public AutonomousPlanB(DriveTrain drive, NetworkTable table, Intake intake, Feed feed, TeleopShooter shooter) {
+  public AutonomousPlanB(DriveTrain drive, NetworkTable table, Intake intake, Feed feed, AutoShooter autoShooter, TeleopShooter teleopShooter) {
  
-    addRequirements(drive, intake, feed, shooter);
+    addRequirements(drive, intake, feed, autoShooter, teleopShooter);
     // Add your commands in the addCommands() call, e.g.
-    addCommands(new ParallelCommandGroup(new ShootAutonomously(shooter), new SeekBall(drive, table),
+    addCommands(new ParallelCommandGroup(new ShootAutonomously(autoShooter), new SeekBall(drive, table),
        new IntakeIn(intake)),
         new SpinAround(drive), new PathfindToStartingPosition(drive), new AutonomousFeed(5, feed));
     // Not sure if spinaround is needed. Probably would be factored into gyro angle

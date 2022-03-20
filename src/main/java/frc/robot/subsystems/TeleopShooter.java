@@ -3,7 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.subsystems;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.math.controller.PIDController;
 import static frc.robot.Constants.*;
@@ -11,21 +11,16 @@ import edu.wpi.first.wpilibj2.command.PIDSubsystem;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 public class TeleopShooter extends PIDSubsystem {
-  public WPI_TalonFX shooterMotorTalon = new WPI_TalonFX(SHOOTER_MOTOR_ID);
-  public MotorController shooterMotor = shooterMotorTalon; 
-  private final SimpleMotorFeedforward m_shooterFeedforward =
-  new SimpleMotorFeedforward(
-      kSVolts, kVVoltSecondsPerRotation);
+  private final SimpleMotorFeedforward m_shooterFeedforward = new SimpleMotorFeedforward(kSVolts, kVVoltSecondsPerRotation);
   /** Creates a new Shooter. */
   public TeleopShooter() {
     super(
         // The PIDController used by the subsystem
         new PIDController(SHOOTER_PID_TELEOP_kP, SHOOTER_PID_TELEOP_kI, SHOOTER_PID_TELEOP_kD));
 
-      shooterMotorTalon.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
+  shooterMotorTalon.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor); //does this in auto and teleop shooter. Might be issue?
       setSetpoint(TELEOPSETPOINT);
   }
 
@@ -50,7 +45,4 @@ public class TeleopShooter extends PIDSubsystem {
     return m_controller.atSetpoint();
   }
 
-  public void changeSetpoint(double setpoint) {
-    m_controller.setSetpoint(setpoint);
-  }
 }

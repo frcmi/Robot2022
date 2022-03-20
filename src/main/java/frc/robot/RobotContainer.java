@@ -50,15 +50,16 @@ public class RobotContainer {
   // Subsystems
   private static Intake intake = new Intake();
   public static final DriveTrain drive = new DriveTrain();
-  private static TeleopShooter shooter = new TeleopShooter(); 
+  private static AutoShooter autoShooter = new AutoShooter(); 
+  private static TeleopShooter teleopShooter = new TeleopShooter();
   private static Feed feed = new Feed();
   
   //Commands
-  public final AutonomousPlanA autonomousCommand = new AutonomousPlanA(drive, feed, shooter);
-  private AutonomousPlanB backupAutonomousCommand = new AutonomousPlanB(drive, table, intake, feed, shooter);
+  public final AutonomousPlanA autonomousCommand = new AutonomousPlanA(drive, feed, autoShooter, teleopShooter);
+  private AutonomousPlanB backupAutonomousCommand = new AutonomousPlanB(drive, table, intake, feed, autoShooter, teleopShooter);
   //InstantCommand toShift = new InstantCommand(drive::shift, drive);
   public RunCommand joystickDrive = new RunCommand(() -> drive.drive(leftJoystick.getRawAxis(1), -rightJoystick.getRawAxis(1)), drive);
-  public RunCommand runFlywheel = new RunCommand(() -> shooter.enable(), shooter);
+  public RunCommand runFlywheel = new RunCommand(() -> teleopShooter.enable(), teleopShooter);
   public ParallelCommandGroup spitOut = new ParallelCommandGroup(new IntakeOut(intake), new FeederOut(feed));
 
 
@@ -84,13 +85,12 @@ public class RobotContainer {
     conveyorOutButton.whileHeld(new FeederOut(feed));
     selectPipelineButton.whenPressed(new SelectPipeline(table));
     feedButton.whenHeld(new FeederIn(feed)); 
-    toggleJoystickButton.toggleWhenPressed(new ShooterPower(shooter));
+    toggleJoystickButton.toggleWhenPressed(new TeleopShootForButton(teleopShooter));
     // shiftGearButton.whenPressed(new InstantCommand(drive::shift, drive));
   }
 
 
-  public void setTeleop() { //set to take joystick inputs and changes setpoint
-    new ShooterPower(shooter).changeSetpoint(TELEOPSETPOINT);
+  public void setTeleop() { //set to take joystick inputs 
     //shooter.setDefaultCommand(runFlywheel);
     drive.setDefaultCommand(joystickDrive);
   }
@@ -101,6 +101,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return backupAutonomousCommand;
+    return autonomousCommand;
+    //return backupAutonomousCommand;
   }
 }
