@@ -13,17 +13,17 @@ import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
-public class Shooter extends PIDSubsystem {
+public class TeleopShooter extends PIDSubsystem {
   public WPI_TalonFX shooterMotorTalon = new WPI_TalonFX(SHOOTER_MOTOR_ID);
   public MotorController shooterMotor = shooterMotorTalon; 
   private final SimpleMotorFeedforward m_shooterFeedforward =
   new SimpleMotorFeedforward(
       kSVolts, kVVoltSecondsPerRotation);
   /** Creates a new Shooter. */
-  public Shooter() {
+  public TeleopShooter() {
     super(
         // The PIDController used by the subsystem
-        new PIDController(SHOOTER_PID_AUTO_kP, SHOOTER_PID_AUTO_kI, SHOOTER_PID_AUTO_kD));
+        new PIDController(SHOOTER_PID_TELEOP_kP, SHOOTER_PID_TELEOP_kI, SHOOTER_PID_TELEOP_kD));
 
       shooterMotorTalon.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
       setSetpoint(TELEOPSETPOINT);
@@ -48,5 +48,9 @@ public class Shooter extends PIDSubsystem {
 
   public boolean atSetpoint() {
     return m_controller.atSetpoint();
+  }
+
+  public void changeSetpoint(double setpoint) {
+    m_controller.setSetpoint(setpoint);
   }
 }

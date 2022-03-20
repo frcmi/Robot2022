@@ -6,13 +6,13 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-import frc.robot.subsystems.OldShooter;
+import frc.robot.subsystems.TeleopShooter;
 import static frc.robot.Constants.*;
 
-public class AutonomousShooter extends CommandBase {
-  Shooter shooter;
+public class ShootAutonomously extends CommandBase {
+  TeleopShooter shooter;
   /** Creates a new AutonomousShooter. */
-  public AutonomousShooter(Shooter shooter) {
+  public ShootAutonomously(TeleopShooter shooter) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.shooter = shooter;
   }
@@ -25,7 +25,6 @@ public class AutonomousShooter extends CommandBase {
   @Override
   public void execute() {
     shooter.changeSetpoint(AUTOSETPOINT);
-    shooter.set(SHOOTER_PID_AUTO);
   }
 
   // Called once the command ends or is interrupted.
