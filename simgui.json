@@ -51,6 +51,8 @@
   "NTProvider": {
     "types": {
       "/FMSInfo": "FMSInfo",
+      "/LiveWindow/AutoShooter": "Subsystem",
+      "/LiveWindow/AutoShooter/PID Controller": "PIDController",
       "/LiveWindow/ConveyorBelt": "Subsystem",
       "/LiveWindow/DriveTrain": "Subsystem",
       "/LiveWindow/Feed": "Subsystem",
@@ -58,6 +60,8 @@
       "/LiveWindow/Intake": "Subsystem",
       "/LiveWindow/Navx": "Subsystem",
       "/LiveWindow/Shooter": "Subsystem",
+      "/LiveWindow/TeleopShooter": "Subsystem",
+      "/LiveWindow/TeleopShooter/PID Controller": "PIDController",
       "/LiveWindow/Ungrouped/DifferentialDrive[1]": "DifferentialDrive",
       "/LiveWindow/Ungrouped/PIDController[1]": "PIDController",
       "/LiveWindow/Ungrouped/PIDController[2]": "PIDController",

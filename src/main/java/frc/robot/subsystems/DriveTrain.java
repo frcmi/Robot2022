@@ -33,12 +33,13 @@ public class DriveTrain extends SubsystemBase {
   MotorControllerGroup left = new MotorControllerGroup(frontLeft, rearLeft);
   MotorControllerGroup right = new MotorControllerGroup(frontRight, rearRight);
   private DifferentialDrive difDrive = new DifferentialDrive(left,right);
-
   //autonomous navx initialization
   private AHRS ahrs = new AHRS();
   private final DifferentialDriveOdometry odometry = new DifferentialDriveOdometry(ahrs.getRotation2d());
   public Pose2d startingPose = new Pose2d();
-  
+  public DriveTrain() {
+    left.setInverted(true);
+  }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
