@@ -6,14 +6,14 @@ package frc.robot.commands;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.OldShooter;
+import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.TeleopShooter;
 import static frc.robot.Constants.*;
 
-public class TeleopShootForButton extends CommandBase {
-  private OldShooter shooter;
+public class SetShooter extends CommandBase {
+  private Shooter shooter;
   /** Creates a new ShooterPower. */
-  public TeleopShootForButton(OldShooter shooter) {
+  public SetShooter(Shooter shooter) {
     this.shooter = shooter;
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -25,7 +25,7 @@ public class TeleopShootForButton extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-  shooter.set(90);
+  shooter.set(0.9);
   }
 
  

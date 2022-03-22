@@ -11,12 +11,12 @@ import static frc.robot.Constants.*;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
-public class OldShooter extends SubsystemBase {
+public class Shooter extends SubsystemBase {
   /** Creates a new Shooter. */
   public WPI_TalonFX shootMotorTalon = new WPI_TalonFX(SHOOTER_MOTOR_ID);
   public MotorController shootMotor = shootMotorTalon; 
 
-  public OldShooter(){
+  public Shooter(){
   }
 
   @Override
@@ -32,8 +32,8 @@ public class OldShooter extends SubsystemBase {
     shootMotor.set(0.0);
   }
 
-  public void changeSetpoint(double setpoint, PIDController PIDCont) {
-    PIDCont.setSetpoint(setpoint);
-  }
+  // public void changeSetpoint(double setpoint, PIDController PIDCont) {
+  //   PIDCont.setSetpoint(setpoint);
+  // }
 
 }

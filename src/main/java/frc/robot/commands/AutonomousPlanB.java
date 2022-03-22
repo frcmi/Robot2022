@@ -17,7 +17,7 @@ public class AutonomousPlanB extends SequentialCommandGroup {
 
 
   /** Creates a new AutonomousCommand. */
-  public AutonomousPlanB(DriveTrain drive, NetworkTable table, Intake intake, Feed feed, AutoShooter autoShooter, TeleopShooter teleopShooter) {
+  public AutonomousPlanB(DriveTrain drive, NetworkTable table, Intake intake, Feed feed, AutoShooter autoShooter, Shooter teleopShooter) {
  
     addRequirements(drive, intake, feed, autoShooter, teleopShooter);
     // Add your commands in the addCommands() call, e.g.

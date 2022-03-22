@@ -40,39 +40,40 @@ public class RobotContainer {
   NetworkTableEntry ta = table.getEntry("ta");
 
   // Buttons and Joysticks
-  XboxController xbox = new XboxController(0);
-  // Joystick leftJoystick = new Joystick(1);
-  // Joystick rightJoystick = new Joystick(0);
-  // JoystickButton conveyorInButton = new JoystickButton(leftJoystick, 4);
-  // JoystickButton conveyorOutButton = new JoystickButton(leftJoystick, 3);
-  // // JoystickButton shiftGearButton = new JoystickButton(rightJoystick, 1);
-  // JoystickButton feedButton = new JoystickButton(leftJoystick, 1);
-  // JoystickButton selectPipelineButton = new JoystickButton(rightJoystick, 2);
-  // JoystickButton toggleJoystickButton = new JoystickButton(leftJoystick, 2);
+    //Xbox control scheme
+    XboxController xbox = new XboxController(0);
+    JoystickButton conveyorOutButton = new JoystickButton(xbox, 2);
+    JoystickButton conveyorInButton = new JoystickButton(xbox, 1);
+    JoystickButton feedButton = new JoystickButton(xbox, 6);
+    JoystickButton toggleShooterButton = new JoystickButton(xbox, 8);
+
+
+    //Joystick control scheme
+    // Joystick leftJoystick = new Joystick(1);
+    // Joystick rightJoystick = new Joystick(0);
+    // JoystickButton conveyorInButton = new JoystickButton(leftJoystick, 4);
+    // JoystickButton conveyorOutButton = new JoystickButton(leftJoystick, 3);
+    // JoystickButton feedButton = new JoystickButton(leftJoystick, 1);
+    // JoystickButton selectPipelineButton = new JoystickButton(rightJoystick, 2);
+    // JoystickButton toggleShooterButton = new JoystickButton(leftJoystick, 2);
+  
   // Subsystems
-  JoystickButton conveyorOutButton = new JoystickButton(xbox, 1);
-  JoystickButton conveyorInButton = new JoystickButton(xbox, 3);
-  JoystickButton feedButton = new JoystickButton(xbox, 6);
-  JoystickButton toggleJoystickButton = new JoystickButton(xbox, 8);
-
-
   private static Intake intake = new Intake();
   public static final DriveTrain drive = new DriveTrain();
   private static AutoShooter autoShooter = new AutoShooter(); 
-  private static OldShooter teleopShooter = new OldShooter();
+  private static Shooter teleopShooter = new Shooter();
   private static Feed feed = new Feed();
   
   //Commands
-  //public final AutonomousPlanA autonomousCommand = new AutonomousPlanA(drive, feed, teleopShooter, teleopShooter);
-  //private AutonomousPlanB backupAutonomousCommand = new AutonomousPlanB(drive, table, intake, feed, autoShooter, teleopShooter);
-  //InstantCommand toShift = new InstantCommand(drive::shift, drive);
-  //public RunCommand joystickDrive = new RunCommand(() -> drive.drive(leftJoystick.getRawAxis(1), -rightJoystick.getRawAxis(1)), drive);
+  public final AutonomousPlanA autonomousCommand = new AutonomousPlanA(drive, feed, autoShooter, teleopShooter);
+  private AutonomousPlanB backupAutonomousCommand = new AutonomousPlanB(drive, table, intake, feed, autoShooter, teleopShooter);
+  // public RunCommand joystickDrive = new RunCommand(() -> drive.drive(leftJoystick.getRawAxis(1), -rightJoystick.getRawAxis(1)), drive);
+  public SetShooter setShooter = new SetShooter(teleopShooter);
   // public RunCommand joystickDrive = new RunCommand(() -> drive.drive(xbox.getRightTriggerAxis() * ((0.95 * 0.8 * xbox.getRawAxis(1)) + (0.95 * 0.8 * xbox.getRawAxis(2))),
   // -xbox.getRightTriggerAxis() * ((0.95 * 0.8 * xbox.getRawAxis(1)) - (0.95 * 0.8 * xbox.getRawAxis(2)))), drive);
 
   //public RunCommand runFlywheel = new RunCommand(() -> teleopShooter.enable(), teleopShooter);
   public ParallelCommandGroup spitOut = new ParallelCommandGroup(new IntakeOut(intake), new FeederOut(feed));
-
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -90,26 +91,22 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    conveyorInButton.toggleWhenPressed(new IntakeIn(intake));
-    //conveyorOutButton.whileHeld(spitOut);
-    conveyorOutButton.whileHeld(new IntakeOut(intake));
-    conveyorOutButton.whileHeld(new FeederOut(feed));
-    conveyorOutButton.whenReleased(new IntakeIn(intake));
+    conveyorInButton.whileHeld(new IntakeIn(intake));
+    conveyorOutButton.whileHeld(spitOut);
+    // conveyorOutButton.whileHeld(new IntakeOut(intake));
+    // conveyorOutButton.whileHeld(new FeederOut(feed));
     //selectPipelineButton.whenPressed(new SelectPipeline(table));
     feedButton.whenHeld(new FeederIn(feed)); 
-    //toggleJoystickButton.toggleWhenPressed(new TeleopShootForButton(teleopShooter));
-    // shiftGearButton.whenPressed(new InstantCommand(drive::shift, drive));
+    toggleShooterButton.toggleWhenPressed(setShooter);
   }
 
 
   public void setTeleop() { //set to take joystick inputs 
   //shooter.setDefaultCommand(runFlywheel);
   //drive.setDefaultCommand(joystickDrive);
-    //new TeleopShootForButton(teleopShooter);
-    teleopShooter.set(.8);
+  setShooter.schedule();
   }
   public void teleopPeriodic() {
-    //System.out.println("slide");
       while(xbox.getRawButton(5)){
         
         if (xbox.getRawAxis(0) > 0){
