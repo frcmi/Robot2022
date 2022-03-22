@@ -74,7 +74,7 @@ public class Robot extends TimedRobot {
 
     // schedule the autonomous command (example)
     if (container.getAutonomousCommand() != null) {
-      container.autonomousCommand.schedule();
+      //container.autonomousCommand.schedule();
     }
     
     }
@@ -89,6 +89,7 @@ public class Robot extends TimedRobot {
   /** This function is called once each time the robot enters teleoperated mode. */
   @Override
   public void teleopInit() {
+    container.setTeleop();
   }
 
   /** This function is called periodically during teleoperated mode. */

@@ -24,9 +24,8 @@ public class OldShooter extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void set(PIDController PIDCont) {
-    System.out.println(shootMotor.get());
-    shootMotor.set(PIDCont.calculate(shootMotor.get()));
+  public void set(double speed) {
+    shootMotor.set(speed);
   }
 
   public void stop() {
