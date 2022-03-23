@@ -107,7 +107,7 @@ public class RobotContainer {
   setShooter.schedule();
   }
   public void teleopPeriodic() {
-      while(xbox.getRawButton(5)){
+      if(xbox.getRawButton(5)){
         
         if (xbox.getRawAxis(0) > 0){
           drive.drive(xbox.getRightTriggerAxis(), 
@@ -119,7 +119,7 @@ public class RobotContainer {
         }
       }
 
-      while(xbox.getRightTriggerAxis() > 0 || xbox.getLeftTriggerAxis() > 0){
+      if(xbox.getRightTriggerAxis() > 0 || xbox.getLeftTriggerAxis() > 0){
         if (xbox.getRawAxis(0) > 0){
           drive.drive(xbox.getRightTriggerAxis() - xbox.getLeftTriggerAxis() + (0.75 * xbox.getRawAxis(0)), 
                               xbox.getRightTriggerAxis() - xbox.getLeftTriggerAxis());
@@ -127,6 +127,9 @@ public class RobotContainer {
           drive.drive(xbox.getRightTriggerAxis() - xbox.getLeftTriggerAxis(), 
                               xbox.getRightTriggerAxis() - xbox.getLeftTriggerAxis() + (-0.75 * xbox.getRawAxis(0)));
         }
+      }
+      else {
+        drive.drive(0,0);
       }
   }
   /**
