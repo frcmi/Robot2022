@@ -7,7 +7,7 @@ package frc.robot.commands;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Shooter;
-import frc.robot.subsystems.TeleopShooter;
+import frc.robot.subsystems.PIDShooter;
 import static frc.robot.Constants.*;
 
 public class SetShooter extends CommandBase {
@@ -25,6 +25,7 @@ public class SetShooter extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+  
   shooter.set(0.9);
   }
 

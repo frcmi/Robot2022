@@ -12,9 +12,12 @@ import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.subsystems.PIDShooter;
 import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+
+
+
+
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -23,8 +26,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
  * directory.
  */
 public class Robot extends TimedRobot {
-  SendableChooser PIDTuner = new SendableChooser<Double>();
-  
+    
   private RobotContainer container = new RobotContainer();
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -51,7 +53,7 @@ public class Robot extends TimedRobot {
         outputStream.putFrame(output);
       }
     }).start();
- 
+    
     System.out.println("robot init");
     if (container.table.getEntry("pipeline").getDouble(0) == 0) {
       System.out.println("looking for red balls");
@@ -59,9 +61,6 @@ public class Robot extends TimedRobot {
       System.out.println("looking for blue balls");
     }
   container.drive.setEncoders();
-    PIDTuner.addOption("", 1.0);
-    PIDTuner.addOption("Dual Stick", 2.0);
-  
   }
 
   /** This function is run once each time the robot enters autonomous mode. */
@@ -83,7 +82,6 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() {
     CommandScheduler.getInstance().run();
- 
   }
 
   /** This function is called once each time the robot enters teleoperated mode. */
@@ -97,12 +95,12 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
     container.teleopPeriodic();
     CommandScheduler.getInstance().run();
-
   }
 
   /** This function is called once each time the robot enters test mode. */
   @Override
   public void testInit() {
+
   }
 
   /** This function is called periodically during test mode. */
