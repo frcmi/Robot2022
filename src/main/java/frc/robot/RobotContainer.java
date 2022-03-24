@@ -42,10 +42,10 @@ public class RobotContainer {
   // Buttons and Joysticks
     //Xbox control scheme
     XboxController xbox = new XboxController(0);
-    JoystickButton conveyorOutButton = new JoystickButton(xbox, 2);
-    JoystickButton conveyorInButton = new JoystickButton(xbox, 1);
-    JoystickButton feedButton = new JoystickButton(xbox, 6);
-    JoystickButton toggleShooterButton = new JoystickButton(xbox, 8);
+    JoystickButton conveyorOutButton = new JoystickButton(xbox, 2); //b button
+    JoystickButton conveyorInButton = new JoystickButton(xbox, 1); //a button
+    JoystickButton feedButton = new JoystickButton(xbox, 6); //right bumper
+    JoystickButton toggleShooterButton = new JoystickButton(xbox, 3); //x button
 
 
     //Joystick control scheme
