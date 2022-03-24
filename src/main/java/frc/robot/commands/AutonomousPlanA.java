@@ -7,6 +7,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 
 import frc.robot.subsystems.*;
 
@@ -18,6 +19,6 @@ public class AutonomousPlanA extends SequentialCommandGroup {
   public AutonomousPlanA(DriveTrain drive, Feed feed, AutoShooter autoShooter, Shooter teleopShooter) {
     // Add your commands in the addCommands() call, e.g.
     addRequirements(drive, feed, autoShooter, teleopShooter);
-    addCommands(new ParallelRaceGroup(new ShootAutonomously(autoShooter), new SequentialCommandGroup(new AutonomousFeed(2, feed), new DriveOutOfTarmac(drive))));
+    addCommands(new ParallelRaceGroup(new ShootAutonomously(autoShooter), new SequentialCommandGroup(new WaitCommand(2.0),new AutonomousFeed(2, feed), new DriveOutOfTarmac(drive))));
   }
 }
