@@ -69,6 +69,8 @@
       "/LiveWindow/Hanger": "Subsystem",
       "/LiveWindow/Intake": "Subsystem",
       "/LiveWindow/Navx": "Subsystem",
+      "/LiveWindow/PIDShooter": "Subsystem",
+      "/LiveWindow/PIDShooter/PID Controller": "PIDController",
       "/LiveWindow/Shooter": "Subsystem",
       "/LiveWindow/TeleopShooter": "Subsystem",
       "/LiveWindow/TeleopShooter/PID Controller": "PIDController",

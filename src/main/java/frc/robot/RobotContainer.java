@@ -60,7 +60,7 @@ public class RobotContainer {
   // Subsystems
   private static Intake intake = new Intake();
   public static final DriveTrain drive = new DriveTrain();
-  private static AutoShooter autoShooter = new AutoShooter(); 
+  private static AutoShooter autoShooter = new AutoShooter();
   private static Shooter teleopShooter = new Shooter();
   private static Feed feed = new Feed();
   
@@ -104,7 +104,7 @@ public class RobotContainer {
   public void setTeleop() { //set to take joystick inputs 
   //shooter.setDefaultCommand(runFlywheel);
   //drive.setDefaultCommand(joystickDrive);
-  setShooter.schedule();
+  //setShooter.schedule();
   }
   public void teleopPeriodic() {
       if(xbox.getRawButton(5)){
@@ -138,7 +138,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return null;
+    return autonomousCommand;
     //return backupAutonomousCommand;
   }
 }

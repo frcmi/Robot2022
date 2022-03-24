@@ -13,8 +13,6 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 public class Shooter extends SubsystemBase {
   /** Creates a new Shooter. */
-  public WPI_TalonFX shootMotorTalon = new WPI_TalonFX(SHOOTER_MOTOR_ID);
-  public MotorController shootMotor = shootMotorTalon; 
 
   public Shooter(){
   }
@@ -25,11 +23,11 @@ public class Shooter extends SubsystemBase {
   }
 
   public void set(double speed) {
-    shootMotor.set(speed);
+    shooterMotor.set(speed);
   }
 
   public void stop() {
-    shootMotor.set(0.0);
+    shooterMotor.set(0.0);
   }
 
   // public void changeSetpoint(double setpoint, PIDController PIDCont) {

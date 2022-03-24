@@ -25,7 +25,7 @@ public class FeederIn extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    feed.setPower(-6); //change this later during testing
+    feed.setPower(-.3); //change this later during testing
   }
 
   // Called once the command ends or is interrupted.
@@ -38,5 +38,5 @@ public class FeederIn extends CommandBase {
   @Override
   public boolean isFinished() {
     return false;
-  }
+  }  
 }

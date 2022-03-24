@@ -39,6 +39,10 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 public class Robot extends TimedRobot {
     
   private RobotContainer container = new RobotContainer();
+  ShuffleboardTab tab = Shuffleboard.getTab("Shooter");
+    NetworkTableEntry P = tab.add("P value", 0.90).getEntry();
+    NetworkTableEntry I = tab.add("I value", 0).getEntry();
+    NetworkTableEntry D = tab.add("D value", 0).getEntry();
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -84,7 +88,7 @@ public class Robot extends TimedRobot {
 
     // schedule the autonomous command (example)
     if (container.getAutonomousCommand() != null) {
-      //container.autonomousCommand.schedule();
+      container.getAutonomousCommand().schedule();
     }
     
     }
@@ -111,15 +115,17 @@ public class Robot extends TimedRobot {
   /** This function is called once each time the robot enters test mode. */
   @Override
   public void testInit() {
-  ShuffleboardTab tab = Shuffleboard.getTab("Shooter");
-  NetworkTableEntry P = tab.add("P value", 0.90).getEntry();
-  NetworkTableEntry I = tab.add("I value", 0).getEntry();
-  NetworkTableEntry D = tab.add("D value", 0).getEntry();
+  
   PIDShooter pidTest = new PIDShooter(P.getDouble(0.01), I.getDouble(0.01), D.getDouble(0.01));
-    pidTest.enable();
+  pidTest.enable();
+
+    //pidTest = new PIDShooter(.9,0,0);
+    System.out.println(P.getDouble(0)+ " "+ I.getDouble(0)+ " "+ D.getDouble(0));
+
   }
 
   /** This function is called periodically during test mode. */
   @Override
-  public void testPeriodic() {}
+  public void testPeriodic() {
+  }
 }
