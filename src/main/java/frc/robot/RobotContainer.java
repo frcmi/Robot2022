@@ -65,8 +65,8 @@ public class RobotContainer {
   private static Feed feed = new Feed();
   
   //Commands
-  public final AutonomousPlanA autonomousCommand = new AutonomousPlanA(drive, feed, autoShooter, teleopShooter);
-  private AutonomousPlanB backupAutonomousCommand = new AutonomousPlanB(drive, table, intake, feed, autoShooter, teleopShooter);
+  //public final AutonomousPlanA autonomousCommand = new AutonomousPlanA(drive, feed, autoShooter, teleopShooter);
+  //private AutonomousPlanB backupAutonomousCommand = new AutonomousPlanB(drive, table, intake, feed, autoShooter, teleopShooter);
   // public RunCommand joystickDrive = new RunCommand(() -> drive.drive(leftJoystick.getRawAxis(1), -rightJoystick.getRawAxis(1)), drive);
   public SetShooter setShooter = new SetShooter(teleopShooter);
   // public RunCommand joystickDrive = new RunCommand(() -> drive.drive(xbox.getRightTriggerAxis() * ((0.95 * 0.8 * xbox.getRawAxis(1)) + (0.95 * 0.8 * xbox.getRawAxis(2))),
@@ -79,7 +79,7 @@ public class RobotContainer {
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
-    configureButtonBindings();
+    
   }
 
   /**
@@ -104,6 +104,7 @@ public class RobotContainer {
   public void setTeleop() { //set to take joystick inputs 
   //shooter.setDefaultCommand(runFlywheel);
   //drive.setDefaultCommand(joystickDrive);
+  configureButtonBindings();
   setShooter.schedule();
   }
   public void teleopPeriodic() {
@@ -121,11 +122,11 @@ public class RobotContainer {
 
       if(xbox.getRightTriggerAxis() > 0 || xbox.getLeftTriggerAxis() > 0){
         if (xbox.getRawAxis(0) > 0){
-          drive.drive(xbox.getRightTriggerAxis() - xbox.getLeftTriggerAxis() + (0.75 * xbox.getRawAxis(0)), 
-                              xbox.getRightTriggerAxis() - xbox.getLeftTriggerAxis());
+          drive.drive(0.75 * (xbox.getRightTriggerAxis() - xbox.getLeftTriggerAxis() + (0.75 * xbox.getRawAxis(0))), 
+                              0.75 * (xbox.getRightTriggerAxis() - xbox.getLeftTriggerAxis()));
         } else {
-          drive.drive(xbox.getRightTriggerAxis() - xbox.getLeftTriggerAxis(), 
-                              xbox.getRightTriggerAxis() - xbox.getLeftTriggerAxis() + (-0.75 * xbox.getRawAxis(0)));
+          drive.drive(.75 * (xbox.getRightTriggerAxis() - xbox.getLeftTriggerAxis()), 
+                              .75 * (xbox.getRightTriggerAxis() - xbox.getLeftTriggerAxis() + (-0.75 * xbox.getRawAxis(0))));
         }
       }
       else {
@@ -138,7 +139,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return autonomousCommand;
+    return new AutonomousPlanA(drive, feed, autoShooter, teleopShooter);
     //return backupAutonomousCommand;
   }
 }

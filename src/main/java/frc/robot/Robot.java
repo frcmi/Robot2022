@@ -82,7 +82,7 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     //container.drive.setDefaultGear();
     CommandScheduler.getInstance().cancelAll();
-
+    CommandScheduler.getInstance().clearButtons();
     System.out.println("Autonomous init started");
     container.drive.resetOdometry(new Pose2d());
 
@@ -113,7 +113,6 @@ public class Robot extends TimedRobot {
     container.teleopPeriodic();
     CommandScheduler.getInstance().run();
     SmartDashboard.putData(CommandScheduler.getInstance());
-
   }
 
   /** This function is called once each time the robot enters test mode. */
