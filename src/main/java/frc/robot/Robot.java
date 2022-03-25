@@ -49,7 +49,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    
     //I think it's just gonna give an error unless we select a camera from SmartDashboard
     new Thread(() -> {
       UsbCamera camera = CameraServer.startAutomaticCapture();
@@ -82,7 +81,8 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     //container.drive.setDefaultGear();
-    
+    CommandScheduler.getInstance().cancelAll();
+
     System.out.println("Autonomous init started");
     container.drive.resetOdometry(new Pose2d());
 
@@ -97,11 +97,13 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() {
     CommandScheduler.getInstance().run();
+    SmartDashboard.putData(CommandScheduler.getInstance());
   }
 
   /** This function is called once each time the robot enters teleoperated mode. */
   @Override
   public void teleopInit() {
+    CommandScheduler.getInstance().cancelAll();
     container.setTeleop();
   }
 
@@ -110,12 +112,14 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
     container.teleopPeriodic();
     CommandScheduler.getInstance().run();
+    SmartDashboard.putData(CommandScheduler.getInstance());
+
   }
 
   /** This function is called once each time the robot enters test mode. */
   @Override
   public void testInit() {
-  
+  CommandScheduler.getInstance().cancelAll();
   PIDShooter pidTest = new PIDShooter(P.getDouble(0.01), I.getDouble(0.01), D.getDouble(0.01));
   pidTest.enable();
 

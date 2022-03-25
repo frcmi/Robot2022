@@ -104,7 +104,7 @@ public class RobotContainer {
   public void setTeleop() { //set to take joystick inputs 
   //shooter.setDefaultCommand(runFlywheel);
   //drive.setDefaultCommand(joystickDrive);
-  //setShooter.schedule();
+  setShooter.schedule();
   }
   public void teleopPeriodic() {
       if(xbox.getRawButton(5)){

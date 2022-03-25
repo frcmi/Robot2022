@@ -23,7 +23,7 @@ public class FeederOut extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    feed.setPower(1.0);
+    feed.setPower(0.3);
   }
 
   // Called once the command ends or is interrupted.

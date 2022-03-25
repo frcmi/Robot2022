@@ -20,6 +20,8 @@ public class AutonomousFeed extends CommandBase {
     // Use addRequirements() here to declare subsystem dependencies.
     this.feed = feed;
     this.seconds = seconds;
+    
+    
     addRequirements(this.feed);
   }
 
