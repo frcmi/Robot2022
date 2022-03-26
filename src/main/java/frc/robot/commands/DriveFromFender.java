@@ -30,7 +30,7 @@ public class DriveFromFender extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (timer.get() < 0.3) { // in seconds, change this value
+    if (timer.get() < 0.25) { // in seconds, change this value
       drive.drive(-.5, -.5);
     } else {
       done = true;
