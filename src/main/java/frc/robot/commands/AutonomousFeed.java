@@ -35,7 +35,7 @@ public class AutonomousFeed extends CommandBase {
   @Override
   public void execute() {
     if (timer.get() < seconds) { // in seconds, change this value
-      feed.setPower(1.0);
+      feed.setPower(-.3);
     } else {
       done = true;
     }

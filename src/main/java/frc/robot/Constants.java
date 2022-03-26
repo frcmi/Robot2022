@@ -18,7 +18,7 @@ public class Constants {
     public static final int FRONT_RIGHT_MOTOR_ID = 1;
     public static final int REAR_RIGHT_MOTOR_ID = 2;
 
-    public static final int INTAKE_MOTOR_ID = 1;
+    public static final int INTAKE_MOTOR_ID = 6;
 
     public static final int FEED_MOTOR_ID = 0;
     public static final int SHOOTER_MOTOR_ID = 5;

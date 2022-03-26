@@ -26,7 +26,7 @@ public class IntakeIn extends CommandBase {
 
   @Override
   public void execute() {
-    intake.setPower(1);
+    intake.setPower(-0.5);
   }
 
   @Override

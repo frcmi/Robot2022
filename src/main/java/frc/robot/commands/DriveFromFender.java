@@ -3,38 +3,49 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.commands;
-import frc.robot.subsystems.Feed;
 
+import frc.robot.subsystems.DriveTrain;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj.Timer;
 
-public class FeederOut extends CommandBase {
-  private Feed feed;
-  /** Creates a new FeederOut. */
-  public FeederOut(Feed feed) {
-    this.feed = feed;
-    addRequirements(this.feed);
+public class DriveFromFender extends CommandBase {
+  Timer timer = new Timer();
+  boolean done = false;
+  private DriveTrain drive;
+
+  /** Creates a new DriveToHub. */
+  public DriveFromFender(DriveTrain drive) {
+    this.drive = drive;
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(this.drive);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    timer.start();
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    feed.setPower(0.5);
+    if (timer.get() < 0.3) { // in seconds, change this value
+      drive.drive(-.5, -.5);
+    } else {
+      done = true;
+    }
+
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    feed.stop();
+    drive.stop();
   }
 
-  // Returns true when the command should end.
+  // Returns true when the command should end. MAKE IT STOP
   @Override
   public boolean isFinished() {
-    return false;
+    return done;
   }
 }

@@ -29,8 +29,8 @@ public class DriveOutOfTarmac extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (timer.get() < 0.5) { // in seconds, change this value
-      drive.drive(-.5, -.5);
+    if (timer.get() < 1) { // in seconds, change this value
+      drive.drive(-.6, -.6);
     } else {
       done = true;
     }

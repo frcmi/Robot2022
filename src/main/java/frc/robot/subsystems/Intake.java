@@ -8,12 +8,12 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import static frc.robot.Constants.*;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 public class Intake extends SubsystemBase {
   /** Creates a new Shooter. */
-  public WPI_VictorSPX intakeMotorVictor = new WPI_VictorSPX(INTAKE_MOTOR_ID);
-  public MotorController intakeMotor = intakeMotorVictor; 
+  public WPI_TalonFX  intakeMotorTalon = new WPI_TalonFX(INTAKE_MOTOR_ID);
+  public MotorController intakeMotor = intakeMotorTalon; 
   public Intake() {}
 
   @Override
