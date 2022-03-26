@@ -105,7 +105,7 @@ public class RobotContainer {
   //shooter.setDefaultCommand(runFlywheel);
   //drive.setDefaultCommand(joystickDrive);
   configureButtonBindings();
-  setShooter.schedule();
+  //setShooter.schedule();
   }
   public void teleopPeriodic() {
     while(xbox.getRawButton(5)){
@@ -119,8 +119,11 @@ public class RobotContainer {
                               xbox.getRightTriggerAxis()); 
         }
       }
-
-      if(xbox.getRightTriggerAxis() > 0 || xbox.getLeftTriggerAxis() > 0){
+      if(xbox.getPOV(0)==180) {
+        drive.drive(.9,.9);
+      }
+      else if(xbox.getRightTriggerAxis() > 0 || xbox.getLeftTriggerAxis() > 0){
+        
         if (xbox.getRawAxis(0) > 0){
           drive.drive(0.65 * (xbox.getRightTriggerAxis() - xbox.getLeftTriggerAxis() + (0.5 * xbox.getRawAxis(0))), 
                               0.65 * (xbox.getRightTriggerAxis() - xbox.getLeftTriggerAxis()));

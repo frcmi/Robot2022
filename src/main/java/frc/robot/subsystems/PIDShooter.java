@@ -14,7 +14,6 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 
 public class PIDShooter extends PIDSubsystem {
   
-
   private final SimpleMotorFeedforward m_shooterFeedforward = new SimpleMotorFeedforward(kSVolts, kVVoltSecondsPerRotation);
   /** Creates a new Shooter. */
   public PIDShooter(double p, double i, double d) {
