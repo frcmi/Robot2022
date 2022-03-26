@@ -12,18 +12,19 @@ public class DriveFromFender extends CommandBase {
   Timer timer = new Timer();
   boolean done = false;
   private DriveTrain drive;
-
   /** Creates a new DriveToHub. */
   public DriveFromFender(DriveTrain drive) {
     this.drive = drive;
+    addRequirements(drive);
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(this.drive);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    timer.reset();
     timer.start();
+    done = false;
   }
 
   // Called every time the scheduler runs while the command is scheduled.

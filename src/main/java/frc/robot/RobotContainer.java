@@ -109,7 +109,7 @@ public class RobotContainer {
   setShooter.schedule();
   }
   public void teleopPeriodic() {
-      while(xbox.getRawButton(5)){
+    while(xbox.getRawButton(5)){
         //System.out.println("slide");
         if (xbox.getRawAxis(0) > 0){
           drive.drive(xbox.getRightTriggerAxis(), 
