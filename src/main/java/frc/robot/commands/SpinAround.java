@@ -11,12 +11,14 @@ import frc.robot.subsystems.*;
 
 public class SpinAround extends CommandBase {
   private DriveTrain drive;
+  int multiplier;
   Timer timer = new Timer();
   boolean done = false;
 
   /** Creates a new SpinAround. */
-  public SpinAround(DriveTrain drive) {
+  public SpinAround(DriveTrain drive, int multiplier) {
     this.drive = drive;
+    this.multiplier = multiplier;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(this.drive);
   }
@@ -30,10 +32,11 @@ public class SpinAround extends CommandBase {
   @Override
   public void execute() {
     timer.start();
-    while (timer.get() < 5) { // in seconds, change this value
-      drive.drive(-1.0, 1.0);
+    if (drive.getLeftDisplacement() < 1) { // in m, change this value
+      drive.drive((multiplier * -0.5), (multiplier * 0.5));
+    } else {
+      done = true;
     }
-    done = true;
   }
 
   // Called once the command ends or is interrupted.

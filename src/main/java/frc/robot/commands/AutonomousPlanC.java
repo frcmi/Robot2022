@@ -18,6 +18,6 @@ public class AutonomousPlanC extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addRequirements(drive, intake, feed, shooter);
-    addCommands(new ParallelRaceGroup(new SetShooter(shooter), new SequentialCommandGroup(new WaitCommand(1), new AutonomousFeed(2, feed),new SpinAround(drive, 1), new AutoGetBall(drive, 1), new SpinAround(drive, -1), new AutoGetBall(drive, -1))));
+    addCommands(new ParallelRaceGroup(new SetShooter(shooter), new SequentialCommandGroup(new WaitCommand(1), new AutonomousFeed(2, feed),new SpinAround(drive, 1), new AutoGetBall(drive, 1), new SpinAround(drive, -1), new AutoGetBall(drive, -1), new AutonomousFeed(2, feed))));
   }
 }

@@ -118,6 +118,15 @@ public class DriveTrain extends SubsystemBase {
     difDrive.feed();
   }
 
+  public double getLeftDisplacement() {
+    return (rearLeft.getSelectedSensorPosition() + frontLeft.getSelectedSensorPosition())/2;
+
+  }
+
+  public double getRightDisplacement() {
+    return (rearRight.getSelectedSensorPosition()+ frontLeft.getSelectedSensorPosition())/2;
+  }
+
   /*Gear shifting that got removed
   public void shift(){ //toggles pistons for gear shifting
     solenoidLeft1.toggle();
