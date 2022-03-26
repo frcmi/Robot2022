@@ -34,4 +34,9 @@ public class Shooter extends SubsystemBase {
   //   PIDCont.setSetpoint(setpoint);
   // }
 
+  public double getMeasurement() {
+    // Return the process variable measurement here
+    return shooterMotorTalon.getSelectedSensorVelocity();
+  }
+
 }
