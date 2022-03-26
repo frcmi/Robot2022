@@ -16,10 +16,10 @@ import frc.robot.subsystems.*;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class AutonomousPlanA extends SequentialCommandGroup {
   /** Creates a new AutonomousPlanA. */
-  public AutonomousPlanA(DriveTrain drive, Feed feed, AutoShooter autoShooter, Shooter teleopShooter) {
+  public AutonomousPlanA(DriveTrain drive, Feed feed, Shooter teleopShooter) {
     // Add your commands in the addCommands() call, e.g.
     System.out.println("running autonomous");
-    addRequirements(drive, feed, autoShooter, teleopShooter);
+    addRequirements(drive, feed, teleopShooter);
     addCommands(new ParallelRaceGroup(new SetShooter(teleopShooter), new SequentialCommandGroup(new WaitCommand(2), new AutonomousFeed(2, feed), new DriveOutOfTarmac(drive))));
    }
 }
