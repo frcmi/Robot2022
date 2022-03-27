@@ -16,9 +16,9 @@ import frc.robot.subsystems.PIDShooter;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+//import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+//import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
+//import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.button.NetworkButton;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
@@ -39,10 +39,10 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 public class Robot extends TimedRobot {
     
   private RobotContainer container = new RobotContainer();
-  ShuffleboardTab tab = Shuffleboard.getTab("Shooter");
-    NetworkTableEntry P = tab.add("P value", 0.90).getEntry();
-    NetworkTableEntry I = tab.add("I value", 0).getEntry();
-    NetworkTableEntry D = tab.add("D value", 0).getEntry();
+  //ShuffleboardTab tab = Shuffleboard.getTab("Shooter");
+    //NetworkTableEntry P = tab.add("P value", 0.90).getEntry();
+    //NetworkTableEntry I = tab.add("I value", 0).getEntry();
+    //NetworkTableEntry D = tab.add("D value", 0).getEntry();
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -50,15 +50,24 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     //I think it's just gonna give an error unless we select a camera from SmartDashboard
-    new Thread(() -> {
+    /*new Thread(() -> {
       UsbCamera camera = CameraServer.startAutomaticCapture();
+      UsbCamera limelight = CameraServer.startAutomaticCapture();
+
       camera.setResolution(640, 480);
+      limelight.setResolution(640, 480);
 
       CvSink cvSink = CameraServer.getVideo();
       CvSource outputStream = CameraServer.putVideo("DriverCam", 640, 480);
 
+      CvSink cvSink1 = CameraServer.getVideo();
+      CvSource outputStream1 = CameraServer.putVideo("RearCam", 640, 480);
+
       Mat source = new Mat();
       Mat output = new Mat();
+
+      Mat source1 = new Mat();
+      Mat output1 = new Mat();
 
       while(!Thread.interrupted()) {
         if (cvSink.grabFrame(source) == 0) {
@@ -66,7 +75,14 @@ public class Robot extends TimedRobot {
         }
         outputStream.putFrame(output);
       }
-    }).start();
+
+      while(!Thread.interrupted()) {
+        if (cvSink1.grabFrame(source1) == 0) {
+          continue;
+        }
+        outputStream1.putFrame(output1);
+      }
+    }).start();*/
     
     System.out.println("robot init");
     if (container.table.getEntry("pipeline").getDouble(0) == 0) {
@@ -119,12 +135,12 @@ public class Robot extends TimedRobot {
   @Override
   public void testInit() {
   CommandScheduler.getInstance().cancelAll();
-  PIDShooter pidTest = new PIDShooter(P.getDouble(0.01), I.getDouble(0.01), D.getDouble(0.01));
+  /*PIDShooter pidTest = new PIDShooter(P.getDouble(0.01), I.getDouble(0.01), D.getDouble(0.01));
   pidTest.enable();
 
     //pidTest = new PIDShooter(.9,0,0);
     System.out.println(P.getDouble(0)+ " "+ I.getDouble(0)+ " "+ D.getDouble(0));
-
+*/
   }
 
   /** This function is called periodically during test mode. */
