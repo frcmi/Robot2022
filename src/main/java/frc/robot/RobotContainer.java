@@ -44,9 +44,9 @@ public class RobotContainer {
     XboxController xbox = new XboxController(0);
     JoystickButton conveyorOutButton = new JoystickButton(xbox, 2); //b button
     JoystickButton conveyorInButton = new JoystickButton(xbox, 1); //a button
-    JoystickButton feedButton = new JoystickButton(xbox, 6); //right bumper
-    JoystickButton toggleShooterButton = new JoystickButton(xbox, 3); //x button
-    JoystickButton driveBack = new JoystickButton(xbox, 4);
+    JoystickButton feedButton = new JoystickButton(xbox, 3); //right bumper
+    JoystickButton toggleShooterButton = new JoystickButton(xbox, 4); //x button
+    //JoystickButton driveBack = new JoystickButton(xbox, 4);
 
     //Joystick control scheme
     // Joystick leftJoystick = new Joystick(1);
@@ -97,7 +97,7 @@ public class RobotContainer {
     //selectPipelineButton.whenPressed(new SelectPipeline(table));
     feedButton.whenHeld(new FeederIn(feed)); 
     toggleShooterButton.toggleWhenPressed(setShooter);
-    driveBack.whenPressed(new DriveFromFender(drive));
+    //driveBack.whenPressed(new DriveFromFender(drive));
   }
 
 
@@ -108,8 +108,8 @@ public class RobotContainer {
   setShooter.schedule();
   }
   public void teleopPeriodic() {
-    while(xbox.getRawButton(5)){
-        //System.out.println("slide");
+    if(xbox.getRawButton(5)){
+        System.out.println("slide");
         if (xbox.getRawAxis(0) > 0){
           drive.drive(xbox.getRightTriggerAxis(), 
                               (-(xbox.getRightTriggerAxis())));
@@ -118,24 +118,25 @@ public class RobotContainer {
           drive.drive((-(xbox.getRightTriggerAxis())), 
                               xbox.getRightTriggerAxis()); 
         }
-      }
-      if(xbox.getPOV(0)==180) {
-        drive.drive(.9,.9);
+      } else {
+      if(xbox.getRawButton(6)) {
+        System.out.println("turbo");
+        drive.drive(1,1);
       }
       else if(xbox.getRightTriggerAxis() > 0 || xbox.getLeftTriggerAxis() > 0){
         
         if (xbox.getRawAxis(0) > 0){
-          drive.drive(0.55 * (xbox.getRightTriggerAxis() - xbox.getLeftTriggerAxis() + (0.5 * xbox.getRawAxis(0))), 
+          drive.drive(0.65 * (xbox.getRightTriggerAxis() - xbox.getLeftTriggerAxis() + (0.5 * xbox.getRawAxis(0))), 
                               0.55 * (xbox.getRightTriggerAxis() - xbox.getLeftTriggerAxis()));
         } else {
-          drive.drive(.55 * (xbox.getRightTriggerAxis() - xbox.getLeftTriggerAxis()), 
+          drive.drive(.65 * (xbox.getRightTriggerAxis() - xbox.getLeftTriggerAxis()), 
                               .55 * (xbox.getRightTriggerAxis() - xbox.getLeftTriggerAxis() + (-0.5 * xbox.getRawAxis(0))));
         }
       }
       else {
         //drive.drive(-xbox.getRawAxis(0) * 0.5,-xbox.getRawAxis(0) * 0.5);
         drive.drive(0,0);
-      }
+      } }
   }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
