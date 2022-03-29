@@ -44,8 +44,8 @@ public class RobotContainer {
     XboxController xbox = new XboxController(0);
     JoystickButton conveyorOutButton = new JoystickButton(xbox, 2); //b button
     JoystickButton conveyorInButton = new JoystickButton(xbox, 1); //a button
-    JoystickButton feedButton = new JoystickButton(xbox, 3); //right bumper
-    JoystickButton toggleShooterButton = new JoystickButton(xbox, 4); //x button
+    JoystickButton feedButton = new JoystickButton(xbox, 3); //x
+    JoystickButton toggleShooterButton = new JoystickButton(xbox, 4); //y
     //JoystickButton driveBack = new JoystickButton(xbox, 4);
 
     //Joystick control scheme
@@ -92,51 +92,56 @@ public class RobotContainer {
   private void configureButtonBindings() {
     conveyorInButton.whileHeld(new IntakeIn(intake));
     conveyorOutButton.whileHeld(spitOut);
-    // conveyorOutButton.whileHeld(new IntakeOut(intake));
-    // conveyorOutButton.whileHeld(new FeederOut(feed));
     //selectPipelineButton.whenPressed(new SelectPipeline(table));
     feedButton.whenHeld(new FeederIn(feed)); 
     toggleShooterButton.toggleWhenPressed(setShooter);
-    //driveBack.whenPressed(new DriveFromFender(drive));
   }
 
 
   public void setTeleop() { //set to take joystick inputs 
-  //shooter.setDefaultCommand(runFlywheel);
-  //drive.setDefaultCommand(joystickDrive);
-  configureButtonBindings();
-  setShooter.schedule();
+    //shooter.setDefaultCommand(runFlywheel);
+    //drive.setDefaultCommand(joystickDrive);
+    configureButtonBindings();
+    setShooter.schedule();
   }
   public void teleopPeriodic() {
-    if(xbox.getRawButton(5)){
-        System.out.println("slide");
-        if (xbox.getRawAxis(0) > 0){
-          drive.drive(xbox.getRightTriggerAxis(), 
-                              (-(xbox.getRightTriggerAxis())));
+    // if(xbox.getRawButton(5)){
+    //     System.out.println("slide");
+    //     if (xbox.getRawAxis(0) > 0){
+    //       drive.drive(xbox.getRightTriggerAxis(), 
+    //                           (-(xbox.getRightTriggerAxis())));
           
-        } else if (xbox.getRawAxis(0) < 0) {
-          drive.drive((-(xbox.getRightTriggerAxis())), 
-                              xbox.getRightTriggerAxis()); 
-        }
-      } else {
-      if(xbox.getRawButton(6)) {
-        System.out.println("turbo");
-        drive.drive(1,1);
-      }
-      else if(xbox.getRightTriggerAxis() > 0 || xbox.getLeftTriggerAxis() > 0){
+    //     } else if (xbox.getRawAxis(0) < 0) {
+    //       drive.drive((-(xbox.getRightTriggerAxis())), 
+    //                           xbox.getRightTriggerAxis()); 
+    //     }
+    // } else {
+    //   if(xbox.getRawButton(6)) {
+    //     System.out.println("turbo");
+    //     drive.drive(1,1);
+    //   }
+    //   else if(xbox.getRightTriggerAxis() > 0 || xbox.getLeftTriggerAxis() > 0){
         
-        if (xbox.getRawAxis(0) > 0){
-          drive.drive(0.65 * (xbox.getRightTriggerAxis() - xbox.getLeftTriggerAxis() + (0.5 * xbox.getRawAxis(0))), 
-                              0.55 * (xbox.getRightTriggerAxis() - xbox.getLeftTriggerAxis()));
-        } else {
-          drive.drive(.65 * (xbox.getRightTriggerAxis() - xbox.getLeftTriggerAxis()), 
-                              .55 * (xbox.getRightTriggerAxis() - xbox.getLeftTriggerAxis() + (-0.5 * xbox.getRawAxis(0))));
-        }
-      }
-      else {
-        //drive.drive(-xbox.getRawAxis(0) * 0.5,-xbox.getRawAxis(0) * 0.5);
-        drive.drive(0,0);
-      } }
+    //     if (xbox.getRawAxis(0) > 0){
+    //       drive.drive(0.65 * (xbox.getRightTriggerAxis() - xbox.getLeftTriggerAxis() + (0.5 * xbox.getRawAxis(0))), 
+    //                           0.65 * (xbox.getRightTriggerAxis() - xbox.getLeftTriggerAxis()));
+    //     } else {
+    //       drive.drive(.65 * (xbox.getRightTriggerAxis() - xbox.getLeftTriggerAxis()), 
+    //                           .65 * (xbox.getRightTriggerAxis() - xbox.getLeftTriggerAxis() + (-0.5 * xbox.getRawAxis(0))));
+    //     }
+    //   }
+    //   else {
+    //     drive.drive(-xbox.getRawAxis(0) * 0.5,-xbox.getRawAxis(0) * 0.5);
+    //     drive.drive(0,0);
+    //   } 
+    // }
+    if (Math.abs(xbox.getLeftY()) <= 0.2)  {
+      drive.drive(0.8 * (-(xbox.getLeftY()) + xbox.getLeftX()),
+          0.8 * (xbox.getLeftY() + xbox.getLeftX()));
+    } else {
+      drive.drive(0.8 * (-(xbox.getLeftY()) + 0.5 * xbox.getLeftX()),
+          0.8 * ( + 0.5 * xbox.getLeftY()));
+    }
   }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
