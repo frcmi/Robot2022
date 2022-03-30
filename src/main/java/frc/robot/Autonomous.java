@@ -19,21 +19,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
-import frc.robot.commands.AutoClaw;
-import frc.robot.commands.AutonomousPlanA;
-import frc.robot.commands.CharacterizeArm;
-import frc.robot.commands.CharacterizeSwerveDrive;
-import frc.robot.commands.CommandUtils;
-import frc.robot.commands.DriveStraightDistance;
-import frc.robot.commands.DriveStraightTo;
-import frc.robot.commands.ResetSubsystems;
-import frc.robot.commands.RotateArmToResting;
-import frc.robot.commands.RotateArmToScoring;
-import frc.robot.commands.RotateArmToStowed;
 import frc.robot.commands.TrajectoryMaker;
-import frc.robot.preferences.RobotPreferencesLayout;
-import frc.robot.preferences.RobotPreferencesValue;
-import frc.robot.preferences.RobotPreferences.BooleanValue;
+import frc.robot.commands.AutonomousPlanA;
 
 import java.nio.file.Path;
 import edu.wpi.first.wpilibj.Filesystem;
@@ -42,10 +29,8 @@ import edu.wpi.first.math.trajectory.Trajectory;
 import java.io.*;
 
 /** Add your docs here. */
-@RobotPreferencesLayout(groupName = "Autonomous", column = 4, row = 3, width = 2, height = 1)
 public class Autonomous {
 
-    @RobotPreferencesValue
 
     private static SendableChooser<ChooseAutoPath> chooseAutoPath = new SendableChooser<>();
     private static SendableChooser<ChooseAutoDelay> chooseAutoDelay = new SendableChooser<>();
@@ -139,8 +124,8 @@ public class Autonomous {
 
         chooseAutoPath.setDefaultOption("None", ChooseAutoPath.ONLYTAXI);
 
-        chooseAutoPath.addOption("Right Tarmac Two Balls", ChooseAutoPath.RIGHT_TARMAC_TWO_BALLS);
-        chooseAutoPath.addOption("Right Tarmac Two Balls (Fast)", ChooseAutoPath.RIGHT_TARMAC_TWO_BALLS_FAST);
+        chooseAutoPath.addOption("Two Ball Autonomous", ChooseAutoPath.TWOBALLAUTO);
+        chooseAutoPath.addOption("One Ball Autonomous", ChooseAutoPath.ONEBALLAUTO);
         autoLayout.add("AutoPath", chooseAutoPath).withWidget(BuiltInWidgets.kComboBoxChooser);
 
         chooseAutoDelay.setDefaultOption("0 sec", ChooseAutoDelay.NO_DELAY);
