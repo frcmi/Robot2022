@@ -23,13 +23,16 @@ public class Constants {
     public static final int FEED_MOTOR_ID = 0;
     public static final int SHOOTER_MOTOR_ID = 5;
 
+    public static final int HANGER_MOTOR_ID = 6;
+    public static final float GEAR_RATIO_HANGER = (float) 1/36; //1 falcon rotation = 1/36 wheel rotation
+
     //Drivetrain constants
     public static final int UNITS_PER_ROTATION = 2048; //not needed??
 
-    public static final float GEAR_RATIO = (float) 11/120; //1 falcon rotation = 11/120 wheel rotation
+    public static final float GEAR_RATIO_DRIVETRAIN = (float) 11/120; //1 falcon rotation = 11/120 wheel rotation
     public static final double WHEEL_RADIUS_METERS = 0.0762;
     public static final double DISTANCE_PER_WHEEL_ROTATION = 2 * WHEEL_RADIUS_METERS * Math.PI;
-    public static final double DISTANCE_PER_MOTOR_ROTATION = GEAR_RATIO * DISTANCE_PER_WHEEL_ROTATION;
+    public static final double DISTANCE_PER_MOTOR_ROTATION = GEAR_RATIO_DRIVETRAIN * DISTANCE_PER_WHEEL_ROTATION;
 
     //Shooter constants
     public static WPI_TalonFX shooterMotorTalon = new WPI_TalonFX(SHOOTER_MOTOR_ID);
