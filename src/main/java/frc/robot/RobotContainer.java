@@ -4,24 +4,35 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
-import edu.wpi.first.wpilibj.Joystick;
+
 //import edu.wpi.first.wpilibj.PneumaticsModuleType;
 //import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
+
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj2.command.CommandScheduler;
+
 
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 import static frc.robot.Constants.*;
+
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
+
+import java.nio.file.Path;
+import edu.wpi.first.wpilibj.Filesystem;
+import edu.wpi.first.math.trajectory.TrajectoryUtil;
+import edu.wpi.first.math.trajectory.Trajectory;
+import java.io.*;
+
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -59,17 +70,33 @@ public class RobotContainer {
     // JoystickButton selectPipelineButton = new JoystickButton(rightJoystick, 2);
     // JoystickButton toggleShooterButton = new JoystickButton(leftJoystick, 2);
   
-
+          //     _=====_                               _=====_
+          //      / _____ \                             / _____ \
+          //    +.-'__5___'-.---------------------------.-'__6___'-.+
+          //   /   |  0   |  '.pretend it's a 360 controller       .'  |  _  |   \
+          //  / ___| /|\ |___ \                     / ___| /4\ |___ \
+          // / |      |      | ;  __           _   ; | _         _ | ;                 
+          // | | <---   ---> | | |__|         |_:> | ||3|       (2)| |          left stick <>=0
+          // | |___   |   ___|       7          8 ; |___       ___| ;           left stick up down = 1
+          // |\    | \|/ |    /  _     ___      _   \    | (1) |    /|          right stick <>=4
+          // | \   |__180___|  .','" "', |___|  ,'" "', '.  |_____|  .' |       right stick up down = 5
+          // |  '-.______.-' /       \ANALOG/       \  '-._____.-'   |          left trigger = 2
+          // |               |   9    |------|  10    |                |        right trigger = 1
+          // |              /\       /      \       /\               |
+          // |             /  '.___.'        '.___.'  \              |
+          // |            /                            \             |
+          //  \          /                              \           /
+          //   \________/                                \_________/
     //Xbox control scheme VB
     //JoystickButton conveyorOutButton = new JoystickButton(xbox, 2); //b button
     //JoystickButton conveyorInButton = new JoystickButton(xbox, 1); //a button
     JoystickButton feedShootButton = new JoystickButton(xbox, 5); //L1
-    Trigger conveyorOutButton = new JoystickButton(xbox, XboxController.Button.kLeftBumper.value).and(new JoystickButton(xbox, XboxController.Button.kRightBumper.value)).whenActive(new IntakeIn(intake));
+    Trigger conveyorOutButton = new JoystickButton(xbox, XboxController.Button.kLeftBumper.value).and(new JoystickButton(xbox, XboxController.Button.kRightBumper.value));
     JoystickButton conveyorInButton = new JoystickButton(xbox, 5);
 
-    
+  Trajectory trajectory = new Trajectory();
+  String trajectoryJSON = "paths/2ball.wpilib.json";
 
-    
   // Subsystems
   private static Intake intake = new Intake();
   public static DriveTrain drive = new DriveTrain();
@@ -90,7 +117,12 @@ public class RobotContainer {
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
-    
+    try {
+      Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);
+      trajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
+   } catch (IOException ex) {
+      System.out.println("Unable to open trajectory");
+   }
   }
 
   /**
@@ -105,11 +137,9 @@ public class RobotContainer {
     //selectPipelineButton.whenPressed(new SelectPipeline(table));
 
     conveyorInButton.whileHeld(new IntakeIn(intake));
-    conveyorOutButton.toggleWhenActive(new SpitOut(intake, feed));
+    conveyorOutButton.whileActiveContinuous(new ParallelCommandGroup(new IntakeOut(intake), new FeederOut(feed)));
     feedShootButton.whenHeld(new FeedAndShoot(feed, teleopShooter)); 
-
   }
-
 
   public void setTeleop() { //set to take joystick inputs 
     //shooter.setDefaultCommand(runFlywheel);
@@ -170,7 +200,8 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return new AutonomousPlanA(drive, feed, teleopShooter);
-    //return backupAutonomousCommand;
+    //return new AutonomousPlanA(drive, feed, teleopShooter);
+    
+    return new TrajectoryMaker(trajectory, drive);
   }
 }

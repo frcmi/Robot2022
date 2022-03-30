@@ -19,7 +19,7 @@ public class FeedAndShoot extends ParallelCommandGroup {
   Shooter shooter;
   /** Creates a new FeedAndShoot. */
   public FeedAndShoot(Feed feed, Shooter shoot) {
-    addRequirements(feed, shoot);
+    addRequirements(shoot);
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(new SetShooter(shoot), new SequentialCommandGroup(new WaitCommand(1), new AutonomousFeed(2, feed)));

@@ -49,7 +49,7 @@ public class DriveTrain extends SubsystemBase {
     rearRight.configClosedloopRamp(.5);
     frontLeft.configClosedloopRamp(.5);
     frontRight.configClosedloopRamp(.5);
-
+    resetEncoders();
     left.setInverted(true);
   }
 
@@ -65,6 +65,9 @@ public class DriveTrain extends SubsystemBase {
   // motors and driving
   public void drive(double l, double r) {
     difDrive.tankDrive(l, r);
+  }
+  public void cheesydrive(double xSpeed, double zRotation) {
+    difDrive.curvatureDrive(xSpeed, zRotation, true);
   }
 
   public void stop() {
@@ -154,6 +157,10 @@ public class DriveTrain extends SubsystemBase {
 
   public double getRightDisplacement() {
     return (rearRight.getSelectedSensorPosition() + frontLeft.getSelectedSensorPosition()) / 2;
+  }
+
+  public double getAverageEncoderDistance() {
+    return (getLeftDisplacement() + getRightDisplacement()) / 2.0;
   }
 
   /*
