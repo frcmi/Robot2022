@@ -7,6 +7,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj.Joystick;
 //import edu.wpi.first.wpilibj.PneumaticsModuleType;
 //import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -16,6 +17,7 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
@@ -40,14 +42,14 @@ public class RobotContainer {
   NetworkTableEntry ta = table.getEntry("ta");
 
   // Buttons and Joysticks
-    //Xbox control scheme
-    XboxController xbox = new XboxController(0);
+  XboxController xbox = new XboxController(0);
+    /*Xbox control scheme Joey
     JoystickButton conveyorOutButton = new JoystickButton(xbox, 2); //b button
     JoystickButton conveyorInButton = new JoystickButton(xbox, 1); //a button
     JoystickButton feedButton = new JoystickButton(xbox, 3); //x
     JoystickButton toggleShooterButton = new JoystickButton(xbox, 4); //y
-    //JoystickButton driveBack = new JoystickButton(xbox, 4);
-
+    //JoystickButton driveBack = new JoystickButton(xbox, 4);*/
+    
     //Joystick control scheme
     // Joystick leftJoystick = new Joystick(1);
     // Joystick rightJoystick = new Joystick(0);
@@ -57,6 +59,17 @@ public class RobotContainer {
     // JoystickButton selectPipelineButton = new JoystickButton(rightJoystick, 2);
     // JoystickButton toggleShooterButton = new JoystickButton(leftJoystick, 2);
   
+
+    //Xbox control scheme VB
+    //JoystickButton conveyorOutButton = new JoystickButton(xbox, 2); //b button
+    //JoystickButton conveyorInButton = new JoystickButton(xbox, 1); //a button
+    JoystickButton feedShootButton = new JoystickButton(xbox, 5); //L1
+    Trigger conveyorOutButton = new JoystickButton(xbox, XboxController.Button.kLeftBumper.value).and(new JoystickButton(xbox, XboxController.Button.kRightBumper.value)).whenActive(new IntakeIn(intake));
+    JoystickButton conveyorInButton = new JoystickButton(xbox, 5);
+
+    
+
+    
   // Subsystems
   private static Intake intake = new Intake();
   public static DriveTrain drive = new DriveTrain();
@@ -72,7 +85,6 @@ public class RobotContainer {
   // -xbox.getRightTriggerAxis() * ((0.95 * 0.8 * xbox.getRawAxis(1)) - (0.95 * 0.8 * xbox.getRawAxis(2)))), drive);
 
   //public RunCommand runFlywheel = new RunCommand(() -> teleopShooter.enable(), teleopShooter);
-  public ParallelCommandGroup spitOut = new ParallelCommandGroup(new IntakeOut(intake), new FeederOut(feed));
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -90,11 +102,12 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    conveyorInButton.whileHeld(new IntakeIn(intake));
-    conveyorOutButton.whileHeld(spitOut);
     //selectPipelineButton.whenPressed(new SelectPipeline(table));
-    feedButton.whenHeld(new FeederIn(feed)); 
-    toggleShooterButton.toggleWhenPressed(setShooter);
+
+    conveyorInButton.whileHeld(new IntakeIn(intake));
+    conveyorOutButton.toggleWhenActive(new SpitOut(intake, feed));
+    feedShootButton.whenHeld(new FeedAndShoot(feed, teleopShooter)); 
+
   }
 
 
@@ -105,6 +118,7 @@ public class RobotContainer {
     setShooter.schedule();
   }
   public void teleopPeriodic() {
+
     // if(xbox.getRawButton(5)){
     //     System.out.println("slide");
     //     if (xbox.getRawAxis(0) > 0){
@@ -135,12 +149,19 @@ public class RobotContainer {
     //     drive.drive(0,0);
     //   } 
     // }
-    if (Math.abs(xbox.getLeftY()) <= 0.2)  {
+   /* if (Math.abs(xbox.getLeftY()) <= 0.2)  {
       drive.drive(0.8 * (-(xbox.getLeftY()) + xbox.getLeftX()),
           0.8 * (xbox.getLeftY() + xbox.getLeftX()));
     } else {
       drive.drive(0.8 * (-(xbox.getLeftY()) + 0.5 * xbox.getLeftX()),
           0.8 * ( + 0.5 * xbox.getLeftY()));
+    }*/
+
+    //VB's controls
+    if(xbox.getRawButton(3)) { //turbo on x
+      drive.drive(xbox.getLeftY(), xbox.getRightY());
+    } else {
+      drive.drive(0.6 * xbox.getLeftY(), 0.6 * xbox.getRightY());
     }
   }
   /**
