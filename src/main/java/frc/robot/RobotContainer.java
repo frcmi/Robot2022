@@ -26,6 +26,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import edu.wpi.first.wpilibj2.command.button.Button;
 
 import java.nio.file.Path;
 import edu.wpi.first.wpilibj.Filesystem;
@@ -94,6 +95,13 @@ public class RobotContainer {
     Trigger conveyorOutButton = new JoystickButton(xbox, XboxController.Button.kLeftBumper.value).and(new JoystickButton(xbox, XboxController.Button.kRightBumper.value));
     JoystickButton conveyorInButton = new JoystickButton(xbox, 5);
 
+    //Xbox controls Tuck
+    boolean getbool() {
+      return true;
+    }
+    // Button spinup = new Button(() -> xbox.getLeftTriggerAxis() >= 0.5);
+    // Button shoot = new Button(() -> xbox.getRightTriggerAxis() >= 0.5);
+
   Trajectory trajectory = new Trajectory();
   String trajectoryJSON = "paths/2ball.wpilib.json";
 
@@ -139,6 +147,8 @@ public class RobotContainer {
     conveyorInButton.whileHeld(new IntakeIn(intake));
     conveyorOutButton.whileActiveContinuous(new ParallelCommandGroup(new IntakeOut(intake), new FeederOut(feed)));
     feedShootButton.whenHeld(new FeedAndShoot(feed, teleopShooter)); 
+    // spinup.whileHeld(new SetShooter(teleopShooter));
+    // shoot.whileHeld(new FeederIn(feed));
   }
 
   public void setTeleop() { //set to take joystick inputs 
