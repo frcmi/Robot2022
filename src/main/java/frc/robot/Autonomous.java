@@ -21,6 +21,7 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 import frc.robot.commands.TrajectoryMaker;
 import frc.robot.commands.AutonomousPlanA;
+import frc.robot.commands.DriveOutOfTarmac;
 import edu.wpi.first.wpilibj.smartdashboard.*;
 
 import java.nio.file.Path;
@@ -89,14 +90,13 @@ public class Autonomous {
     private Command getSelectedAutonomousCommand() {
         switch (chooseAutoPath.getSelected()) {
             case ONLYTAXI:
-                return new InstantCommand(() -> System.out.println("NO AUTONOMOUS COMMAND SELECTED"));
+                return new DriveOutOfTarmac(RobotContainer.drive);
 
             case ONEBALLAUTO:
                 return new AutonomousPlanA(RobotContainer.drive, RobotContainer.feed, RobotContainer.teleopShooter);
 
             case TWOBALLAUTO: 
-                //return new TrajectoryMaker(trajectory, RobotContainer.drive);
-                return null;
+                return new TrajectoryMaker(trajectory, RobotContainer.drive);
             default:
                 //return new TrajectoryMaker(trajectory, RobotContainer.drive);
                 return null;
@@ -123,7 +123,7 @@ public class Autonomous {
         ShuffleboardLayout autoLayout = autoTab.getLayout("Autonomous", BuiltInLayouts.kList)
                 .withPosition(0, 0)
                 .withSize(6, 4);
-        chooseAutoPath.setDefaultOption("None", ChooseAutoPath.ONLYTAXI);
+        chooseAutoPath.setDefaultOption("Taxi Only", ChooseAutoPath.ONLYTAXI);
 
         chooseAutoPath.addOption("Two Ball Autonomous", ChooseAutoPath.TWOBALLAUTO);
         chooseAutoPath.addOption("One Ball Autonomous", ChooseAutoPath.ONEBALLAUTO);

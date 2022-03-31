@@ -97,10 +97,19 @@
       "/LiveWindow/Ungrouped/Talon FX [6]": "Motor Controller",
       "/LiveWindow/Ungrouped/Victor SPX [1]": "Motor Controller",
       "/LiveWindow/Ungrouped/navX-Sensor[4]": "Gyro",
-      "/SmartDashboard/Scheduler": "Scheduler"
+      "/Shuffleboard/Autonomous/Autonomous/AutoPath": "String Chooser",
+      "/Shuffleboard/Autonomous/Autonomous/Delay": "String Chooser",
+      "/SmartDashboard/Scheduler": "Scheduler",
+      "/SmartDashboard/SendableChooser[0]": "String Chooser",
+      "/SmartDashboard/SendableChooser[1]": "String Chooser"
     },
     "windows": {
       "/LiveWindow/Ungrouped/navX-Sensor[4]": {
+        "window": {
+          "visible": true
+        }
+      },
+      "/Shuffleboard/Autonomous/Autonomous/AutoPath": {
         "window": {
           "visible": true
         }
@@ -113,6 +122,9 @@
     }
   },
   "NetworkTables": {
+    "SmartDashboard": {
+      "open": true
+    },
     "limelight": {
       "open": true
     }
