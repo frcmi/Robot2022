@@ -157,7 +157,7 @@ public class RobotContainer {
     //shooter.setDefaultCommand(runFlywheel);
     //drive.setDefaultCommand(joystickDrive);
     configureButtonBindings();
-    setShooter.schedule();
+    //setShooter.schedule();
   }
   public void teleopPeriodic() {
 
@@ -200,11 +200,18 @@ public class RobotContainer {
     }*/
 
     //VB's controls
-    if(xbox.getRawButton(3)) { //turbo on x
-      drive.drive(xbox.getLeftY(), xbox.getRightY());
-    } else {
-      drive.drive(0.6 * xbox.getLeftY(), 0.6 * xbox.getRightY());
+    // if(xbox.getRawButton(3)) { //turbo on x
+    //   drive.drive(xbox.getLeftY(), xbox.getRightY());
+    // } else {
+    //   drive.drive(0.6 * xbox.getLeftY(), 0.6 * xbox.getRightY());
+    // }
+    if(Math.abs(xbox.getRawAxis(1)) > 0.1 || Math.abs(xbox.getRawAxis(4)) > 0.1) {
+      drive.cheesydrive(-xbox.getRawAxis(1), 0.4 * xbox.getRawAxis(4));
     }
+    else {
+      drive.drive(0,0);
+    }
+    
   }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
@@ -212,6 +219,6 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return autonomous.getAutonomousCommand();
+    return new TrajectoryMaker(trajectory, drive);
   }
 }

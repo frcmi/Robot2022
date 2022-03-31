@@ -21,6 +21,7 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 import frc.robot.commands.TrajectoryMaker;
 import frc.robot.commands.AutonomousPlanA;
+import edu.wpi.first.wpilibj.smartdashboard.*;
 
 import java.nio.file.Path;
 import edu.wpi.first.wpilibj.Filesystem;
@@ -94,8 +95,10 @@ public class Autonomous {
                 return new AutonomousPlanA(RobotContainer.drive, RobotContainer.feed, RobotContainer.teleopShooter);
 
             case TWOBALLAUTO: 
-                return new TrajectoryMaker(trajectory, RobotContainer.drive);
+                //return new TrajectoryMaker(trajectory, RobotContainer.drive);
+                return null;
             default:
+                //return new TrajectoryMaker(trajectory, RobotContainer.drive);
                 return null;
 
         }
@@ -117,11 +120,9 @@ public class Autonomous {
 
     public static void addAutonomousShuffleboardTab() {
         ShuffleboardTab autoTab = Shuffleboard.getTab("Autonomous");
-
         ShuffleboardLayout autoLayout = autoTab.getLayout("Autonomous", BuiltInLayouts.kList)
                 .withPosition(0, 0)
                 .withSize(6, 4);
-
         chooseAutoPath.setDefaultOption("None", ChooseAutoPath.ONLYTAXI);
 
         chooseAutoPath.addOption("Two Ball Autonomous", ChooseAutoPath.TWOBALLAUTO);
@@ -132,5 +133,7 @@ public class Autonomous {
         chooseAutoDelay.addOption("2 sec", ChooseAutoDelay.DELAY_2_SECONDS);
         chooseAutoDelay.addOption("5 sec", ChooseAutoDelay.DELAY_5_SECONDS);
         autoLayout.add("Delay", chooseAutoDelay).withWidget(BuiltInWidgets.kComboBoxChooser);
+        SmartDashboard.putData(chooseAutoPath);
+        SmartDashboard.putData(chooseAutoDelay);
     }
 }
