@@ -45,10 +45,10 @@ public class DriveTrain extends SubsystemBase {
   public Pose2d startingPose = new Pose2d();
 
   public DriveTrain() {
-    /*rearLeft.configClosedloopRamp(.5);
+    rearLeft.configClosedloopRamp(.5);
     rearRight.configClosedloopRamp(.5);
     frontLeft.configClosedloopRamp(.5);
-    frontRight.configClosedloopRamp(.5);*/
+    frontRight.configClosedloopRamp(.5);
     resetEncoders();
     left.setInverted(true);
   }

@@ -92,14 +92,12 @@ public class RobotContainer {
           //   \________/                                \_________/
   
 
-    //Xbox control scheme VB
-    JoystickButton feedShootButton = new JoystickButton(xbox, 6); //L1
-    Trigger conveyorOutButton = new JoystickButton(xbox, XboxController.Button.kLeftBumper.value).and(new JoystickButton(xbox, XboxController.Button.kRightBumper.value));
+    //Xbox control scheme Hutton
+    //JoystickButton feed = new JoystickButton(xbox, 6); //L1
+    Trigger conveyorOutButton = new JoystickButton(xbox, 2);
     JoystickButton conveyorInButton = new JoystickButton(xbox, 5);
-
-    //Xbox controls Tuck
-    // Button spinup = new Button(() -> xbox.getLeftTriggerAxis() >= 0.5);
-    // Button shoot = new Button(() -> xbox.getRightTriggerAxis() >= 0.5);
+    Button shooter = new Button(() -> xbox.getLeftTriggerAxis() >= 0.5);
+    Button spinup = new Button(() -> xbox.getRightTriggerAxis() >= 0.5);
 
   Trajectory trajectory = new Trajectory();
   String trajectoryJSON = "paths/2ball.wpilib.json";
@@ -132,6 +130,7 @@ public class RobotContainer {
    } catch (IOException ex) {
       System.out.println("Unable to open trajectory");
    }
+   autonomous.addAutonomousShuffleboardTab();
   }
 
   /**
@@ -147,7 +146,8 @@ public class RobotContainer {
 
     conveyorInButton.whileHeld(new IntakeIn(intake));
     conveyorOutButton.whileActiveContinuous(new ParallelCommandGroup(new IntakeOut(intake), new FeederOut(feed)));  
-    feedShootButton.whenHeld(new FeedAndShoot(feed, teleopShooter)); 
+    shooter.whileHeld(new FeederIn(feed));
+    spinup.whileHeld(new SetShooter(teleopShooter));
     // spinup.whileHeld(new SetShooter(teleopShooter));
     // shoot.whileHeld(new FeederIn(feed));
   }
@@ -191,22 +191,13 @@ public class RobotContainer {
     //     drive.drive(0,0);
     //   } 
     // }
-   /* if (Math.abs(xbox.getLeftY()) <= 0.2)  {
-      drive.drive(0.8 * (-(xbox.getLeftY()) + xbox.getLeftX()),
-          0.8 * (xbox.getLeftY() + xbox.getLeftX()));
-    } else {
-      drive.drive(0.8 * (-(xbox.getLeftY()) + 0.5 * xbox.getLeftX()),
-          0.8 * ( + 0.5 * xbox.getLeftY()));
-    }*/
-
-    //VB's controls
-    // if(xbox.getRawButton(3)) { //turbo on x
-    //   drive.drive(xbox.getLeftY(), xbox.getRightY());
-    // } else {
-    //   drive.drive(0.6 * xbox.getLeftY(), 0.6 * xbox.getRightY());
-    // }
-    if(Math.abs(xbox.getRawAxis(1)) > 0.1 || Math.abs(xbox.getRawAxis(4)) > 0.1) {
-      drive.cheesydrive(-xbox.getRawAxis(1), 0.4 * xbox.getRawAxis(4));
+      if(Math.abs(xbox.getRawAxis(1)) > 0.1 || Math.abs(xbox.getRawAxis(4)) > 0.1) {
+        if(xbox.getRawButton(6)) {
+          drive.cheesydrive(-xbox.getRawAxis(1), 0.4 * xbox.getRawAxis(4));
+        }
+        else {
+          drive.cheesydrive(-xbox.getRawAxis(1) * 0.5, 0.4 * xbox.getRawAxis(4));
+        }
     }
     else {
       drive.drive(0,0);
