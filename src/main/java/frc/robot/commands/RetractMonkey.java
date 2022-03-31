@@ -7,13 +7,13 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.*;
 
-public class ExtendHanger extends CommandBase {
-  Hanger hanger;
-  /** Creates a new ExtendHanger. */
-  public ExtendHanger(Hanger hanger) {
-    this.hanger = hanger;
+public class RetractMonkey extends CommandBase {
+  Monkey monkey;
+  /** Creates a new RetractMonkey. */
+  public RetractMonkey(Monkey monkey) {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(this.hanger);
+    this.monkey = monkey;
+    addRequirements(this.monkey);
   }
 
   // Called when the command is initially scheduled.
@@ -23,13 +23,13 @@ public class ExtendHanger extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    hanger.setPower(0.5);
+    monkey.setPower(-0.5);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    hanger.stop();
+    monkey.stop();
   }
 
   // Returns true when the command should end.

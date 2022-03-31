@@ -118,7 +118,7 @@ public class Autonomous {
         return new WaitCommand(delayChoice.getDelay());
     }
 
-    public static void addAutonomousShuffleboardTab() {
+    public void addAutonomousShuffleboardTab() {
         ShuffleboardTab autoTab = Shuffleboard.getTab("Autonomous");
         ShuffleboardLayout autoLayout = autoTab.getLayout("Autonomous", BuiltInLayouts.kList)
                 .withPosition(0, 0)

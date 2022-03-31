@@ -9,11 +9,11 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import static frc.robot.Constants.*;
 
-public class Hanger extends SubsystemBase {
-  public WPI_TalonFX hanger = new WPI_TalonFX(HANGER_MOTOR_ID);
-  public MotorController hangerMotor = hanger; 
-  /** Creates a new Hanger. */
-  public Hanger() {}
+public class Monkey extends SubsystemBase {
+  public WPI_TalonFX monkey = new WPI_TalonFX(HANGER_MOTOR_ID);
+  public MotorController monkeyMotor = monkey; 
+  /** Creates a new Monkey. */
+  public Monkey() {}
 
   @Override
   public void periodic() {
@@ -21,10 +21,10 @@ public class Hanger extends SubsystemBase {
   }
 
   public void setPower(double power) {
-    hangerMotor.set(power);
+    monkeyMotor.set(power);
   }
 
   public void stop() {
-    hangerMotor.set(0);
+    monkeyMotor.set(0);
   }
 }
