@@ -20,6 +20,7 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
@@ -33,6 +34,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.StartEndCommand;
 
 import java.nio.file.Path;
 import edu.wpi.first.wpilibj.Filesystem;
@@ -152,7 +154,7 @@ public class RobotContainer {
     conveyorInButton.whileHeld(new IntakeIn(intake));
     conveyorOutButton.whileActiveContinuous(new ParallelCommandGroup(new IntakeOut(intake), new FeederOut(feed)));  
     shooter.whileHeld(new FeederIn(feed));
-    spinup.whileHeld(new ParallelCommandGroup(new SetShooter(teleopShooter),new SequentialCommandGroup(new WaitCommand(2), new RunCommand(() -> {xbox.setRumble(XboxController.RumbleType.kLeftRumble, 1.0);xbox.setRumble(XboxController.RumbleType.kRightRumble, 1.0);}))));
+    spinup.whileHeld(new ParallelCommandGroup(new SetShooter(teleopShooter),new SequentialCommandGroup(new WaitCommand(2), new StartEndCommand(() -> {xbox.setRumble(XboxController.RumbleType.kLeftRumble, 0);xbox.setRumble(XboxController.RumbleType.kRightRumble, 0);}, () -> {xbox.setRumble(XboxController.RumbleType.kLeftRumble, 0);xbox.setRumble(XboxController.RumbleType.kRightRumble, 0);}))));
     extendMonkeyButton.whileHeld(new ExtendMonkey(monkey));
     retractMonkeyButton.whileHeld(new RetractMonkey(monkey));
 
