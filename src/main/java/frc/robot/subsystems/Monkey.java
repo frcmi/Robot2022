@@ -6,11 +6,13 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import static frc.robot.Constants.*;
 
 public class Monkey extends SubsystemBase {
-  public WPI_TalonFX monkey = new WPI_TalonFX(HANGER_MOTOR_ID);
+  public WPI_VictorSPX monkey = new WPI_VictorSPX(HANGER_MOTOR_ID);
   public MotorController monkeyMotor = monkey; 
   /** Creates a new Monkey. */
   public Monkey() {}
