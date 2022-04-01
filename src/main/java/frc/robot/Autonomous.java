@@ -15,13 +15,14 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
-import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
+import edu.wpi.first.wpilibj2.command.*;
+
+
 import frc.robot.commands.TrajectoryMaker;
+import frc.robot.commands.AutonomousFeed;
 import frc.robot.commands.AutonomousPlanA;
 import frc.robot.commands.DriveOutOfTarmac;
+import frc.robot.commands.IntakeIn;
 import edu.wpi.first.wpilibj.smartdashboard.*;
 
 import java.nio.file.Path;
@@ -96,6 +97,14 @@ public class Autonomous {
                 return new AutonomousPlanA(RobotContainer.drive, RobotContainer.feed, RobotContainer.teleopShooter);
 
             case TWOBALLAUTO: 
+                // return new SequentialCommandGroup(
+                //     new ParallelCommandGroup(
+                //         new SequentialCommandGroup(
+                //             new WaitCommand(2), new ParallelRaceGroup(
+                //                 new WaitCommand(2), 
+                //                 new IntakeIn(RobotContainer.intake))), 
+                //         new TrajectoryMaker(trajectory, RobotContainer.drive)),
+                //     new AutonomousFeed(2, RobotContainer.feed));
                 return new TrajectoryMaker(trajectory, RobotContainer.drive);
             default:
                 //return new TrajectoryMaker(trajectory, RobotContainer.drive);
