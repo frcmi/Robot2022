@@ -142,7 +142,7 @@ public class RobotContainer {
 
     conveyorInButton.whileHeld(new IntakeIn(intake));
     conveyorOutButton.whileActiveContinuous(new ParallelCommandGroup(new IntakeOut(intake), new FeederOut(feed)));  
-    shooter.whenPressed(new FeedAndShoot(feed, teleopShooter));
+    shooter.whenHeld(new FeedAndShoot(feed, teleopShooter));
     //spinup.whileHeld(new ParallelCommandGroup(new SetShooter(teleopShooter),new SequentialCommandGroup(new WaitCommand(2), new StartEndCommand(() -> {xbox.setRumble(XboxController.RumbleType.kLeftRumble, 0.5);xbox.setRumble(XboxController.RumbleType.kRightRumble, 0.5);}, () -> {xbox.setRumble(XboxController.RumbleType.kLeftRumble, 0);xbox.setRumble(XboxController.RumbleType.kRightRumble, 0);}))));
     extendMonkeyButton.whileHeld(new ExtendMonkey(monkey));
     retractMonkeyButton.whileHeld(new RetractMonkey(monkey));
@@ -179,36 +179,36 @@ public class RobotContainer {
     return autonomous.getAutonomousCommand();
   }
 
-  public void joeyDrive() {
-      if(xbox.getRawButton(5)){
-         System.out.println("slide");
-         if (xbox.getRawAxis(0) > 0){
-           drive.drive(xbox.getRightTriggerAxis(), 
-                               (-(xbox.getRightTriggerAxis())));
+  // public void joeyDrive() {
+  //     if(xbox.getRawButton(5)){
+  //        System.out.println("slide");
+  //        if (xbox.getRawAxis(0) > 0){
+  //          drive.drive(xbox.getRightTriggerAxis(), 
+  //                              (-(xbox.getRightTriggerAxis())));
           
-         } else if (xbox.getRawAxis(0) < 0) {
-           drive.drive((-(xbox.getRightTriggerAxis())), 
-                               xbox.getRightTriggerAxis()); 
-         }
-     } else {
-       if(xbox.getRawButton(6)) {
-         System.out.println("turbo");
-         drive.drive(1,1);
-       }
-       else if(xbox.getRightTriggerAxis() > 0 || xbox.getLeftTriggerAxis() > 0){
+  //        } else if (xbox.getRawAxis(0) < 0) {
+  //          drive.drive((-(xbox.getRightTriggerAxis())), 
+  //                              xbox.getRightTriggerAxis()); 
+  //        }
+  //    } else {
+  //      if(xbox.getRawButton(6)) {
+  //        System.out.println("turbo");
+  //        drive.drive(1,1);
+  //      }
+  //      else if(xbox.getRightTriggerAxis() > 0 || xbox.getLeftTriggerAxis() > 0){
         
-         if (xbox.getRawAxis(0) > 0){
-           drive.drive(0.65 * (xbox.getRightTriggerAxis() - xbox.getLeftTriggerAxis() + (0.5 * xbox.getRawAxis(0))), 
-                               0.65 * (xbox.getRightTriggerAxis() - xbox.getLeftTriggerAxis()));
-         } else {
-           drive.drive(.65 * (xbox.getRightTriggerAxis() - xbox.getLeftTriggerAxis()), 
-                               .65 * (xbox.getRightTriggerAxis() - xbox.getLeftTriggerAxis() + (-0.5 * xbox.getRawAxis(0))));
-         }
-       }
-       else {
-         drive.drive(-xbox.getRawAxis(0) * 0.5,-xbox.getRawAxis(0) * 0.5);
-         drive.drive(0,0);
-      } 
-    }
-  }
+  //        if (xbox.getRawAxis(0) > 0){
+  //          drive.drive(0.65 * (xbox.getRightTriggerAxis() - xbox.getLeftTriggerAxis() + (0.5 * xbox.getRawAxis(0))), 
+  //                              0.65 * (xbox.getRightTriggerAxis() - xbox.getLeftTriggerAxis()));
+  //        } else {
+  //          drive.drive(.65 * (xbox.getRightTriggerAxis() - xbox.getLeftTriggerAxis()), 
+  //                              .65 * (xbox.getRightTriggerAxis() - xbox.getLeftTriggerAxis() + (-0.5 * xbox.getRawAxis(0))));
+  //        }
+  //      }
+  //      else {
+  //        drive.drive(-xbox.getRawAxis(0) * 0.5,-xbox.getRawAxis(0) * 0.5);
+  //        drive.drive(0,0);
+  //     } 
+  //   }
+  // }
 }

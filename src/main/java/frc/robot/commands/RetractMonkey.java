@@ -41,6 +41,8 @@ public class RetractMonkey extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     monkey.stop();
+    Robot.container.xbox.setRumble(XboxController.RumbleType.kLeftRumble, 0);
+    Robot.container.xbox.setRumble(XboxController.RumbleType.kRightRumble, 0);
   }
 
   // Returns true when the command should end.

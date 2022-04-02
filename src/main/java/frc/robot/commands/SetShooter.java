@@ -16,6 +16,7 @@ public class SetShooter extends CommandBase {
   public SetShooter(Shooter shooter) {
     this.shooter = shooter;
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(this.shooter);
   }
 
   // Called when the command is initially scheduled.
