@@ -97,15 +97,21 @@ public class Autonomous {
                 return new AutonomousPlanA(RobotContainer.drive, RobotContainer.feed, RobotContainer.teleopShooter);
 
             case TWOBALLAUTO: 
-                // return new SequentialCommandGroup(
-                //     new ParallelCommandGroup(
-                //         new SequentialCommandGroup(
-                //             new WaitCommand(2), new ParallelRaceGroup(
-                //                 new WaitCommand(2), 
-                //                 new IntakeIn(RobotContainer.intake))), 
-                //         new TrajectoryMaker(trajectory, RobotContainer.drive)),
-                //     new AutonomousFeed(2, RobotContainer.feed));
+                //return new SequentialCommandGroup(
+                    // new SetShooter(RobotContainer.shooter),
+                    // new WaitCommand(2),
+                    // new AutonomousFeed(1),
+                    // new ParallelCommandGroup(
+                    //     new SequentialCommandGroup(
+                    //         new WaitCommand(2), new ParallelRaceGroup(
+                    //             new WaitCommand(2), 
+                    //             new IntakeIn(RobotContainer.intake))), 
+                    //     new TrajectoryMaker(trajectory, RobotContainer.drive)),
+                    // new AutonomousFeed(2, RobotContainer.feed));
                 return new TrajectoryMaker(trajectory, RobotContainer.drive);
+
+                    
+
             default:
                 //return new TrajectoryMaker(trajectory, RobotContainer.drive);
                 return null;
