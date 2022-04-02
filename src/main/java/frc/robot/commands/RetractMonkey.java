@@ -30,7 +30,7 @@ public class RetractMonkey extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (Timer.getFPGATimestamp() - startTime >= 3.5) {
+    if (Timer.getFPGATimestamp() - startTime >= 3) {
     Robot.container.xbox.setRumble(XboxController.RumbleType.kLeftRumble, 0.5);
     Robot.container.xbox.setRumble(XboxController.RumbleType.kRightRumble, 0.5);
   }
