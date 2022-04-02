@@ -27,7 +27,7 @@ public class SetShooter extends CommandBase {
   @Override
   public void execute() {
   
-  shooter.set(0.8);
+  shooter.set(0.85);
   }
  
 

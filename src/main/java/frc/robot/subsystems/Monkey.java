@@ -9,12 +9,14 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import static frc.robot.Constants.*;
 
 public class Monkey extends SubsystemBase {
   public WPI_VictorSPX monkey = new WPI_VictorSPX(7);
   public MotorController monkeyMotor = monkey; 
+  private Encoder monkeyEncoder = new Encoder(0,1);
   /** Creates a new Monkey. */
   public Monkey() {
    // monkey.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
@@ -27,13 +29,13 @@ public class Monkey extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  // public double getEncoder() {
-  //   //return monkey.getSelectedSensorPosition();
-  // }
+  public double getEncoder() {
+  return monkeyEncoder.getDistance();
+  }
 
-  // public void resetEncoder() {
-  //   monkey.setSelectedSensorPosition(0);
-  // }
+  public void resetEncoder() {
+  monkeyEncoder.reset();
+  }
 
   public void setPower(double power) {
     monkeyMotor.set(power);

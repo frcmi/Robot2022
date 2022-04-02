@@ -90,7 +90,7 @@ public class RobotContainer {
     Button shooter = new Button(() -> xbox.getRightTriggerAxis() >= 0.3);
     //Button spinup = new Button(() -> xbox.getLeftTriggerAxis() >= 0.5);
     //Button extendMonkeyButton = new Button(() -> xbox.getPOV()==0 || xbox.getPOV()==45 || xbox.getPOV()==315);
-    //Button retractMonkeyButton = new Button(() -> xbox.getPOV()==135 || xbox.getPOV()==225 || xbox.getPOV()==180);
+    Button manualFeed = new Button(() -> xbox.getPOV()==135 || xbox.getPOV()==225 || xbox.getPOV()==180);
     JoystickButton extendMonkeyButton = new JoystickButton(xbox, 4);
     JoystickButton retractMonkeyButton = new JoystickButton(xbox, 1);
 
@@ -146,7 +146,7 @@ public class RobotContainer {
     //spinup.whileHeld(new ParallelCommandGroup(new SetShooter(teleopShooter),new SequentialCommandGroup(new WaitCommand(2), new StartEndCommand(() -> {xbox.setRumble(XboxController.RumbleType.kLeftRumble, 0.5);xbox.setRumble(XboxController.RumbleType.kRightRumble, 0.5);}, () -> {xbox.setRumble(XboxController.RumbleType.kLeftRumble, 0);xbox.setRumble(XboxController.RumbleType.kRightRumble, 0);}))));
     extendMonkeyButton.whileHeld(new ExtendMonkey(monkey));
     retractMonkeyButton.whileHeld(new RetractMonkey(monkey));
-
+    manualFeed.whileHeld(new FeederIn(feed));
     // spinup.whileHeld(new SetShooter(teleopShooter));
     // shoot.whileHeld(new FeederIn(feed));
   }
@@ -157,17 +157,18 @@ public class RobotContainer {
     configureButtonBindings();
   }
   public void teleopPeriodic() {
-      if(Math.abs(xbox.getRawAxis(1)) > 0.1 || Math.abs(xbox.getRawAxis(4)) > 0.1) {
+      if(Math.abs(xbox.getRawAxis(1)) > 0.2 || Math.abs(xbox.getRawAxis(4)) > 0.1) {
         if(xbox.getRawButton(6)) {
-          drive.cheesydrive(-xbox.getRawAxis(1), 0.4 * xbox.getRawAxis(4));
+          drive.cheesydrive(-xbox.getRawAxis(1), 0.3 * xbox.getRawAxis(4));
         }
         else {
-          drive.cheesydrive(-xbox.getRawAxis(1) * 0.8, 0.4 * xbox.getRawAxis(4));
+          drive.cheesydrive(-xbox.getRawAxis(1) * 0.6, 0.3 * xbox.getRawAxis(4));
         }
     }
     else {
       drive.drive(0,0);
     }
+   // System.out.println(monkey.getEncoder());
     
   }
   /**

@@ -25,9 +25,9 @@ public class FeedAndShoot extends ParallelCommandGroup {
     addCommands(
     new ParallelRaceGroup(
       new SetShooter(shoot), 
-      new WaitCommand(3)), 
+      new WaitCommand(4)), 
     new SequentialCommandGroup(
-      new WaitCommand(1.5), 
+      new WaitCommand(2), 
       new AutonomousFeed(1.5, feed)));
   }
 }

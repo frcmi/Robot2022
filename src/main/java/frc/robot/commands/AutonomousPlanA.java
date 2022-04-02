@@ -20,6 +20,6 @@ public class AutonomousPlanA extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     System.out.println("running autonomous");
     addRequirements(drive, feed, teleopShooter);
-    addCommands(new ParallelRaceGroup(new SetShooter(teleopShooter), new SequentialCommandGroup(/*new DriveFromFender(drive)*/ new WaitCommand(2), new AutonomousFeed(2, feed), new DriveOutOfTarmac(drive))));
+    addCommands(new ParallelRaceGroup(new SetShooter(teleopShooter), new SequentialCommandGroup(/*new DriveFromFender(drive)*/ new WaitCommand(1.5), new AutonomousFeed(2, feed), new DriveOutOfTarmac(drive))));
    }
 }
