@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.subsystems.*;
@@ -22,6 +23,12 @@ public class FeedAndShoot extends ParallelCommandGroup {
     addRequirements(shoot);
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new SetShooter(shoot), new SequentialCommandGroup(new WaitCommand(1.25), new AutonomousFeed(2, feed)));
+    addCommands(
+    new ParallelRaceGroup(
+      new SetShooter(shoot), 
+      new WaitCommand(3)), 
+    new SequentialCommandGroup(
+      new WaitCommand(1.5), 
+      new AutonomousFeed(1.5, feed)));
   }
 }

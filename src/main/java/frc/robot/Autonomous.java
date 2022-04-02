@@ -132,10 +132,10 @@ public class Autonomous {
         ShuffleboardLayout autoLayout = autoTab.getLayout("Autonomous", BuiltInLayouts.kList)
                 .withPosition(0, 0)
                 .withSize(6, 4);
-        chooseAutoPath.setDefaultOption("Taxi Only", ChooseAutoPath.ONLYTAXI);
-
+        chooseAutoPath.setDefaultOption("One Ball Autonomous", ChooseAutoPath.ONEBALLAUTO);
+        chooseAutoPath.addOption("Taxi Only", ChooseAutoPath.ONLYTAXI);
         chooseAutoPath.addOption("Two Ball Autonomous", ChooseAutoPath.TWOBALLAUTO);
-        chooseAutoPath.addOption("One Ball Autonomous", ChooseAutoPath.ONEBALLAUTO);
+        
         autoLayout.add("AutoPath", chooseAutoPath).withWidget(BuiltInWidgets.kComboBoxChooser);
 
         chooseAutoDelay.setDefaultOption("0 sec", ChooseAutoDelay.NO_DELAY);

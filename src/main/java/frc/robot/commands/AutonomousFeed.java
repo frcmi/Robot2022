@@ -11,7 +11,7 @@ import frc.robot.subsystems.*;
 
 public class AutonomousFeed extends CommandBase {
   private Feed feed;
-  Timer timer = new Timer();
+  Timer timer= new Timer();
   double seconds;
   boolean done = false;
 
@@ -28,7 +28,9 @@ public class AutonomousFeed extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    timer.reset();
     timer.start();
+    done = false;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
