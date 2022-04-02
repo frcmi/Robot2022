@@ -99,10 +99,10 @@ public class RobotContainer {
 
     //Xbox control scheme Hutton
     //JoystickButton feed = new JoystickButton(xbox, 6); //L1
-    Trigger conveyorOutButton = new JoystickButton(xbox, 2);
-    JoystickButton conveyorInButton = new JoystickButton(xbox, 5);
+    JoystickButton conveyorOutButton = new JoystickButton(xbox, 5);
+    Button conveyorInButton = new Button(() -> xbox.getLeftTriggerAxis() >= 0.5);
     Button shooter = new Button(() -> xbox.getRightTriggerAxis() >= 0.5);
-    Button spinup = new Button(() -> xbox.getLeftTriggerAxis() >= 0.5);
+    //Button spinup = new Button(() -> xbox.getLeftTriggerAxis() >= 0.5);
     //Button extendMonkeyButton = new Button(() -> xbox.getPOV()==0 || xbox.getPOV()==45 || xbox.getPOV()==315);
     //Button retractMonkeyButton = new Button(() -> xbox.getPOV()==135 || xbox.getPOV()==225 || xbox.getPOV()==180);
     Button extendMonkeyButton = new JoystickButton(xbox, 4);
@@ -156,8 +156,8 @@ public class RobotContainer {
 
     conveyorInButton.whileHeld(new IntakeIn(intake));
     conveyorOutButton.whileActiveContinuous(new ParallelCommandGroup(new IntakeOut(intake), new FeederOut(feed)));  
-    shooter.whileHeld(new FeederIn(feed));
-    spinup.whileHeld(new ParallelCommandGroup(new SetShooter(teleopShooter),new SequentialCommandGroup(new WaitCommand(2), new StartEndCommand(() -> {xbox.setRumble(XboxController.RumbleType.kLeftRumble, 0.5);xbox.setRumble(XboxController.RumbleType.kRightRumble, 0.5);}, () -> {xbox.setRumble(XboxController.RumbleType.kLeftRumble, 0);xbox.setRumble(XboxController.RumbleType.kRightRumble, 0);}))));
+    shooter.whileHeld(new FeedAndShoot(feed, teleopShooter));
+    //spinup.whileHeld(new ParallelCommandGroup(new SetShooter(teleopShooter),new SequentialCommandGroup(new WaitCommand(2), new StartEndCommand(() -> {xbox.setRumble(XboxController.RumbleType.kLeftRumble, 0.5);xbox.setRumble(XboxController.RumbleType.kRightRumble, 0.5);}, () -> {xbox.setRumble(XboxController.RumbleType.kLeftRumble, 0);xbox.setRumble(XboxController.RumbleType.kRightRumble, 0);}))));
     extendMonkeyButton.whileHeld(new ExtendMonkey(monkey));
     retractMonkeyButton.whileHeld(new RetractMonkey(monkey));
 
