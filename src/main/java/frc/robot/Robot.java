@@ -38,7 +38,7 @@ import edu.wpi.first.networktables.NetworkTableEntry;
  */
 public class Robot extends TimedRobot {
     
-  private RobotContainer container = new RobotContainer();
+  public static RobotContainer container = new RobotContainer();
   //ShuffleboardTab tab = Shuffleboard.getTab("Shooter");
     //NetworkTableEntry P = tab.add("P value", 0.90).getEntry();
     //NetworkTableEntry I = tab.add("I value", 0).getEntry();

@@ -7,34 +7,20 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
+import edu.wpi.first.wpilibj2.command.button.Button;
+
 //import edu.wpi.first.wpilibj.PneumaticsModuleType;
 //import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.RunCommand;
+
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
+
 
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
-import frc.robot.Autonomous;
-import static frc.robot.Constants.*;
-
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
-import edu.wpi.first.wpilibj2.command.button.Button;
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import edu.wpi.first.wpilibj2.command.StartEndCommand;
 
 import java.nio.file.Path;
 import edu.wpi.first.wpilibj.Filesystem;
@@ -62,7 +48,7 @@ public class RobotContainer {
   NetworkTableEntry ta = table.getEntry("ta");
 
   // Buttons and Joysticks
-  XboxController xbox = new XboxController(0);
+  public XboxController xbox = new XboxController(0);
     /*Xbox control scheme Joey
     JoystickButton conveyorOutButton = new JoystickButton(xbox, 2); //b button
     JoystickButton conveyorInButton = new JoystickButton(xbox, 1); //a button
@@ -105,8 +91,8 @@ public class RobotContainer {
     //Button spinup = new Button(() -> xbox.getLeftTriggerAxis() >= 0.5);
     //Button extendMonkeyButton = new Button(() -> xbox.getPOV()==0 || xbox.getPOV()==45 || xbox.getPOV()==315);
     //Button retractMonkeyButton = new Button(() -> xbox.getPOV()==135 || xbox.getPOV()==225 || xbox.getPOV()==180);
-    Button extendMonkeyButton = new JoystickButton(xbox, 4);
-    Button retractMonkeyButton = new JoystickButton(xbox, 1);
+    JoystickButton extendMonkeyButton = new JoystickButton(xbox, 4);
+    JoystickButton retractMonkeyButton = new JoystickButton(xbox, 1);
 
 
   Trajectory trajectory = new Trajectory();
@@ -167,49 +153,16 @@ public class RobotContainer {
 
 
   public void setTeleop() { //set to take joystick inputs 
-    //shooter.setDefaultCommand(runFlywheel);
     //drive.setDefaultCommand(joystickDrive);
     configureButtonBindings();
-    //setShooter.schedule();
   }
   public void teleopPeriodic() {
-
-    // if(xbox.getRawButton(5)){
-    //     System.out.println("slide");
-    //     if (xbox.getRawAxis(0) > 0){
-    //       drive.drive(xbox.getRightTriggerAxis(), 
-    //                           (-(xbox.getRightTriggerAxis())));
-          
-    //     } else if (xbox.getRawAxis(0) < 0) {
-    //       drive.drive((-(xbox.getRightTriggerAxis())), 
-    //                           xbox.getRightTriggerAxis()); 
-    //     }
-    // } else {
-    //   if(xbox.getRawButton(6)) {
-    //     System.out.println("turbo");
-    //     drive.drive(1,1);
-    //   }
-    //   else if(xbox.getRightTriggerAxis() > 0 || xbox.getLeftTriggerAxis() > 0){
-        
-    //     if (xbox.getRawAxis(0) > 0){
-    //       drive.drive(0.65 * (xbox.getRightTriggerAxis() - xbox.getLeftTriggerAxis() + (0.5 * xbox.getRawAxis(0))), 
-    //                           0.65 * (xbox.getRightTriggerAxis() - xbox.getLeftTriggerAxis()));
-    //     } else {
-    //       drive.drive(.65 * (xbox.getRightTriggerAxis() - xbox.getLeftTriggerAxis()), 
-    //                           .65 * (xbox.getRightTriggerAxis() - xbox.getLeftTriggerAxis() + (-0.5 * xbox.getRawAxis(0))));
-    //     }
-    //   }
-    //   else {
-    //     drive.drive(-xbox.getRawAxis(0) * 0.5,-xbox.getRawAxis(0) * 0.5);
-    //     drive.drive(0,0);
-    //   } 
-    // }
       if(Math.abs(xbox.getRawAxis(1)) > 0.1 || Math.abs(xbox.getRawAxis(4)) > 0.1) {
         if(xbox.getRawButton(6)) {
           drive.cheesydrive(-xbox.getRawAxis(1), 0.4 * xbox.getRawAxis(4));
         }
         else {
-          drive.cheesydrive(-xbox.getRawAxis(1) * 0.5, 0.4 * xbox.getRawAxis(4));
+          drive.cheesydrive(-xbox.getRawAxis(1) * 0.8, 0.4 * xbox.getRawAxis(4));
         }
     }
     else {
@@ -224,5 +177,38 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     return autonomous.getAutonomousCommand();
+  }
+
+  public void joeyDrive() {
+      if(xbox.getRawButton(5)){
+         System.out.println("slide");
+         if (xbox.getRawAxis(0) > 0){
+           drive.drive(xbox.getRightTriggerAxis(), 
+                               (-(xbox.getRightTriggerAxis())));
+          
+         } else if (xbox.getRawAxis(0) < 0) {
+           drive.drive((-(xbox.getRightTriggerAxis())), 
+                               xbox.getRightTriggerAxis()); 
+         }
+     } else {
+       if(xbox.getRawButton(6)) {
+         System.out.println("turbo");
+         drive.drive(1,1);
+       }
+       else if(xbox.getRightTriggerAxis() > 0 || xbox.getLeftTriggerAxis() > 0){
+        
+         if (xbox.getRawAxis(0) > 0){
+           drive.drive(0.65 * (xbox.getRightTriggerAxis() - xbox.getLeftTriggerAxis() + (0.5 * xbox.getRawAxis(0))), 
+                               0.65 * (xbox.getRightTriggerAxis() - xbox.getLeftTriggerAxis()));
+         } else {
+           drive.drive(.65 * (xbox.getRightTriggerAxis() - xbox.getLeftTriggerAxis()), 
+                               .65 * (xbox.getRightTriggerAxis() - xbox.getLeftTriggerAxis() + (-0.5 * xbox.getRawAxis(0))));
+         }
+       }
+       else {
+         drive.drive(-xbox.getRawAxis(0) * 0.5,-xbox.getRawAxis(0) * 0.5);
+         drive.drive(0,0);
+      } 
+    }
   }
 }

@@ -4,11 +4,15 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.*;
+import frc.robot.Robot;
+import edu.wpi.first.wpilibj.XboxController;
 
 public class ExtendMonkey extends CommandBase {
   Monkey hanger;
+  double startTime;
   /** Creates a new ExtendMonkey. */
   public ExtendMonkey(Monkey hanger) {
     this.hanger = hanger;
@@ -19,12 +23,17 @@ public class ExtendMonkey extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    startTime = Timer.getFPGATimestamp();
     //hanger.resetEncoder();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    if (Timer.getFPGATimestamp() - startTime >= 3.5) {
+      Robot.container.xbox.setRumble(XboxController.RumbleType.kLeftRumble, 0.5);
+      Robot.container.xbox.setRumble(XboxController.RumbleType.kRightRumble, 0.5);
+    }
     hanger.setPower(-0.9);
 
   }
