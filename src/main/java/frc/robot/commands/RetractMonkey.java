@@ -18,12 +18,14 @@ public class RetractMonkey extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    //monkey.resetEncoder();
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    monkey.setPower(-0.5);
+    monkey.setPower(0.9);
   }
 
   // Called once the command ends or is interrupted.
@@ -36,5 +38,6 @@ public class RetractMonkey extends CommandBase {
   @Override
   public boolean isFinished() {
     return false;
+    //return monkey.getEncoder()<-0.3;
   }
 }

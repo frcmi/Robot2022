@@ -118,6 +118,7 @@
       "/LiveWindow/Ungrouped/Talon FX [6]": "Motor Controller",
       "/LiveWindow/Ungrouped/Talon FX [7]": "Motor Controller",
       "/LiveWindow/Ungrouped/Victor SPX [1]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Victor SPX [7]": "Motor Controller",
       "/LiveWindow/Ungrouped/navX-Sensor[4]": "Gyro",
       "/Shuffleboard/Autonomous/Autonomous/AutoPath": "String Chooser",
       "/Shuffleboard/Autonomous/Autonomous/Delay": "String Chooser",

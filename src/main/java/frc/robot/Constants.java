@@ -23,7 +23,7 @@ public class Constants {
     public static final int FEED_MOTOR_ID = 0;
     public static final int SHOOTER_MOTOR_ID = 5;
 
-    public static final int HANGER_MOTOR_ID = 7;
+    public static final int HANGER_MOTOR_ID = 0;
     public static final float GEAR_RATIO_HANGER = (float) 1/36; //1 falcon rotation = 1/36 wheel rotation
 
     //Drivetrain constants

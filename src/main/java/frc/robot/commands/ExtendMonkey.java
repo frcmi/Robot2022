@@ -18,12 +18,15 @@ public class ExtendMonkey extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    //hanger.resetEncoder();
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    hanger.setPower(0.5);
+    hanger.setPower(-0.9);
+
   }
 
   // Called once the command ends or is interrupted.
@@ -35,6 +38,7 @@ public class ExtendMonkey extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    //return hanger.getEncoder() > 0.2;
     return false;
   }
 }

@@ -103,8 +103,11 @@ public class RobotContainer {
     JoystickButton conveyorInButton = new JoystickButton(xbox, 5);
     Button shooter = new Button(() -> xbox.getRightTriggerAxis() >= 0.5);
     Button spinup = new Button(() -> xbox.getLeftTriggerAxis() >= 0.5);
-    Button extendMonkeyButton = new Button(() -> xbox.getPOV()==0);
-    Button retractMonkeyButton = new Button(() -> xbox.getPOV()==180);
+    //Button extendMonkeyButton = new Button(() -> xbox.getPOV()==0 || xbox.getPOV()==45 || xbox.getPOV()==315);
+    //Button retractMonkeyButton = new Button(() -> xbox.getPOV()==135 || xbox.getPOV()==225 || xbox.getPOV()==180);
+    Button extendMonkeyButton = new JoystickButton(xbox, 4);
+    Button retractMonkeyButton = new JoystickButton(xbox, 1);
+
 
   Trajectory trajectory = new Trajectory();
   String trajectoryJSON = "paths/2ball.wpilib.json";
