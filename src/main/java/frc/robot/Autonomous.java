@@ -23,6 +23,7 @@ import frc.robot.commands.AutonomousFeed;
 import frc.robot.commands.AutonomousPlanA;
 import frc.robot.commands.DriveOutOfTarmac;
 import frc.robot.commands.IntakeIn;
+import frc.robot.commands.FeedAndShootLow;
 import edu.wpi.first.wpilibj.smartdashboard.*;
 
 import java.nio.file.Path;
@@ -42,7 +43,7 @@ public class Autonomous {
     String trajectoryJSON = "paths/2ball.wpilib.json";
 
     private static enum ChooseAutoPath {
-        ONLYTAXI, ONEBALLAUTO, TWOBALLAUTO
+        ESCARGOT, ONLYTAXI, ONLYSHOOT, ONEBALLAUTO, TWOBALLAUTO
     }
 
     private static enum ChooseAutoDelay {
@@ -90,9 +91,12 @@ public class Autonomous {
     /** Returns the autonmous command selected in the Shuffleboard tab. */
     private Command getSelectedAutonomousCommand() {
         switch (chooseAutoPath.getSelected()) {
+            case ESCARGOT:
+                return null;
             case ONLYTAXI:
                 return new DriveOutOfTarmac(RobotContainer.drive);
-
+            case ONLYSHOOT:
+                return new FeedAndShootLow(RobotContainer.feed, RobotContainer.teleopShooter);
             case ONEBALLAUTO:
                 return new AutonomousPlanA(RobotContainer.drive, RobotContainer.feed, RobotContainer.teleopShooter);
 
@@ -139,8 +143,11 @@ public class Autonomous {
                 .withPosition(0, 0)
                 .withSize(6, 4);
         chooseAutoPath.setDefaultOption("One Ball Autonomous", ChooseAutoPath.ONEBALLAUTO);
+        chooseAutoPath.addOption("Escargot", ChooseAutoPath.ESCARGOT);
         chooseAutoPath.addOption("Taxi Only", ChooseAutoPath.ONLYTAXI);
         chooseAutoPath.addOption("Two Ball Autonomous", ChooseAutoPath.TWOBALLAUTO);
+        chooseAutoPath.addOption("Only Shoot One", ChooseAutoPath.ONLYSHOOT);
+
         
         autoLayout.add("AutoPath", chooseAutoPath).withWidget(BuiltInWidgets.kComboBoxChooser);
 

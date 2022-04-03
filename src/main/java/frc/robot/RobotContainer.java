@@ -93,6 +93,7 @@ public class RobotContainer {
     Button manualFeed = new Button(() -> xbox.getPOV()==135 || xbox.getPOV()==225 || xbox.getPOV()==180);
     JoystickButton extendMonkeyButton = new JoystickButton(xbox, 4);
     JoystickButton retractMonkeyButton = new JoystickButton(xbox, 1);
+    JoystickButton feedAndShootLowButton = new JoystickButton(xbox,2);
 
 
   Trajectory trajectory = new Trajectory();
@@ -147,6 +148,7 @@ public class RobotContainer {
     extendMonkeyButton.whileHeld(new ExtendMonkey(monkey));
     retractMonkeyButton.whileHeld(new RetractMonkey(monkey));
     manualFeed.whileHeld(new FeederIn(feed));
+    feedAndShootLowButton.whenHeld(new FeedAndShootLow(feed, teleopShooter));
     // spinup.whileHeld(new SetShooter(teleopShooter));
     // shoot.whileHeld(new FeederIn(feed));
   }
