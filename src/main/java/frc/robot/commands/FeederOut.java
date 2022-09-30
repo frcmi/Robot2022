@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class FeederOut extends CommandBase {
   private Feed feed;
+  private static long executedTime;
   /** Creates a new FeederOut. */
   public FeederOut(Feed feed) {
     this.feed = feed;
@@ -22,8 +23,14 @@ public class FeederOut extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
+  public void execute() {    
+    if (executedTime - System.currentTimeMillis() < -2){
+    executedTime = System.currentTimeMillis() / 1000;
     feed.setPower(0.5);
+  }
+  else{
+    return;
+  }
   }
 
   // Called once the command ends or is interrupted.
