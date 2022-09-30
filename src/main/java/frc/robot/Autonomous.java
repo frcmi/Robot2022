@@ -5,6 +5,7 @@
 package frc.robot;
 
 import java.util.List;
+import java.lang.Thread;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -34,6 +35,8 @@ import java.io.*;
 
 /** Add your docs here. */
 public class Autonomous {
+
+    public static final double escargotWaitTime = 5.0;
 
 
     private static SendableChooser<ChooseAutoPath> chooseAutoPath = new SendableChooser<>();
@@ -92,7 +95,9 @@ public class Autonomous {
     private Command getSelectedAutonomousCommand() {
         switch (chooseAutoPath.getSelected()) {
             case ESCARGOT:
-                return null;
+                // change to wait for x seconds
+                new WaitCommand(escargotWaitTime);
+                return new DriveOutOfTarmac(RobotContainer.drive);
             case ONLYTAXI:
                 return new DriveOutOfTarmac(RobotContainer.drive);
             case ONLYSHOOT:
