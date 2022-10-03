@@ -49,6 +49,11 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+    // Simplest way of enabling camera - add CameraServer StreamServer in SmartServer
+    // https://docs.wpilib.org/en/stable/docs/software/vision-processing/roborio/using-the-cameraserver-on-the-roborio.html
+    CameraServer.startAutomaticCapture();
+
+
     //I think it's just gonna give an error unless we select a camera from SmartDashboard
     /*new Thread(() -> {
       UsbCamera camera = CameraServer.startAutomaticCapture();
