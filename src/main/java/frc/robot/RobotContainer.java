@@ -159,19 +159,21 @@ public class RobotContainer {
     configureButtonBindings();
   }
   public void teleopPeriodic() {
-      if(Math.abs(xbox.getRawAxis(1)) > 0.2 || Math.abs(xbox.getRawAxis(4)) > 0.1) {
-        if(xbox.getRawButton(6)) {
-          drive.cheesydrive(-xbox.getRawAxis(1), 0.45 * xbox.getRawAxis(4));
-        }
-        else {
-          drive.cheesydrive(-xbox.getRawAxis(1) * 0.45, 0.6 * xbox.getRawAxis(4));
-        }
-    }
-    else {
-      drive.drive(0,0);
-    }
-   // System.out.println(monkey.getEncoder());
+    double xSpeed = xbox.getRawAxis(1);
+    double zRotation = xbox.getRawAxis(4);
     
+    // If in deadzone (±0.2), set to 0
+    if (Math.abs(xSpeed) < 0.2)
+      xSpeed = 0;
+    if (Math.abs(zRotation) < 0.2)
+      zRotation = 0;
+
+    // 0 times something is still 0 and multipiers here simplifies deadzone
+    xSpeed *= 0.45;
+    zRotation *= 0.8;
+
+    drive.cheesydrive(xSpeed, zRotation);
+    // System.out.println(monkey.getEncoder());
   }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
