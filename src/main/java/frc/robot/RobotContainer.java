@@ -161,10 +161,10 @@ public class RobotContainer {
   public void teleopPeriodic() {
       if(Math.abs(xbox.getRawAxis(1)) > 0.2 || Math.abs(xbox.getRawAxis(4)) > 0.1) {
         if(xbox.getRawButton(6)) {
-          drive.cheesydrive(-xbox.getRawAxis(1), 0.3 * xbox.getRawAxis(4));
+          drive.cheesydrive(-xbox.getRawAxis(1), 0.45 * xbox.getRawAxis(4));
         }
         else {
-          drive.cheesydrive(-xbox.getRawAxis(1) * 0.6, 0.3 * xbox.getRawAxis(4));
+          drive.cheesydrive(-xbox.getRawAxis(1) * 0.45, 0.6 * xbox.getRawAxis(4));
         }
     }
     else {
