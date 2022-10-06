@@ -169,8 +169,8 @@ public class RobotContainer {
       zRotation = 0;
 
     // 0 times something is still 0 and multipiers here simplifies deadzone
-    xSpeed *= 0.45;
-    zRotation *= 0.8;
+    xSpeed *= -0.35;
+    zRotation *= 0.6;
 
     drive.cheesydrive(xSpeed, zRotation);
     // System.out.println(monkey.getEncoder());
