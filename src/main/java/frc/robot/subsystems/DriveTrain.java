@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
@@ -14,6 +15,7 @@ import com.kauailabs.navx.frc.AHRS;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 
 import static frc.robot.Constants.*;
+
 
 public class DriveTrain extends SubsystemBase {
   /** Creates a new DriveTrain. */
@@ -67,8 +69,20 @@ public class DriveTrain extends SubsystemBase {
     difDrive.tankDrive(l, r);
   }
   public void cheesydrive(double xSpeed, double zRotation) {
+  double Xmultipler = 0.3; //creates a multiplyer that will slow the initial velocity
+
+  for(int i = 0;i <  8; i++) { //slowly ramps the velocity up
+    xSpeed = xSpeed * Xmultipler; //mutiples xspeed with multipyer to ease robot into final velocity
+    difDrive.curvatureDrive(xSpeed, zRotation, false);//sends velocity and rotation to drive
+    Xmultipler = Xmultipler + 0.1; //increments velocity multipyer to 1 this will determin the velocity
+
+    new WaitCommand(0.5); //makes code wait to slow acceleration  
+
+  }
     difDrive.curvatureDrive(xSpeed, zRotation, true);
   }
+
+
 
   public void stop() {
     difDrive.tankDrive(0, 0);
