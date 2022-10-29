@@ -30,7 +30,7 @@ public class DriveOutOfTarmac extends CommandBase {
   @Override
   public void execute() {
     if (timer.get() < 1.75) { // in seconds, change this value
-      drive.drive(-.6, -.6);
+      drive.cheesydrive(.6, 0);
     } else {
       done = true;
     }

@@ -63,9 +63,10 @@ public class DriveTrain extends SubsystemBase {
   }
 
   // motors and driving
-  public void drive(double l, double r) {
-    difDrive.tankDrive(l, r);
+  public void curvydrive(double xSpeed, double zRotation) {
+    difDrive.curvatureDrive(xSpeed, zRotation, false);
   }
+
   public void cheesydrive(double xSpeed, double zRotation) {
     difDrive.curvatureDrive(xSpeed, zRotation, true);
   }

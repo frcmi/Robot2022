@@ -12,7 +12,6 @@ import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.subsystems.PIDShooter;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -23,6 +22,7 @@ import edu.wpi.first.wpilibj2.command.button.NetworkButton;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.util.net.PortForwarder;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 
@@ -52,42 +52,42 @@ public class Robot extends TimedRobot {
     // Simplest way of enabling camera - add CameraServer StreamServer in SmartServer
     // https://docs.wpilib.org/en/stable/docs/software/vision-processing/roborio/using-the-cameraserver-on-the-roborio.html
     CameraServer.startAutomaticCapture();
+    //PortForwarder.add(port, remoteHost, remotePort);
 
+    // //I think it's just gonna give an error unless we select a camera from SmartDashboard
+    // new Thread(() -> {
+    //   UsbCamera camera = CameraServer.startAutomaticCapture();
+    //   UsbCamera limelight = CameraServer.startAutomaticCapture();
 
-    //I think it's just gonna give an error unless we select a camera from SmartDashboard
-    /*new Thread(() -> {
-      UsbCamera camera = CameraServer.startAutomaticCapture();
-      UsbCamera limelight = CameraServer.startAutomaticCapture();
+    //   camera.setResolution(640, 480);
+    //   limelight.setResolution(640, 480);
 
-      camera.setResolution(640, 480);
-      limelight.setResolution(640, 480);
+    //   CvSink cvSink = CameraServer.getVideo();
+    //   CvSource outputStream = CameraServer.putVideo("DriverCam", 640, 480);
 
-      CvSink cvSink = CameraServer.getVideo();
-      CvSource outputStream = CameraServer.putVideo("DriverCam", 640, 480);
+    //   CvSink cvSink1 = CameraServer.getVideo();
+    //   CvSource outputStream1 = CameraServer.putVideo("RearCam", 640, 480);
 
-      CvSink cvSink1 = CameraServer.getVideo();
-      CvSource outputStream1 = CameraServer.putVideo("RearCam", 640, 480);
+    //   Mat source = new Mat();
+    //   Mat output = new Mat();
 
-      Mat source = new Mat();
-      Mat output = new Mat();
+    //   Mat source1 = new Mat();
+    //   Mat output1 = new Mat();
 
-      Mat source1 = new Mat();
-      Mat output1 = new Mat();
+    //   while(!Thread.interrupted()) {
+    //     if (cvSink.grabFrame(source) == 0) {
+    //       continue;
+    //     }
+    //     outputStream.putFrame(output);
+    //   }
 
-      while(!Thread.interrupted()) {
-        if (cvSink.grabFrame(source) == 0) {
-          continue;
-        }
-        outputStream.putFrame(output);
-      }
-
-      while(!Thread.interrupted()) {
-        if (cvSink1.grabFrame(source1) == 0) {
-          continue;
-        }
-        outputStream1.putFrame(output1);
-      }
-    }).start();*/
+    //   while(!Thread.interrupted()) {
+    //     if (cvSink1.grabFrame(source1) == 0) {
+    //       continue;
+    //     }
+    //     outputStream1.putFrame(output1);
+    //   }
+    // }).start();
     
     System.out.println("robot init");
     if (container.table.getEntry("pipeline").getDouble(0) == 0) {

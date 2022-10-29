@@ -10,8 +10,8 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class FeederOut extends CommandBase {
   private Feed feed;
   /** Creates a new FeederOut. */
-  public FeederOut(Feed feed) {
-    this.feed = feed;
+  public FeederOut(Feed feeder) {
+    this.feed = feeder;
     addRequirements(this.feed);
     // Use addRequirements() here to declare subsystem dependencies.
   }

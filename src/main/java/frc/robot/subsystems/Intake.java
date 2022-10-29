@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import static frc.robot.Constants.*;
 
@@ -23,8 +24,12 @@ public class Intake extends SubsystemBase {
 
   //toggles intake power to a set value
   
-  public void setPower(double power) {
-    intakeMotor.set(power);
+  public void intake() {
+    intakeMotor.set(Constants.INTAKE_SPEED);
+  }
+
+  public void outtake() {
+    intakeMotor.set(Constants.OUTTAKE_SPEED);
   }
   
   public void stop(){

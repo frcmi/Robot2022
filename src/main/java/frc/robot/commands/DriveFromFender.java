@@ -31,7 +31,7 @@ public class DriveFromFender extends CommandBase {
   @Override
   public void execute() {
     if (timer.get() < 0.25) { // in seconds, change this value
-      drive.drive(-.5, -.5);
+      drive.cheesydrive(.6,0);
     } else {
       done = true;
     }

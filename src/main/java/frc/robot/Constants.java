@@ -20,7 +20,7 @@ public class Constants {
 
     public static final int INTAKE_MOTOR_ID = 6;
 
-    public static final int FEED_MOTOR_ID = 0;
+    public static final int FEED_MOTOR_ID = 6;
     public static final int SHOOTER_MOTOR_ID = 5;
 
     public static final int HANGER_MOTOR_ID = 0;
@@ -28,6 +28,8 @@ public class Constants {
 
     //Drivetrain constants
     public static final int UNITS_PER_ROTATION = 2048; //not needed??
+    public static final double SPEED_MULTIPLIER = 1.0;
+    public static final double ROTATION_MULTIPLIER = .65;
 
     public static final float GEAR_RATIO_DRIVETRAIN = (float) 11/120; //1 falcon rotation = 11/120 wheel rotation
     public static final double WHEEL_RADIUS_METERS = 0.0762;
@@ -37,40 +39,15 @@ public class Constants {
     //Shooter constants
     public static WPI_TalonFX shooterMotorTalon = new WPI_TalonFX(SHOOTER_MOTOR_ID);
     public static MotorController shooterMotor = shooterMotorTalon; 
+    public static final double SHOOT_HIGH_SPEED = -0.45;
+    public static final double SHOOT_LOW_SPEED = -0.25;
     
-    //public static final PIDController SHOOTER_PID_AUTO = new PIDController(0, 0, 0); //adjust
-    //public static final PIDController SHOOTER_PID_TELEOP = new PIDController(0.9, 0, 0); //adjust
-    
-    //PID setpoints
-    public static final double AUTOSETPOINT = 0.75;
-    public static final double TELEOPSETPOINT = 0.9;
+    //Feeder constants
+    public static final double SPIT_SPEED = 0.35;
+    public static final double FEED_SPEED = -0.35;
 
-    //PID Teleop Setpoints
-    public static final double SHOOTER_PID_TELEOP_kP = 0.9;
-    public static final double SHOOTER_PID_TELEOP_kI = 0;
-    public static final double SHOOTER_PID_TELEOP_kD = 0;
+    //Intake constants
+    public static final double INTAKE_SPEED = -.35;
+    public static final double OUTTAKE_SPEED = -.35;
 
-    //PID Teleop Setpoints
-    public static final double SHOOTER_PID_AUTO_kP = 0.9;
-    public static final double SHOOTER_PID_AUTO_kI = 0;
-    public static final double SHOOTER_PID_AUTO_kD = 0;
-
-    //Feedforward constants
-    public static final double kSVolts = 0.22;
-    public static final double kVVoltSecondsPerRotation = 5;
-
-    //Autnomous constants using preprogrammed names. CHANGE THEM!
-    public static final double ksVolts = 0.22;
-    public static final double kvVoltSecondsPerMeter = 1.98;
-    public static final double kaVoltSecondsSquaredPerMeter = 0.2;
-    public static final double kPDriveVel = 8.5;
-
-    public static final double kMaxSpeedMetersPerSecond = 3;
-    public static final double kMaxAccelerationMetersPerSecondSquared = 3;
-
-    public static final double kTrackwidthMeters = 0.69; //dunno what this is
-    public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(kTrackwidthMeters);
-
-    public static final double kRamseteB = 2;
-    public static final double kRamseteZeta = 0.7;
 }

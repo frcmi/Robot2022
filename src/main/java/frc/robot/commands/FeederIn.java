@@ -4,7 +4,7 @@
 
 package frc.robot.commands;
 
-
+import frc.robot.Constants;
 import frc.robot.subsystems.Feed;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
@@ -25,7 +25,7 @@ public class FeederIn extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    feed.setPower(-.35); //change this later during testing
+    feed.setPower(Constants.INTAKE_SPEED); //change this later during testing
   }
 
   // Called once the command ends or is interrupted.

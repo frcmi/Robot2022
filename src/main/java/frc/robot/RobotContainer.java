@@ -21,6 +21,7 @@ import edu.wpi.first.wpilibj.XboxController;
 
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
+import static frc.robot.Constants.*;
 
 import java.nio.file.Path;
 import edu.wpi.first.wpilibj.Filesystem;
@@ -68,11 +69,11 @@ public class RobotContainer {
           //      / _____ \                             / _____ \
           //    +.-'__5___'-.---------------------------.-'__6___'-.+
           //   /   |  0   |  '.pretend it's a 360 controller       .'  |  _  |   \
-          //  / ___| /|\ |___ \                     / ___| /4\ |___ \
+          //  / ___| /|\ |___ \                     / ___| /(4/3)\ |___ \
           // / |      |      | ;  __           _   ; | _         _ | ;                 
-          // | | <---   ---> | | |__|         |_:> | ||3|       (2)| |          left stick <>=0
+          // | | <---   ---> | | |__|         |_:> | ||(3/4)|       (2/1)| |          left stick <>=0
           // | |___   |   ___|       7          8 ; |___       ___| ;           left stick up down = 1
-          // |\    | \|/ |    /  _     ___      _   \    | (1) |    /|          right stick <>=4
+          // |\    | \|/ |    /  _     ___      _   \    | (1/2) |    /|          right stick <>=4
           // | \   |__180___|  .','" "', |___|  ,'" "', '.  |_____|  .' |       right stick up down = 5
           // |  '-.______.-' /       \ANALOG/       \  '-._____.-'   |          left trigger = 2
           // |               |   9    |------|  10    |                |        right trigger = 1
@@ -87,13 +88,14 @@ public class RobotContainer {
     //JoystickButton feed = new JoystickButton(xbox, 6); //L1
     JoystickButton conveyorOutButton = new JoystickButton(xbox, 5);
     Button conveyorInButton = new Button(() -> xbox.getLeftTriggerAxis() >= 0.5);
-    Button shooter = new Button(() -> xbox.getRightTriggerAxis() >= 0.3);
+    //Button shooter = new Button(() -> xbox.getRightTriggerAxis() >= 0.3);
+    Button feedAndShoot = new Button(() -> xbox.getRightTriggerAxis() >= 0.3);
     //Button spinup = new Button(() -> xbox.getLeftTriggerAxis() >= 0.5);
     //Button extendMonkeyButton = new Button(() -> xbox.getPOV()==0 || xbox.getPOV()==45 || xbox.getPOV()==315);
     Button manualFeed = new Button(() -> xbox.getPOV()==135 || xbox.getPOV()==225 || xbox.getPOV()==180);
-    JoystickButton extendMonkeyButton = new JoystickButton(xbox, 4);
-    JoystickButton retractMonkeyButton = new JoystickButton(xbox, 1);
-    JoystickButton feedAndShootLowButton = new JoystickButton(xbox,2);
+    JoystickButton extendMonkeyButton = new JoystickButton(xbox, 3);
+    JoystickButton retractMonkeyButton = new JoystickButton(xbox, 4);
+    //JoystickButton feedAndShootLowButton = new JoystickButton(xbox,2);
 
 
   Trajectory trajectory = new Trajectory();
@@ -143,12 +145,12 @@ public class RobotContainer {
 
     conveyorInButton.whileHeld(new IntakeIn(intake));
     conveyorOutButton.whileActiveContinuous(new ParallelCommandGroup(new IntakeOut(intake), new FeederOut(feed)));  
-    shooter.whenHeld(new FeedAndShoot(feed, teleopShooter));
+    feedAndShoot.whenHeld(new FeedAndShoot(feed, teleopShooter));
     //spinup.whileHeld(new ParallelCommandGroup(new SetShooter(teleopShooter),new SequentialCommandGroup(new WaitCommand(2), new StartEndCommand(() -> {xbox.setRumble(XboxController.RumbleType.kLeftRumble, 0.5);xbox.setRumble(XboxController.RumbleType.kRightRumble, 0.5);}, () -> {xbox.setRumble(XboxController.RumbleType.kLeftRumble, 0);xbox.setRumble(XboxController.RumbleType.kRightRumble, 0);}))));
     extendMonkeyButton.whileHeld(new ExtendMonkey(monkey));
     retractMonkeyButton.whileHeld(new RetractMonkey(monkey));
     manualFeed.whileHeld(new FeederIn(feed));
-    feedAndShootLowButton.whenHeld(new FeedAndShootLow(feed, teleopShooter));
+    //feedAndShootLowButton.whenHeld(new FeedAndShootLow(feed, teleopShooter));
     // spinup.whileHeld(new SetShooter(teleopShooter));
     // shoot.whileHeld(new FeederIn(feed));
   }
@@ -159,21 +161,7 @@ public class RobotContainer {
     configureButtonBindings();
   }
   public void teleopPeriodic() {
-    double xSpeed = xbox.getRawAxis(1);
-    double zRotation = xbox.getRawAxis(4);
-    
-    // If in deadzone (±0.2), set to 0
-    if (Math.abs(xSpeed) < 0.2)
-      xSpeed = 0;
-    if (Math.abs(zRotation) < 0.2)
-      zRotation = 0;
-
-    // 0 times something is still 0 and multipiers here simplifies deadzone
-    xSpeed *= 0.45;
-    zRotation *= 0.8;
-
-    drive.cheesydrive(xSpeed, zRotation);
-    // System.out.println(monkey.getEncoder());
+    drive.cheesydrive(Constants.SPEED_MULTIPLIER * xbox.getRawAxis(1), ROTATION_MULTIPLIER * xbox.getRawAxis(4));
   }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

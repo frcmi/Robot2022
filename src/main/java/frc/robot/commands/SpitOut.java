@@ -14,6 +14,7 @@ public class SpitOut extends ParallelCommandGroup {
   public SpitOut(Intake intake, Feed feed) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
+    intake.outtake();
     addCommands(new IntakeOut(intake), new FeederOut(feed));
   }
 }

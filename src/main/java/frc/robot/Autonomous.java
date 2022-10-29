@@ -19,7 +19,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.*;
 
 
-import frc.robot.commands.TrajectoryMaker;
 import frc.robot.commands.AutonomousFeed;
 import frc.robot.commands.AutonomousPlanA;
 import frc.robot.commands.DriveOutOfTarmac;
@@ -37,6 +36,7 @@ import java.io.*;
 public class Autonomous {
 
     public static final double escargotWaitTime = 5.0;
+    public static double waitTimeChoose = 0.0;
 
 
     private static SendableChooser<ChooseAutoPath> chooseAutoPath = new SendableChooser<>();
@@ -58,6 +58,7 @@ public class Autonomous {
 
         ChooseAutoDelay(double delay) {
             this.delay = delay;
+            waitTimeChoose = delay;
         }
 
         public double getDelay() {
@@ -103,27 +104,11 @@ public class Autonomous {
             case ONLYSHOOT:
                 return new FeedAndShootLow(RobotContainer.feed, RobotContainer.teleopShooter);
             case ONEBALLAUTO:
-                return new AutonomousPlanA(RobotContainer.drive, RobotContainer.feed, RobotContainer.teleopShooter);
-
-            case TWOBALLAUTO: 
-                //return new SequentialCommandGroup(
-                    // new SetShooter(RobotContainer.shooter),
-                    // new WaitCommand(2),
-                    // new AutonomousFeed(1),
-                    // new ParallelCommandGroup(
-                    //     new SequentialCommandGroup(
-                    //         new WaitCommand(2), new ParallelRaceGroup(
-                    //             new WaitCommand(2), 
-                    //             new IntakeIn(RobotContainer.intake))), 
-                    //     new TrajectoryMaker(trajectory, RobotContainer.drive)),
-                    // new AutonomousFeed(2, RobotContainer.feed));
-                return new TrajectoryMaker(trajectory, RobotContainer.drive);
-
-                    
+                return new AutonomousPlanA(RobotContainer.drive, RobotContainer.feed, RobotContainer.teleopShooter, waitTimeChoose);
 
             default:
                 //return new TrajectoryMaker(trajectory, RobotContainer.drive);
-                return null;
+                return new AutonomousPlanA(RobotContainer.drive, RobotContainer.feed, RobotContainer.teleopShooter, waitTimeChoose);
 
         }
     }
@@ -142,11 +127,12 @@ public class Autonomous {
         return new WaitCommand(delayChoice.getDelay());
     }
 
+    // this adds another tab which i don't want 
     public void addAutonomousShuffleboardTab() {
-        ShuffleboardTab autoTab = Shuffleboard.getTab("Autonomous");
-        ShuffleboardLayout autoLayout = autoTab.getLayout("Autonomous", BuiltInLayouts.kList)
+        ShuffleboardTab autoTab = Shuffleboard.getTab("Main");
+        ShuffleboardLayout autoLayout = autoTab.getLayout("Main", BuiltInLayouts.kList)
                 .withPosition(0, 0)
-                .withSize(6, 4);
+                .withSize(2, 2);
         chooseAutoPath.setDefaultOption("One Ball Autonomous", ChooseAutoPath.ONEBALLAUTO);
         chooseAutoPath.addOption("Escargot", ChooseAutoPath.ESCARGOT);
         chooseAutoPath.addOption("Taxi Only", ChooseAutoPath.ONLYTAXI);
@@ -162,5 +148,5 @@ public class Autonomous {
         autoLayout.add("Delay", chooseAutoDelay).withWidget(BuiltInWidgets.kComboBoxChooser);
         SmartDashboard.putData(chooseAutoPath);
         SmartDashboard.putData(chooseAutoDelay);
-    }
+    } 
 }

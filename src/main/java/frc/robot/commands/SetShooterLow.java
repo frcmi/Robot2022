@@ -7,7 +7,6 @@ package frc.robot.commands;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Shooter;
-import frc.robot.subsystems.PIDShooter;
 import static frc.robot.Constants.*;
 
 public class SetShooterLow extends CommandBase {
@@ -27,7 +26,7 @@ public class SetShooterLow extends CommandBase {
   @Override
   public void execute() {
   
-  shooter.set(0.475);
+  shooter.set(SHOOT_LOW_SPEED);
   }
  
 
