@@ -20,6 +20,10 @@ public class Shooter extends SubsystemBase {
 
   }
 
+  public void initDefaultCommand(){
+    m_shooterMotor.set(0.0);
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
@@ -35,5 +39,9 @@ public class Shooter extends SubsystemBase {
 
   public CommandBase setShooter() {
     return new RunCommand(() -> m_shooterMotor.set(Constants.SHOOT_SPEED));
+  }
+
+  public CommandBase stopCommand() {
+    return new RunCommand(() -> m_shooterMotor.set(0));
   }
 }

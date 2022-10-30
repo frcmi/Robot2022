@@ -6,10 +6,13 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Button;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 
 import edu.wpi.first.wpilibj.XboxController;
@@ -43,6 +46,7 @@ public class RobotContainer {
   public static DriveTrain drive = new DriveTrain();
   public static Shooter shooter = new Shooter();
 
+
   //Commands
   public static Autonomous autonomous = new Autonomous(drive, intake, shooter);
 
@@ -51,6 +55,15 @@ public class RobotContainer {
    */
   public RobotContainer() {
    autonomous.addAutonomousShuffleboardTab();
+   /*intake.setDefaultCommand(
+      new SequentialCommandGroup(
+        new ParallelRaceGroup(
+          new WaitCommand(0.1),
+          intake.outtake()
+        ),
+        intake.stopCommand(intake)
+      )
+    );*/
   }
 
   /**
@@ -62,17 +75,23 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    feedButton.whileHeld(intake.intake());
+    feedButton.whileHeld(new StartEndCommand(intake::intake, intake::stop, intake));
     //circumvent lack of indexer to outtake ball to allow spinup of flywheel
-    feedButton.whenReleased(intake.outtake().withTimeout(.1));
+    //feedButton.whenReleased(intake.outtake().withTimeout(.1));
 
-    spitButton.whileActiveContinuous(intake.outtake());  
+    spitButton.whenPressed(new StartEndCommand(intake::outtake, intake::stop, intake));  
 
     feedAndShootButton.whenHeld(
       new SequentialCommandGroup(
         shooter.setShooter(),
         new WaitCommand(SPINUP_DELAY),
         intake.intake()
+      )
+    );
+    feedAndShootButton.whenReleased(
+      new ParallelCommandGroup(
+        intake.stopCommand(intake),
+        shooter.stopCommand()
       )
     );
   }
