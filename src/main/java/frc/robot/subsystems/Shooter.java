@@ -4,7 +4,10 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.math.controller.PIDController;
 import static frc.robot.Constants.*;
@@ -13,9 +16,10 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 public class Shooter extends SubsystemBase {
   /** Creates a new Shooter. */
+  private final WPI_TalonFX m_shooterMotor = new WPI_TalonFX(SHOOTER_MOTOR_ID);
 
   public Shooter(){
-    
+
   }
 
   @Override
@@ -24,20 +28,14 @@ public class Shooter extends SubsystemBase {
   }
 
   public void set(double speed) {
-    shooterMotor.set(speed);
+    m_shooterMotor.set(speed);
   }
 
   public void stop() {
-    shooterMotor.set(0.0);
+    m_shooterMotor.set(0.0);
   }
 
-  // public void changeSetpoint(double setpoint, PIDController PIDCont) {
-  //   PIDCont.setSetpoint(setpoint);
-  // }
-
-  public double getMeasurement() {
-    // Return the process variable measurement here
-    return shooterMotorTalon.getSelectedSensorVelocity();
+  public CommandBase setShooter() {
+    return new RunCommand(() -> m_shooterMotor.set(Constants.SHOOT_SPEED));
   }
-
 }
