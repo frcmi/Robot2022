@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
@@ -13,26 +15,22 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 public class Intake extends SubsystemBase {
   /** Creates a new Shooter. */
-  public WPI_TalonFX  intakeMotorTalon = new WPI_TalonFX(INTAKE_MOTOR_ID);
-  public MotorController intakeMotor = intakeMotorTalon; 
-  public Intake() {}
+  private final WPI_TalonFX m_intakeMotor = new WPI_TalonFX(INTAKE_MOTOR_ID);
+  
+  public Intake(){
 
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
   }
 
   //toggles intake power to a set value
-  
-  public void intake() {
-    intakeMotor.set(Constants.INTAKE_SPEED);
+  public CommandBase intake() {
+    return new RunCommand(() -> m_intakeMotor.set(Constants.FEED_SPEED));
   }
 
-  public void outtake() {
-    intakeMotor.set(Constants.OUTTAKE_SPEED);
+  public CommandBase outtake() {
+    return new RunCommand(() -> m_intakeMotor.set(-Constants.FEED_SPEED));
   }
   
   public void stop(){
-    intakeMotor.set(0);
+    m_intakeMotor.set(0);
   }
 }
