@@ -4,15 +4,6 @@
 
 package frc.robot;
 
-import java.util.List;
-
-import javax.lang.model.element.ModuleElement.DirectiveVisitor;
-
-import java.lang.Thread;
-
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -26,7 +17,6 @@ import frc.robot.commands.AutonomousPlanA;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj.smartdashboard.*;
 
-import java.io.*;
 
 /** Add your docs here. */
 public class Autonomous {

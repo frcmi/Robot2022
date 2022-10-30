@@ -9,26 +9,16 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Button;
 
-//import edu.wpi.first.wpilibj.PneumaticsModuleType;
-//import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
-import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.networktables.NetworkTableInstance;
+
 import edu.wpi.first.wpilibj.XboxController;
 
 
-import frc.robot.commands.*;
+
 import frc.robot.subsystems.*;
 import static frc.robot.Constants.*;
 
-import java.nio.file.Path;
-import edu.wpi.first.wpilibj.Filesystem;
-import edu.wpi.first.math.trajectory.TrajectoryUtil;
-import edu.wpi.first.math.trajectory.Trajectory;
-import java.io.*;
 
 
 /**
@@ -42,12 +32,6 @@ import java.io.*;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-
-  // Limelight and values
-  public static final NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
-  NetworkTableEntry tx = table.getEntry("tx");
-  NetworkTableEntry ty = table.getEntry("ty");
-  NetworkTableEntry ta = table.getEntry("ta");
 
   public XboxController xbox = new XboxController(0);
   JoystickButton spitButton = new JoystickButton(xbox, 5);
@@ -82,8 +66,8 @@ public class RobotContainer {
     //circumvent lack of indexer to outtake ball to allow spinup of flywheel
     feedButton.whenReleased(intake.outtake().withTimeout(.1));
 
-    spitButton.whileActiveContinuous(new ParallelCommandGroup(intake.outtake(), intake.outtake()));  
-    
+    spitButton.whileActiveContinuous(intake.outtake());  
+
     feedAndShootButton.whenHeld(
       new SequentialCommandGroup(
         shooter.setShooter(),
