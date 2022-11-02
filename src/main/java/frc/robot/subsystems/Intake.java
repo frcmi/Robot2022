@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -25,18 +26,19 @@ public class Intake extends SubsystemBase {
 
   //toggles intake power to a set value
   public CommandBase intake() {
-    return new RunCommand(() -> m_intakeMotor.set(Constants.FEED_SPEED));
+    System.out.println("intaking");
+    return new InstantCommand(() -> m_intakeMotor.set(Constants.FEED_SPEED));
   }
 
   public CommandBase outtake() {
-    return new RunCommand(() -> m_intakeMotor.set(-Constants.FEED_SPEED));
+    return new InstantCommand(() -> m_intakeMotor.set(-Constants.FEED_SPEED));
   }
   
   public void stop(){
     m_intakeMotor.set(0);
   }
 
-  public CommandBase stopCommand(Intake intake) {
-    return new RunCommand(() -> intake.stop());
+  public CommandBase stopCommand() {
+    return new InstantCommand(() -> this.stop(), this);
   }
 }

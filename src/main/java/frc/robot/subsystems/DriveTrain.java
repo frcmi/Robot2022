@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
@@ -40,8 +41,13 @@ public class DriveTrain extends SubsystemBase {
     diffDrive.curvatureDrive(xSpeed, zRotation, true);
   }
 
-  public CommandBase taxi () {
+  public CommandBase taxi() {
     return new RunCommand(() -> diffDrive.curvatureDrive(-.5, 0, false)).withTimeout(1.25);
+  }
+
+  public CommandBase drive(DriveTrain dt, double xSpeed, double zRotation){
+    //addRequirements(dt);
+    return new RunCommand(() -> dt.cheesyDrive(SPEED_MULTIPLIER * xSpeed, ROTATION_MULTIPLIER * zRotation));
   }
 
   public void stop() {

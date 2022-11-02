@@ -7,12 +7,10 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Button;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 
 import edu.wpi.first.wpilibj.XboxController;
@@ -36,7 +34,7 @@ import static frc.robot.Constants.*;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 
-  public XboxController xbox = new XboxController(0);
+  public static XboxController xbox = new XboxController(0);
   JoystickButton spitButton = new JoystickButton(xbox, 5);
   Button feedButton = new Button(() -> xbox.getLeftTriggerAxis() >= 0.5);
   Button feedAndShootButton = new Button(() -> xbox.getRightTriggerAxis() >= 0.3);
@@ -46,7 +44,6 @@ public class RobotContainer {
   public static DriveTrain drive = new DriveTrain();
   public static Shooter shooter = new Shooter();
 
-
   //Commands
   public static Autonomous autonomous = new Autonomous(drive, intake, shooter);
 
@@ -55,15 +52,7 @@ public class RobotContainer {
    */
   public RobotContainer() {
    autonomous.addAutonomousShuffleboardTab();
-   /*intake.setDefaultCommand(
-      new SequentialCommandGroup(
-        new ParallelRaceGroup(
-          new WaitCommand(0.1),
-          intake.outtake()
-        ),
-        intake.stopCommand(intake)
-      )
-    );*/
+   //intake.setDefaultCommand(defaultCommand);
   }
 
   /**
@@ -75,23 +64,20 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    feedButton.whileHeld(new StartEndCommand(intake::intake, intake::stop, intake));
+    feedButton
+      .whileHeld(intake::intake)
+      .whenReleased(intake.outtake().withTimeout(.1));
     //circumvent lack of indexer to outtake ball to allow spinup of flywheel
-    //feedButton.whenReleased(intake.outtake().withTimeout(.1));
 
-    spitButton.whenPressed(new StartEndCommand(intake::outtake, intake::stop, intake));  
+    spitButton.whileActiveContinuous(intake.outtake());  
 
     feedAndShootButton.whenHeld(
       new SequentialCommandGroup(
-        shooter.setShooter(),
-        new WaitCommand(SPINUP_DELAY),
-        intake.intake()
-      )
-    );
-    feedAndShootButton.whenReleased(
-      new ParallelCommandGroup(
-        intake.stopCommand(intake),
-        shooter.stopCommand()
+        shooter.setShooter().withTimeout(SPINUP_DELAY),
+        new ParallelCommandGroup(
+          intake.intake().withTimeout(.25),
+          shooter.setShooter().withTimeout(.25)
+        )
       )
     );
   }
@@ -99,10 +85,11 @@ public class RobotContainer {
 
   public void setTeleop() {
     configureButtonBindings();
+    System.out.println(xbox.getLeftTriggerAxis());
   }
 
   public void teleopPeriodic() {
-    drive.cheesyDrive(Constants.SPEED_MULTIPLIER * xbox.getRawAxis(1), ROTATION_MULTIPLIER * xbox.getRawAxis(4));
+    drive.cheesyDrive(SPEED_MULTIPLIER * xbox.getRawAxis(1), ROTATION_MULTIPLIER * xbox.getRawAxis(4));
   }
 
   /**

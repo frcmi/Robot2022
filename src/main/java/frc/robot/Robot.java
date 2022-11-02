@@ -23,8 +23,10 @@ public class Robot extends TimedRobot {
     
   public static RobotContainer container = new RobotContainer();
 
+  /** Periodic code for all robot modes should go here. */
   @Override
-  public void robotInit() {
+  public void robotPeriodic(){
+    CommandScheduler.getInstance().run();
   }
 
   /** This function is run once each time the robot enters autonomous mode. */
@@ -44,7 +46,6 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
-    CommandScheduler.getInstance().run();
     SmartDashboard.putData(CommandScheduler.getInstance());
   }
 
@@ -59,7 +60,6 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     container.teleopPeriodic();
-    CommandScheduler.getInstance().run();
     SmartDashboard.putData(CommandScheduler.getInstance());
   }
 

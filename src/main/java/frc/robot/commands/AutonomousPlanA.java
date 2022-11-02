@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
@@ -20,11 +21,13 @@ public class AutonomousPlanA extends SequentialCommandGroup {
     addRequirements(drive, intake, teleopShooter);
     addCommands(
       new SequentialCommandGroup(
-        teleopShooter.setShooter(), 
-        new WaitCommand(Constants.SPINUP_DELAY),
-        intake.intake(),
+        teleopShooter.setShooter().withTimeout(Constants.SPINUP_DELAY), 
+        new ParallelCommandGroup(
+          intake.intake().withTimeout(.25),
+          teleopShooter.setShooter().withTimeout(.25)
+        ),
         new WaitCommand(delay), 
-        drive.taxi()
+        drive.taxi().withTimeout(1.75)
       )
     );
    }
