@@ -17,28 +17,15 @@ public class Shooter extends SubsystemBase {
   /** Creates a new Shooter. */
   private final WPI_TalonFX m_shooterMotor = new WPI_TalonFX(SHOOTER_MOTOR_ID);
 
-  public Shooter(){
+  public Shooter() {
 
   }
 
-  public void initDefaultCommand(){
-    m_shooterMotor.set(0.0);
-  }
-
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-  }
-
-  public void set(double speed) {
-    m_shooterMotor.set(speed);
-  }
-
-  public void stop() {
-    m_shooterMotor.set(0.0);
+  public CommandBase stop() {
+    return new RunCommand(() -> m_shooterMotor.set(0), this);
   }
 
   public CommandBase setShooter() {
-    return new RunCommand(() -> m_shooterMotor.set(Constants.SHOOT_SPEED));
+    return new RunCommand(() -> m_shooterMotor.set(Constants.SHOOT_SPEED), this);
   }
 }

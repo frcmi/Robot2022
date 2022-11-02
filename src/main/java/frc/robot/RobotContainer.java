@@ -18,12 +18,8 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 
 import edu.wpi.first.wpilibj.XboxController;
 
-
-
 import frc.robot.subsystems.*;
 import static frc.robot.Constants.*;
-
-
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -47,7 +43,7 @@ public class RobotContainer {
   public static DriveTrain drive = new DriveTrain();
   public static Shooter shooter = new Shooter();
 
-  //Commands
+  // Commands
   public static Autonomous autonomous = new Autonomous(drive, intake, shooter);
 
   /**
@@ -55,9 +51,10 @@ public class RobotContainer {
    */
   public RobotContainer() {
     autonomous.addAutonomousShuffleboardTab();
-    intake.setDefaultCommand(new RunCommand(() -> intake.stop(), intake));
-    shooter.setDefaultCommand(new RunCommand(() -> shooter.stop(), shooter));
-    drive.setDefaultCommand(new RunCommand(() -> drive.drive(SPEED_MULTIPLIER * xbox.getRawAxis(1), ROTATION_MULTIPLIER * xbox.getRawAxis(4)), drive));
+    intake.setDefaultCommand(intake.stop());
+    shooter.setDefaultCommand(shooter.stop());
+    drive.setDefaultCommand(new RunCommand(
+        () -> drive.drive(SPEED_MULTIPLIER * xbox.getRawAxis(1), ROTATION_MULTIPLIER * xbox.getRawAxis(4)), drive));
   }
 
   /**
@@ -70,23 +67,19 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     feedButton
-      .whileHeld(intake.intake())
-      .whenReleased(intake.outtake().withTimeout(.1));
-    //circumvent lack of indexer to outtake ball to allow spinup of flywheel
+        .whileHeld(intake.intake())
+        .whenReleased(intake.outtake().withTimeout(.1));
+    // circumvent lack of indexer to outtake ball to allow spinup of flywheel
 
-    spitButton.whileHeld(intake.outtake());  
+    spitButton.whileHeld(intake.outtake());
 
     feedAndShootButton.whenHeld(
-      new SequentialCommandGroup(
-        shooter.setShooter().withTimeout(SPINUP_DELAY),
-        new ParallelCommandGroup(
-          intake.intake().withTimeout(.25),
-          shooter.setShooter().withTimeout(.25)
-        )
-      )
-    );
+        new SequentialCommandGroup(
+            shooter.setShooter().withTimeout(SPINUP_DELAY),
+            new ParallelCommandGroup(
+                intake.intake().withTimeout(.25),
+                shooter.setShooter().withTimeout(.25))));
   }
-
 
   public void setTeleop() {
     configureButtonBindings();

@@ -20,21 +20,21 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 public class Intake extends SubsystemBase {
   /** Creates a new Shooter. */
   private final WPI_TalonFX m_intakeMotor = new WPI_TalonFX(INTAKE_MOTOR_ID);
-  
-  public Intake(){
+
+  public Intake() {
 
   }
 
-  //toggles intake power to a set value
+  // toggles intake power to a set value
   public CommandBase intake() {
-    return new RunCommand(() -> m_intakeMotor.set(Constants.FEED_SPEED));
+    return new RunCommand(() -> m_intakeMotor.set(Constants.FEED_SPEED), this);
   }
 
   public CommandBase outtake() {
-    return new RunCommand(() -> m_intakeMotor.set(-Constants.FEED_SPEED));
+    return new RunCommand(() -> m_intakeMotor.set(-Constants.FEED_SPEED), this);
   }
-  
-  public void stop(){
-    m_intakeMotor.set(0);
+
+  public CommandBase stop() {
+    return new RunCommand(() -> m_intakeMotor.set(0), this);
   }
 }
