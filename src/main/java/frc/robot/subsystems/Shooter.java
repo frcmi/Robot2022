@@ -39,10 +39,6 @@ public class Shooter extends SubsystemBase {
   }
 
   public CommandBase setShooter() {
-    return new InstantCommand(() -> m_shooterMotor.set(Constants.SHOOT_SPEED));
-  }
-
-  public CommandBase stopCommand() {
-    return new InstantCommand(() -> m_shooterMotor.set(0));
+    return new RunCommand(() -> m_shooterMotor.set(Constants.SHOOT_SPEED));
   }
 }

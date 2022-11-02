@@ -6,7 +6,10 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Button;
 
@@ -51,8 +54,10 @@ public class RobotContainer {
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
-   autonomous.addAutonomousShuffleboardTab();
-   //intake.setDefaultCommand(defaultCommand);
+    autonomous.addAutonomousShuffleboardTab();
+    intake.setDefaultCommand(new RunCommand(() -> intake.stop(), intake));
+    shooter.setDefaultCommand(new RunCommand(() -> shooter.stop(), shooter));
+    drive.setDefaultCommand(new RunCommand(() -> drive.drive(SPEED_MULTIPLIER * xbox.getRawAxis(1), ROTATION_MULTIPLIER * xbox.getRawAxis(4)), drive));
   }
 
   /**
@@ -65,11 +70,11 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     feedButton
-      .whileHeld(intake::intake)
+      .whileHeld(intake.intake())
       .whenReleased(intake.outtake().withTimeout(.1));
     //circumvent lack of indexer to outtake ball to allow spinup of flywheel
 
-    spitButton.whileActiveContinuous(intake.outtake());  
+    spitButton.whileHeld(intake.outtake());  
 
     feedAndShootButton.whenHeld(
       new SequentialCommandGroup(

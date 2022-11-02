@@ -45,9 +45,9 @@ public class DriveTrain extends SubsystemBase {
     return new RunCommand(() -> diffDrive.curvatureDrive(-.5, 0, false)).withTimeout(1.25);
   }
 
-  public CommandBase drive(DriveTrain dt, double xSpeed, double zRotation){
+  public CommandBase drive(double xSpeed, double zRotation){
     //addRequirements(dt);
-    return new RunCommand(() -> dt.cheesyDrive(SPEED_MULTIPLIER * xSpeed, ROTATION_MULTIPLIER * zRotation));
+    return new RunCommand(() -> this.cheesyDrive(SPEED_MULTIPLIER * xSpeed, ROTATION_MULTIPLIER * zRotation), this);
   }
 
   public void stop() {
