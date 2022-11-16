@@ -7,7 +7,8 @@ import frc.robot.Constants;
 
 public class ShooterSystem extends SubsystemBase {
     
-    public MotorController shooterMotor = new WPI_TalonFX(Constants.shooterMotorID); 
+    public WPI_TalonFX shooterMotorTalonFX = new WPI_TalonFX(Constants.shooterMotorID); 
+    public MotorController shooterMotor = shooterMotorTalonFX; 
 
     public void setShooterMotorPower(double power) {
 
@@ -18,6 +19,12 @@ public class ShooterSystem extends SubsystemBase {
     public void shooterMotorPowerSetZero() {
 
         shooterMotor.set(0.0); 
+
+    }
+
+    public double getSensorVelocity() {
+
+        return shooterMotorTalonFX.getSelectedSensorVelocity(); 
 
     }
 
