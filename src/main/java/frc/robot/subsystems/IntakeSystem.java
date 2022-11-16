@@ -9,20 +9,20 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class IntakeSystem extends SubsystemBase{
 
-    public MotorController intakeMotorTalonFX = new WPI_TalonFX(Constants.intakeMotorID); 
+    public MotorController intakeMotor = new WPI_TalonFX(Constants.intakeMotorID); 
 
     
     //Sets the power of the intakeMotor
     public void intakeMotorSetPower(double power) { 
 
-        intakeMotorTalonFX.set(power); 
+        intakeMotor.set(power); 
 
     }
 
     //sets the power of the intakeMotor to 0 stopping the motor. 
     public void intakeMotorStop() {
 
-        intakeMotorTalonFX.set(0.0); 
+        intakeMotor.set(0.0); 
 
     }
 }
