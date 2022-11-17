@@ -19,8 +19,8 @@ import frc.robot.Controller;
 public class DriveTrain extends SubsystemBase {
   Controller controller;
 
-  private static WPI_TalonFX rightBackTalonFX = new WPI_TalonFX(Constants.rightBackPort);
   private static WPI_TalonFX rightFrontTalonFX = new WPI_TalonFX(Constants.rightFrontPort);
+  private static WPI_TalonFX rightBackTalonFX = new WPI_TalonFX(Constants.rightBackPort);
   private static WPI_TalonFX leftFrontTalonFX = new WPI_TalonFX(Constants.leftFrontPort);
   private static WPI_TalonFX leftBackTalonFX = new WPI_TalonFX(Constants.leftBackPort);
   private static MotorControllerGroup leftMotorGroup = new MotorControllerGroup(leftBackTalonFX, leftFrontTalonFX);
