@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class FeederSystem extends SubsystemBase {
-    public MotorController feederMotorController = new WPI_TalonFX(Constants.feederMotorID);;
+    public MotorController feederMotorController = new WPI_TalonFX(Constants.feederMotorID);
 
     public void setPower(double power) {
         feederMotorController.set(power);
