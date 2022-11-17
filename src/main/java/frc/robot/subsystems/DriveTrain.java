@@ -37,7 +37,7 @@ private static DifferentialDrive differentialDrive = new DifferentialDrive(leftM
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    differentialDrive.arcadeDrive(controller.getThrottleFwd(), controller.getRotation());
+    differentialDrive.arcadeDrive(controller.getThrottleFwd() * Constants.speedMultiplier, controller.getRotation() * Constants.speedMultiplier);
   }
 
   @Override

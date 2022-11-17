@@ -19,6 +19,8 @@ public final class Constants {
     public static final int rightBackPort = 2;
     public static final int rightFrontPort = 1;
 
+    public static final double speedMultiplier = 0.1;
+
     //Drive train bits
     public static final float driveTrainGearRatio = (float) 11/120;
     
