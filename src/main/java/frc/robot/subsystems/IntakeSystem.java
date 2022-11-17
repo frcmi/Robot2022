@@ -14,15 +14,16 @@ public class IntakeSystem extends SubsystemBase{
     
     //Sets the power of the intakeMotor
     public void intakeMotorSetPower(double power) { 
-
         intakeMotor.set(power); 
-
     }
 
     //sets the power of the intakeMotor to 0 stopping the motor. 
     public void intakeMotorStop() {
+        intakeMotor.set(0.0);
+    }
 
-        intakeMotor.set(0.0); 
-
+    //gets intakeMotor power
+    public double getIntakeMotorPower() {
+        return intakeMotor.get();
     }
 }

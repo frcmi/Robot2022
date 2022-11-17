@@ -28,4 +28,8 @@ public class ShooterSystem extends SubsystemBase {
 
     }
 
+    public double getPower() {
+        return shooterMotorTalonFX.get();
+    }
+
 }
