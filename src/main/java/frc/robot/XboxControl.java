@@ -1,6 +1,5 @@
 package frc.robot;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 
 public class XboxControl implements Controller {
@@ -9,12 +8,12 @@ public class XboxControl implements Controller {
         this.xboxController = xboxController;
     }
     public double getThrottleFwd() {
-        return XboxController;
+        return xboxController.getLeftY();
     }
     public double getRotation() {
-        return 0;
+        return xboxController.getLeftX();
     }
-    public double getButton(int ButtonId) {
-        return 0;
+    public boolean getButton(int ButtonId) {
+        return xboxController.getRawButton(ButtonId);
     }
 }
