@@ -15,4 +15,10 @@ package frc.robot;
 public final class Constants {
     public static final int intakeMotorID = 6;
     public static final int shooterMotorID = 5; 
+
+    //Values for Shooter and Intake Power
+    public static final double controllerDeadzone = 0.2; 
+    public static final double intakeMotorPower = 0.2;
+    public static final double shooterMotorPower = 0.25; 
+
 }

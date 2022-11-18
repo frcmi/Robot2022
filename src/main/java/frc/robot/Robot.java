@@ -9,8 +9,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.IntakeSystem;
-import frc.robot.subsystems.ShooterSystem;
-
+import frc.robot.subsystems.ShooterSystem;   
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -81,18 +80,20 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
 
-    if (xboxController.getLeftTriggerAxis() > 0.2) {
-      intakeSystem.intakeMotorSetPower(-0.2); 
+    //Intake
+    if (xboxController.getLeftTriggerAxis() > Constants.controllerDeadzone) {
+      intakeSystem.intakeMotorSetPower(-Constants.intakeMotorPower); 
     } else if (xboxController.getLeftBumper()) {
-      intakeSystem.eject(); 
+      intakeSystem.intakeMotorSetPower(Constants.intakeMotorPower);
     } else    {
       intakeSystem.intakeMotorStop(); 
     }
 
-    if ( xboxController.getRightTriggerAxis() > 0.2) {
-      shooterSystem.setShooterMotorPower(-0.25); 
+    //Shooter 
+    if ( xboxController.getRightTriggerAxis() > Constants.controllerDeadzone) {
+      shooterSystem.setShooterMotorPower(-Constants.intakeMotorPower); 
     } else if(xboxController.getRightBumper()) {
-      shooterSystem.setShooterMotorPower(0.25);
+      shooterSystem.setShooterMotorPower(Constants.intakeMotorPower);
     } else {
       intakeSystem.intakeMotorStop(); 
     }
