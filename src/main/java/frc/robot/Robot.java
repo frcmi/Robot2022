@@ -82,15 +82,19 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
 
     if (xboxController.getLeftTriggerAxis() > 0.2) {
-      intakeSystem.intakeMotorSetPower(0.1); 
+      intakeSystem.intakeMotorSetPower(-0.2); 
     } else if (xboxController.getLeftBumper()) {
       intakeSystem.eject(); 
-    } else {
+    } else    {
       intakeSystem.intakeMotorStop(); 
     }
 
     if ( xboxController.getRightTriggerAxis() > 0.2) {
-      shooterSystem.setShooterMotorPower(0.3); 
+      shooterSystem.setShooterMotorPower(-0.25); 
+    } else if(xboxController.getRightBumper()) {
+      shooterSystem.setShooterMotorPower(0.25);
+    } else {
+      intakeSystem.intakeMotorStop(); 
     }
 
   }
