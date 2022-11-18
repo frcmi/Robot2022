@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.subsystems.FeederSystem;
+import frc.robot.subsystems.IntakeSystem;
 
 
 /**
@@ -19,7 +19,7 @@ import frc.robot.subsystems.FeederSystem;
  */
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
-  private FeederSystem feederSystem = new FeederSystem(); 
+  private IntakeSystem intakeSystem = new IntakeSystem(); 
   private XboxController xboxController = new XboxController(0);
 
   private RobotContainer m_robotContainer;
@@ -80,9 +80,9 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
 
     if (xboxController.getAButton()) {
-      feederSystem.setPower(0.1); 
+      intakeSystem.intakeMotorSetPower(0.1); 
     }
-    
+
   }
 
   @Override

@@ -27,4 +27,9 @@ public class IntakeSystem extends SubsystemBase{
         return intakeMotor.get();
     }
 
+    //gets rid of a ball in intake 
+    public void eject() {
+        intakeMotor.set(-0.4);
+    }
+
 }
