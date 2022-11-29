@@ -17,19 +17,9 @@ public class IntakeSystem extends SubsystemBase{
         intakeMotor.set(power); 
     }
 
-    //sets the power of the intakeMotor to 0 stopping the motor. 
-    public void intakeMotorStop() {
-        intakeMotor.set(0.0);
-    }
-
     //gets intakeMotor power
     public double getIntakeMotorPower() {
         return intakeMotor.get();
-    }
-
-    //gets rid of a ball in intake 
-    public void eject() {
-        intakeMotor.set(-0.2);
     }
 
 }

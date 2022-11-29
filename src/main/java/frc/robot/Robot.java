@@ -86,7 +86,7 @@ public class Robot extends TimedRobot {
     } else if (xboxController.getLeftBumper()) {
       intakeSystem.intakeMotorSetPower(Constants.intakeMotorPower);
     } else    {
-      intakeSystem.intakeMotorStop(); 
+      intakeSystem.intakeMotorSetPower(0); 
     }
 
     //Shooter 
@@ -95,7 +95,7 @@ public class Robot extends TimedRobot {
     } else if(xboxController.getRightBumper()) {
       shooterSystem.setShooterMotorPower(Constants.intakeMotorPower);
     } else {
-      intakeSystem.intakeMotorStop(); 
+      intakeSystem.intakeMotorSetPower(0); 
     }
 
   }

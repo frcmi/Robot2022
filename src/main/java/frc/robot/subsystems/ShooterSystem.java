@@ -13,11 +13,7 @@ public class ShooterSystem extends SubsystemBase {
     public void setShooterMotorPower(double power) {
         shooterMotor.set(power); 
     }
-
-    public void shooterMotorPowerSetZero() {
-        shooterMotor.set(0.0); 
-    }
-
+    
     public double getSensorVelocity() {
         return shooterMotorTalonFX.getSelectedSensorVelocity(); 
     }
